@@ -21,5 +21,5 @@ class AdminUser extends Model
         'status'
     ];
 
-    protected $table = 'admin_user';
+    protected $table = 'admin_users';
 }

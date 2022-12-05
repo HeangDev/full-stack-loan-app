@@ -25,35 +25,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('admin/login', [AdminAuthController::class, 'login'])->name('api.admin.login');
 
 Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], function() {
-    Route::apiResources([
+    Route::resources([
         'user' => UserController::class,
         'duration' => DurationController::class,
         'admin_user' => AdminUserController::class,
+        'customer' => CustomerController::class,
     ]);
     
 });
 Route::get('/getinfo/{id}', [UserController::class, 'getInfo']);
 Route::post('admin/logout', [AdminAuthController::class, 'logout'])->name('api.admin.logout');
 
-
-// ============================= front public route ============================= //
-
 Route::post('/register', [CustomerAuthController::class, 'register']);
 Route::post('/login', [CustomerAuthController::class, 'login']);
 Route::post('/logout', [CustomerAuthController::class, 'logout']);
 Route::post('/changepassword', [CustomerAuthController::class, 'changePassword']);
-
-// Route::group(['as' => 'api.', 'namespace' => 'App\Http\Controllers\api'], function() {
-//     Route::resource('duration', DurationController::class)->only([
-//         'index'
-//     ]);
-//     Route::resource('bank', BankController::class)->only([
-//         'store', 'show'
-//     ]);
-//     Route::resource('user', UserController::class)->only([
-//         'index', 'store', 'show'
-//     ]);
-//     Route::resource('signature', SignatureController::class)->only([
-//         'store', 'show'
-//     ]);
-// });

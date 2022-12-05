@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('signatures', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
-            $table->string('sign');
-            $table->enum('status', ['incomplete', 'complete'])->default('incomplete');
+            $table->string('sign')->nullable();
+            $table->enum('status', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }

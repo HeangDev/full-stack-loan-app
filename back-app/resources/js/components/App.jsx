@@ -17,6 +17,7 @@ import DurationEdit from '../pages/duration/Edit'
 import CustomerIndex from '../pages/customer/Index'
 import CustomerCreate from '../pages/customer/Create'
 import CustomerShow from '../pages/customer/Show'
+import CustomerEdit from '../pages/customer/Edit'
 
 import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
@@ -41,6 +42,7 @@ const App = () => {
                         <Route path="/customer" element={<CustomerIndex />} />
                         <Route path="/customer/create" element={<CustomerCreate />} />
                         <Route path="/customer/:id" element={<CustomerShow />} />
+                        <Route path="/customer/edit/:id" element={<CustomerEdit />} />
 
                         <Route path="/*" element={<NotFound />} />
                     </Route>
