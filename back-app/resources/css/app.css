@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{@apply font-nunito;}
+body{@apply m-0;}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;} /* Chrome, Safari, Edge, Opera */
+input[type=number]{-moz-appearance:textfield;} /* Firefox */
+
+.login_wrap{@apply flex justify-center items-center h-screen bg-[#edf2f7] px-6;}
+.login_card{@apply max-w-sm w-full rounded-md bg-white shadow-md p-6;}
+.login_logo{@apply flex justify-center items-center;}
+.login_wrap form{@apply mt-4;}
+
+
+.frm_wrap .frm_grp.required>label:not(:empty){@apply after:content-['*'] after:ml-0.5 after:text-red-500;}
+.frm_wrap .frm_grp label{@apply block mt-3 text-[13px] font-medium;}
+.frm_wrap .frm_grp:first-child label{@apply m-0;}
+.frm_wrap .frm_grp span{@apply text-gray-700 text-sm;}
+.frm_wrap .frm_grp input, .frm_wrap .frm_grp select{@apply block w-full h-[31px] border border-[#eee] rounded-[4px] bg-[#fff] mt-1 py-[2px] px-[13px] text-[12px] font-normal text-[#3e4449] leading-[31px] placeholder:text-[#999fa3] focus:outline-none;}
+.frm_wrap .frm_grp .msg_error{@apply block w-full py-[4px] text-[12px] text-red-500 italic;}
+
+.chkBx_control{@apply inline-block align-middle;}
+.chkBx_control label{@apply block relative py-[3px] pl-[24px];}
+.chkBx_control input[type=checkbox]{@apply absolute top-[6px] left-0 w-[16px] h-[16px] align-middle cursor-pointer outline-none rounded-none opacity-0 z-[2];}
+.chkBx_control input[type=checkbox]:checked + i{@apply bg-[0_-16px];}
+.chkBx_control input[type=checkbox] + i{@apply absolute top-[6px] left-0 w-[16px] h-[16px] bg-ic-chkBx bg-repeat bg-[0_0] z-[1];}
+.chkBx_control span{@apply text-[12px] text-[#666] leading-[24px];}
+.chkBx_control span a{@apply text-[#1776d4];}
+
+.btn_b38{@apply block w-full h-[38px] border-0 rounded-[4px] bg-[#1776d4] text-[13px] font-normal text-white text-center leading-[38px];}
+.btn_wrap {@apply flex justify-between}
+.btn{@apply h-[31px] text-white text-[12px] font-bold leading-[31px] px-4 rounded-[3px] inline-flex;}
+.btn svg{@apply mt-0.5 mr-[4px];}
+.btn_save{@apply bg-green-500;}
+.btn_back{@apply bg-blue-500;}
+
+.wrap{@apply flex h-screen bg-[#f7f7f7];}
+.sidebar{@apply fixed inset-y-0 left-0 z-[30] w-[250px] overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in;}
+.sidebar .side_logo{@apply py-[12px];}
+.sidebar .side_tit{@apply text-2xl font-semibold text-white text-center;}
+.sidebar .logo{@apply flex items-center;}
+.sidebar .side_link{@apply flex items-center px-6 py-2 mt-4 text-gray-300 hover:bg-gray-700 hover:bg-opacity-25 hover:text-white;}
+.sidebar .side_link:first-child{@apply mt-0;}
+.sidebar .side_link.active:first-child{@apply mt-0;}
+.sidebar .side_link.active{@apply flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25;}
+.sidebar .side_link svg{@apply w-6 h-6;}
+.sidebar .side_link span{@apply mx-3;}
+
+.main{@apply flex-1;}
+.content {@apply block px-6 py-8 w-full overflow-hidden;}
+
+.header {@apply flex items-center justify-between px-6 py-4 bg-white border-b-2 border-indigo-600 ;}
+.header .left {@apply flex items-center;}
+.header .right {@apply flex items-center;}
+.header .right .profile_avatar {@apply relative;}
+.header .right .profile_avatar button.profile_avatar_action {@apply flex text-gray-600 focus:outline-none;}
+.header .right .profile_avatar button.profile_avatar_action img {@apply w-[32px] h-[32px] rounded-full object-cover;}
+.header .right .profile_avatar .drop_menu {@apply relative;}
+.header .right .profile_avatar .drop_menu a.active{@apply relative block w-6 h-6 overflow-hidden rounded-full shadow focus:outline-none;}
+.header .right .profile_avatar .drop_menu .drop_open {@apply absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl  hidden;}
+.header .right .profile_avatar .drop_menu .drop_open a{@apply  flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white;}
+.header button.sidebaropen {@apply text-gray-500 focus:outline-none lg:hidden;}
+
+.content_body {@apply flex-1 bg-gray-200;}
+.main_tit{@apply mb-[13px] text-[20px] font-medium text-gray-700;}
+.container {@apply mx-auto px-3 py-8}
+.content_container {@apply mt-8;}
+.content_header {@apply mt-4;}
+.main_card_wrap {@apply flex flex-wrap -mx-5;}
+.main_card_wrap .card {@apply w-full sm:w-1/2 xl:w-1/3 px-5 mb-5 xl:mb-0;}
+.main_card_wrap .card:last-child {@apply mb-0;}
+.main_card_wrap .card_item {@apply flex items-center px-5 py-6 shadow-sm rounded-md bg-white;}
+.main_card_wrap .card_icon {@apply p-3 rounded-full bg-opacity-75;}
+.main_card_wrap .card_icon .icon {@apply h-8 w-8 text-white;}
+.main_card_wrap .card_header {@apply mx-5;}
+.main_card_wrap .card_header h4 {@apply text-2xl font-semibold text-gray-700;}
+.main_card_wrap .card_header p {@apply text-[16px] font-medium text-gray-500;}
+
+.content .page_title_wrap .page_title{ @apply text-[18px] m-0 leading-[75px] overflow-hidden whitespace-nowrap text-ellipsis text-slate-100; }
+.card_tbl{@apply min-w-full h-auto p-[24px] rounded-[4px] bg-[#fff] ;}
+.tbl_scroll{@apply m-0 min-w-full overflow-auto;}
+.tbl{@apply w-full text-sm text-left text-gray-500;}
+.tbl thead{@apply text-[13px] text-gray-700 bg-gray-50;}
+.tbl thead tr th{@apply h-[38px] border border-[#eee] bg-[#fff] px-3 text-gray-500 whitespace-nowrap;}
+.tbl thead tr th:first-child{@apply border-l-0;}
+.tbl thead tr th:last-child{@apply border-r-0;}
+.tbl tbody tr{@apply bg-[#fff] border-b;}
+.tbl tbody tr td{@apply h-[38px] border border-[#f1f1f1] px-3 text-gray-900 font-normal whitespace-nowrap;}
+.tbl tbody tr td a{@apply text-blue-400;}
+.tbl tbody tr:hover td{@apply bg-[#f5f5f9];}
+.tbl tbody tr td:first-child{@apply border-l-0;}
+.tbl tbody tr td:last-child{@apply border-r-0;}
+.tbl .btn_action{@apply space-x-2;}
+.tbl .btn_action svg{@apply fill-white w-5 h-5;}
+.tbl .btn_action .btn_edit{@apply inline-block rounded-[0.2rem] bg-blue-500 py-[4px] px-[8px] text-center align-middle no-underline;}
+.tbl .btn_action .btn_show{@apply inline-block rounded-[0.2rem] bg-indigo-500 py-[4px] px-[8px] text-center align-middle no-underline;}
+.tbl .btn_action .btn_delete{@apply inline-block rounded-[0.2rem] bg-red-500 py-[4px] px-[8px] text-center align-middle no-underline;}
+
+.status_red{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-red-500;}
+.status_green{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-green-500;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
