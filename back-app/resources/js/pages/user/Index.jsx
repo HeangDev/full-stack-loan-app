@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Layout from '../../layout/Layout'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -50,58 +51,60 @@ const Index = () => {
 
     return (
         <>
-            <h3 className="main_tit">รายชื่อผู้ใช้</h3>
-            <div className="card_tbl">
-                <div className="card_tbl_header">
-                    <div className="btn_wrap mb-[10px]">
-                        <Link to="/user/create" className="btn btn_save">
-                            <span>เพิ่มผู้ใช้</span>
-                        </Link>
+            <Layout>
+                <h3 className="main_tit">รายชื่อผู้ใช้</h3>
+                <div className="card_tbl">
+                    <div className="card_tbl_header">
+                        <div className="btn_wrap mb-[10px]">
+                            <Link to="/user/create" className="btn btn_save">
+                                <span>เพิ่มผู้ใช้</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="card_tbl_body">
+                        <div className="tbl_scroll">
+                            <table className="tbl">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ชื่อ</th>
+                                        <th>ชื่อผู้ใช้</th>
+                                        <th>สถานะ</th>
+                                        <th>ตัวเลือก</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        user && user.length > 0 && (
+                                            user.map((row, i) => (
+                                                <tr key={i}>
+                                                    <td>{number++}</td>
+                                                    <td>{row.name}</td>
+                                                    <td>{row.username}</td>
+                                                    <td>
+                                                        {
+                                                            row.status === 'active' ?
+                                                            <span className="status_green">ใช้งาน</span>
+                                                            :
+                                                            <span className="status_red">ปิดการใช้งาน</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div className="btn_action">
+                                                            <Link to={`/user/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                            <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div className="card_tbl_body">
-                    <div className="tbl_scroll">
-                        <table className="tbl">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>ชื่อ</th>
-                                    <th>ชื่อผู้ใช้</th>
-                                    <th>สถานะ</th>
-                                    <th>ตัวเลือก</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    user && user.length > 0 && (
-                                        user.map((row, i) => (
-                                            <tr key={i}>
-                                                <td>{number++}</td>
-                                                <td>{row.name}</td>
-                                                <td>{row.username}</td>
-                                                <td>
-                                                    {
-                                                        row.status === 'active' ?
-                                                        <span className="status_green">ใช้งาน</span>
-                                                        :
-                                                        <span className="status_red">ปิดการใช้งาน</span>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <div className="btn_action">
-                                                        <Link to={`/admin/user/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
-                                                        <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            </Layout>
         </>
     )
 }

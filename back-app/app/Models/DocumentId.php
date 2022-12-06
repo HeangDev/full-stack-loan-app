@@ -10,6 +10,7 @@ class DocumentId extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_user',
         'name',
         'id_number',
         'front',

@@ -30,7 +30,7 @@ const Login = () => {
                                 http.post('api/admin/login', formData).then(({data}) => {
                                     // console.log(data)
                                     localStorage.setItem('auth_token', data.token)
-                                    localStorage.setItem('auth_username', data.username)
+                                    localStorage.setItem('is_login', true)
                                     navigate('/dashboard')
                                 }).catch(({err}) => {
                                     console.log(err)

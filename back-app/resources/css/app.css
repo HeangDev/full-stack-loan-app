@@ -16,6 +16,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .login_card{@apply max-w-sm w-full rounded-md bg-white shadow-md p-6;}
 .login_logo{@apply flex justify-center items-center;}
 .login_wrap form{@apply mt-4;}
+.login_wrap .frm_wrap .frm_grp{@apply block w-full;}
 
 .frm_wrap{@apply flex justify-start flex-wrap flex-col gap-[20px] sm:flex-row;}
 .frm_wrap .frm_grp{@apply inline-block w-full sm:w-[calc(50%-10px)];}
@@ -45,7 +46,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 .wrap{@apply flex h-full bg-[#f7f7f7];}
 .sidebar{@apply fixed inset-y-0 left-0 z-[30] w-[250px] overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in;}
-.sidebar .side_logo{@apply py-[12px];}
+.sidebar .side_logo{@apply py-[16px];}
 .sidebar .side_tit{@apply text-2xl font-semibold text-white text-center;}
 .sidebar .logo{@apply flex items-center;}
 .sidebar .side_link{@apply flex items-center px-6 py-2 mt-4 text-gray-300 hover:bg-gray-700 hover:bg-opacity-25 hover:text-white;}
@@ -57,7 +58,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .sidebar .side_link span{@apply mx-3;}
 
 .main{@apply flex flex-col flex-1 overflow-hidden;}
-.content {@apply block px-6 py-8 w-full h-screen overflow-hidden;}
+.content {@apply block pt-[66px] pb-8 px-6 w-full h-screen overflow-hidden;}
 
 .header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 py-4 bg-white border-b-2 border-indigo-600 ;}
 .header .left {@apply flex items-center;}
@@ -72,7 +73,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .header button.sidebaropen {@apply text-gray-500 focus:outline-none lg:hidden;}
 
 .content_body {@apply flex-1 bg-gray-200;}
-.main_tit{@apply mb-[13px] text-[20px] font-medium text-gray-700;}
+.main_tit{@apply my-[13px] text-[20px] font-medium text-gray-700;}
 .container {@apply mx-auto px-3 py-8}
 .content_container {@apply mt-8;}
 .content_header {@apply mt-4;}
@@ -106,6 +107,8 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .tbl .btn_action .btn_show{@apply inline-block rounded-[0.2rem] bg-indigo-500 py-[4px] px-[8px] text-center align-middle no-underline;}
 .tbl .btn_action .btn_delete{@apply inline-block rounded-[0.2rem] bg-red-500 py-[4px] px-[8px] text-center align-middle no-underline;}
 .tbl .btn_action .btn_change{@apply inline-block rounded-[0.2rem] bg-green-500 py-[4px] px-[8px] text-center align-middle no-underline;}
+::-webkit-scrollbar{@apply w-[5px] h-[5px] rounded-[5px] leading-[30px];}
+::-webkit-scrollbar-thumb{@apply bg-[#d7dadf];}
 
 .status_red{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-red-500;}
 .status_green{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-green-500;}
@@ -116,9 +119,19 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .not_found_wrap .des{@apply mt-6 text-[#8a969c];}
 
 
-
-
-
+.card_profile_box{@apply rounded-[4px] bg-[#727cf5] text-white;}
+.card_profile_wrap{@apply flex flex-wrap p-6;}
+.card_profile_wrap .left{@apply flex items-center w-[66%];}
+.card_profile_wrap .left .avatar_lg{@apply w-[96px] h-[96px] -ml-[10px] px-[10px];}
+.card_profile_wrap .left .avatar_lg img{@apply max-w-full h-auto rounded-full border border-[#dee2e6] bg-[#dee2e6] p-[4px];}
+.card_profile_wrap .left .profile_info{@apply px-[10px];}
+.card_profile_wrap .left .profile_info ul{@apply text-[#eef2f7];}
+.card_profile_wrap .left .profile_info ul li{@apply inline-block;}
+.card_profile_wrap .left .profile_info ul li:first-child{@apply mr-6;}
+.card_profile_wrap .left .profile_info ul li h5{@apply my-1 text-[15px] font-semibold;}
+.card_profile_wrap .left .profile_info ul li p{@apply text-[13px] text-gray-300;}
+.card_profile_wrap .right{@apply w-[33%];}
+.card_profile_wrap .profile_info h4{@apply mt-[6px] mb-[10px] text-[18px] font-bold;}
 
 
 

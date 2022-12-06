@@ -19,39 +19,44 @@ import CustomerCreate from '../pages/customer/Create'
 import CustomerShow from '../pages/customer/Show'
 import CustomerEdit from '../pages/customer/Edit'
 
+import DepositIndex from '../pages/deposit/Index'
+import DepositCreate from '../pages/deposit/Create'
+import DepositEdit from '../pages/deposit/Edit'
+
 import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
-import Layout from '../layout/Layout';
 
 const App = () => {
     return (
         <>
-            <Layout>
-                <Routes>
-                    <Route element={<PrivateRoutes/>}>
-                        <Route path="/dashboard" element={<Dashboard />} />
+            <Routes>
+                <Route element={<PrivateRoutes/>}>
+                    <Route path="/dashboard" element={<Dashboard />} />
 
-                        <Route path="/user" element={<UserIndex />} />
-                        <Route path="/user/create" element={<UserCreate />} />
-                        <Route path="/user/edit/:id" element={<UserEdit />} />
+                    <Route path="/user" element={<UserIndex />} />
+                    <Route path="/user/create" element={<UserCreate />} />
+                    <Route path="/user/edit/:id" element={<UserEdit />} />
 
-                        <Route path="/duration" element={<DurationIndex />} />
-                        <Route path="/duration/create" element={<DurationCreate />} />
-                        <Route path="/duration/edit/:id" element={<DurationEdit />} />
+                    <Route path="/duration" element={<DurationIndex />} />
+                    <Route path="/duration/create" element={<DurationCreate />} />
+                    <Route path="/duration/edit/:id" element={<DurationEdit />} />
 
-                        <Route path="/customer" element={<CustomerIndex />} />
-                        <Route path="/customer/create" element={<CustomerCreate />} />
-                        <Route path="/customer/:id" element={<CustomerShow />} />
-                        <Route path="/customer/edit/:id" element={<CustomerEdit />} />
+                    <Route path="/customer" element={<CustomerIndex />} />
+                    <Route path="/customer/create" element={<CustomerCreate />} />
+                    <Route path="/customer/:id" element={<CustomerShow />} />
+                    <Route path="/customer/edit/:id" element={<CustomerEdit />} />
 
-                        <Route path="/*" element={<NotFound />} />
-                    </Route>
+                    <Route path="/deposit" element={<DepositIndex />} />
+                    <Route path="/deposit/create" element={<DepositCreate />} />
+                    <Route path="/deposit/edit/:id" element={<DepositEdit />} />
 
-                    <Route element={<PublicRoutes/>}>
-                        <Route path="/" element={<Login />} />
-                    </Route>
-                </Routes>
-            </Layout>
+                    <Route path="/*" element={<NotFound />} />
+                </Route>
+
+                <Route element={<PublicRoutes/>}>
+                    <Route path="/" element={<Login />} />
+                </Route>
+            </Routes>
         </>
     )
 }

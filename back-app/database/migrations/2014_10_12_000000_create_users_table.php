@@ -15,8 +15,6 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_bank')->nullable();
-            $table->integer('id_document')->nullable();
             $table->string('tel');
             $table->string('password');
             $table->string('plain_password');

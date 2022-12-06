@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('document_ids', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('id_number');
-            $table->string('front', 2048);
-            $table->string('back', 2048);
-            $table->string('full', 2048);
+            $table->integer('id_user');
+            $table->string('name')->nullable();
+            $table->string('id_number')->nullable();
+            $table->string('front', 2048)->nullable();
+            $table->string('back', 2048)->nullable();
+            $table->string('full', 2048)->nullable();
             $table->timestamps();
         });
     }

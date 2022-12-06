@@ -23,11 +23,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $user = DB::table('users')
-            ->join('banks', 'users.id_bank', '=', 'banks.id')
-            ->join('document_ids', 'users.id_document', '=', 'document_ids.id')
+        $user = User::join('document_ids', 'document_ids.id_user', '=', 'users.id')
             ->join('signatures', 'signatures.id_user', '=', 'users.id')
-            ->select('users.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
+            ->select('users.*', 'document_ids.name', 'signatures.status AS sign_status')
             ->get();
         return response()->json($user);
     }
@@ -75,25 +73,7 @@ class CustomerController extends Controller
             Storage::disk('public')->put('customer/' . $imageName3, $postImage3);
         }
 
-        $document = DocumentId::create([
-            'name' => $request->name,
-            'id_number' => $request->idNumber,
-            'front' => $imageName1,
-            'back' => $imageName2,
-            'full' => $imageName3,
-        ]);
-
-        $bank = Bank::create([
-            'bank_name' => $request->bankName,
-            'bank_acc' => $request->bankAccount,
-        ]);
-
-        $b_id = $bank->id;
-        $d_id = $document->id;
-
         $customer = User::create([
-            'id_bank' => $b_id,
-            'id_document' => $d_id,
             'tel' => $request->tel,
             'password' => Hash::make($request->password),
             'plain_password' => $request->password,
@@ -110,6 +90,21 @@ class CustomerController extends Controller
         $signature = Signature::create([
             'id_user' => $u_id,
             'status' => '0',
+        ]);
+
+        $document = DocumentId::create([
+            'id_user' => $u_id,
+            'name' => $request->name,
+            'id_number' => $request->idNumber,
+            'front' => $imageName1,
+            'back' => $imageName2,
+            'full' => $imageName3,
+        ]);
+
+        $bank = Bank::create([
+            'id_user' => $u_id,
+            'bank_name' => $request->bankName,
+            'bank_acc' => $request->bankAccount,
         ]);
 
         return response()->json([
@@ -129,9 +124,10 @@ class CustomerController extends Controller
     public function show($id)
     {
         $user = DB::table('users')
-            ->join('banks', 'users.id_bank', '=', 'banks.id')
-            ->join('document_ids', 'users.id_document', '=', 'document_ids.id')
-            ->select('users.*', 'banks.*', 'document_ids.*')
+            ->join('banks', 'banks.id_user', '=', 'users.id')
+            ->join('document_ids', 'document_ids.id_user', '=', 'users.id')
+            ->join('signatures', 'signatures.id_user', '=', 'users.id')
+            ->select('users.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
             ->where('users.id', '=', $id)
             ->first();
         return response()->json($user);

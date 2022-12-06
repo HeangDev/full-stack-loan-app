@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('bank_name');
-            $table->string('bank_acc');
+            $table->integer('id_user');
+            $table->string('bank_name')->nullable();
+            $table->string('bank_acc')->nullable();
             $table->timestamps();
         });
     }

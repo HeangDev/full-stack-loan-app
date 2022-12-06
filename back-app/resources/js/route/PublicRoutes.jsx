@@ -14,7 +14,7 @@ const useAuth = () => {
 const PublicRoutes = () => {
     let auth = useAuth()
     return (
-        auth ? <Navigate to="/admin/dashboard"/> : <Outlet/>
+        auth ? <Navigate to="/dashboard"/> : <Outlet/>
     )
 }
 

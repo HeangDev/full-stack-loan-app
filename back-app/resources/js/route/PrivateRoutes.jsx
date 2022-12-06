@@ -14,7 +14,7 @@ const useAuth = () => {
 const PrivateRoutes = () => {
     let auth = useAuth()
     return (
-        auth ? <Outlet/> : <Navigate to="/admin/login"/>
+        auth ? <Outlet/> : <Navigate to="/"/>
     )
 }
 

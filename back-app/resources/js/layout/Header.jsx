@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Avatar from '../assets/avatar.jpg'
 
 const Header = () => {
+    const is_login = localStorage.getItem('is_login')
     return (
         <>
             <div className="header">

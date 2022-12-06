@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Layout from '../../layout/Layout'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios'
@@ -49,58 +50,60 @@ const Index = () => {
     }
     return (
         <>
-            <h3 className="main_tit">รายการระยะเวลา</h3>
-            <div className="card_tbl">
-                <div className="card_tbl_header">
-                    <div className="btn_wrap mb-[10px]">
-                        <Link to="/duration/create" className="btn btn_save">
-                            <span>เพิ่มระยะเวลา</span>
-                        </Link>
+            <Layout>
+                <h3 className="main_tit">รายการระยะเวลา</h3>
+                <div className="card_tbl">
+                    <div className="card_tbl_header">
+                        <div className="btn_wrap mb-[10px]">
+                            <Link to="/duration/create" className="btn btn_save">
+                                <span>เพิ่มระยะเวลา</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="card_tbl_body">
+                        <div className="tbl_scroll">
+                            <table className="tbl">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>เดือน</th>
+                                        <th>เปอร์เซ็นต์</th>
+                                        <th>สถานะ</th>
+                                        <th>ตัวเลือก</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        duration && duration.length > 0 && (
+                                            duration.map((row, i) => (
+                                                <tr key={i}>
+                                                    <td>{number++}</td>
+                                                    <td>{row.month}</td>
+                                                    <td>{row.percent}</td>
+                                                    <td>
+                                                        {
+                                                            row.status === 'active' ?
+                                                            <span className="status_green">ใช้งาน</span>
+                                                            :
+                                                            <span className="status_red">ปิดการใช้งาน</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div className="btn_action">
+                                                            <Link to={`/duration/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                            <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div className="card_tbl_body">
-                    <div className="tbl_scroll">
-                        <table className="tbl">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>เดือน</th>
-                                    <th>เปอร์เซ็นต์</th>
-                                    <th>สถานะ</th>
-                                    <th>ตัวเลือก</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    duration && duration.length > 0 && (
-                                        duration.map((row, i) => (
-                                            <tr key={i}>
-                                                <td>{number++}</td>
-                                                <td>{row.month}</td>
-                                                <td>{row.percent}</td>
-                                                <td>
-                                                    {
-                                                        row.status === 'active' ?
-                                                        <span className="status_green">ใช้งาน</span>
-                                                        :
-                                                        <span className="status_red">ปิดการใช้งาน</span>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <div className="btn_action">
-                                                        <Link to={`/admin/duration/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
-                                                        <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            </Layout>
         </>
     )
 }
