@@ -6,21 +6,25 @@ import Icon_01 from '../../assets/icon/ic_01.png'
 import Icon_02 from '../../assets/icon/ic_04.png'
 
 const AccountInfo = () => {
-    const [data, setData] = useState('')
+    const [cStatus, setCStatus] = useState('')
+    const [sStatus, setSStatus] = useState('')
     const id_user = localStorage.getItem('auth_id')
 
     const checkCustomerStatus = async () => {
         await axios.get(`http://127.0.0.1:8000/api/user/${id_user}`).then(({data}) => {
-
-            const { status } = data[0]
-            setData(status)
+            setCStatus(data.status)
         }).catch(({err}) => {
             //console.log(err)
         })
     }
 
     const checkSignatureStatus = async () => {
-
+        await axios.get(`http://127.0.0.1:8000/api/signature/${id_user}`).then(({data}) => {
+            console.log()
+            setSStatus(data.status)
+        }).catch(({err}) => {
+            //console.log(err)
+        })
     }
 
     useEffect(() => {
@@ -35,7 +39,7 @@ const AccountInfo = () => {
                 <div>
                     <div className="list">
                         <div className="list_inn">
-                            {data != 'complete' ? (
+                            {cStatus != 'complete' ? (
                                 <Link to="/profileinfo" className="list_link">
                                     <div className="list_icon">
                                         <img src={Icon_01} alt=""/>
@@ -67,20 +71,37 @@ const AccountInfo = () => {
                                 </Link> 
                             )}
 
-                            <Link to="/signature" className="list_link">
-                                <div className="list_icon">
-                                    <img src={Icon_02} alt=""/>
-                                </div>
-                                <div className="txt_wrap">
-                                    <h4 className="tit">ลายเซ็นที่เขียนด้วยลายมือ</h4>
-                                    <p className="des">*สำหรับการเซ็นสัญญา</p>
-                                </div>
-                                <div className="right">
-                                    <div>
-                                        <span className="not">ไม่สมบูรณ์</span>
+                            {sStatus != '1' ? (
+                                <Link to="/signature" className="list_link">
+                                    <div className="list_icon">
+                                        <img src={Icon_02} alt=""/>
                                     </div>
-                                </div>
-                            </Link>
+                                    <div className="txt_wrap">
+                                        <h4 className="tit">ลายเซ็นที่เขียนด้วยลายมือ</h4>
+                                        <p className="des">*สำหรับการเซ็นสัญญา</p>
+                                    </div>
+                                    <div className="right">
+                                        <div>
+                                            <span className="not">ไม่สมบูรณ์</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <Link to="/ssignature" className="list_link">
+                                    <div className="list_icon">
+                                        <img src={Icon_02} alt=""/>
+                                    </div>
+                                    <div className="txt_wrap">
+                                        <h4 className="tit">ลายเซ็นที่เขียนด้วยลายมือ</h4>
+                                        <p className="des">*สำหรับการเซ็นสัญญา</p>
+                                    </div>
+                                    <div className="right">
+                                        <div>
+                                            <span className="not">กรอกข้อมูลแล้ว</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )}
                         </div>
                     </div>
                     <div className="info">

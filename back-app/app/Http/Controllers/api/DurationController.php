@@ -15,7 +15,7 @@ class DurationController extends Controller
      */
     public function index()
     {
-        $duration = Duration::all();
+        $duration = Duration::where('status', 'active')->get();
         return response()->json($duration);
     }
 

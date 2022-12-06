@@ -54,6 +54,7 @@ const AddProfile = () => {
                     encType="multipart/form-data"
                     onSubmit={handleSubmit(() => {
                         const formData = new FormData()
+                        formData.append('_method', 'PATCH')
                         formData.append('id_user', id_user)
                         formData.append('currentWork', currentWork)
                         formData.append('income', income)
@@ -68,7 +69,7 @@ const AddProfile = () => {
                         formData.append('backImage', backImage)
                         formData.append('fullImage', fullImage)
 
-                        axios.post(`http://127.0.0.1:8000/api/user`, formData).then((data) => {
+                        axios.post(`http://127.0.0.1:8000/api/user/${id_user}`, formData).then((data) => {
                             //console.log(data)
                             navigate('/info')
                         }).catch(({err}) => {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Banner from '../assets/banner.jpg'
 import Other_01 from '../assets/other_01.jpg'
 import Other_02 from '../assets/other_02.jpg'

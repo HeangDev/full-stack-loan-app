@@ -30,13 +30,19 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'duration' => DurationController::class,
         'admin_user' => AdminUserController::class,
         'customer' => CustomerController::class,
+        'signature' => SignatureController::class,
     ]);
     
 });
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('/logout', [CustomerAuthController::class, 'logout']);
+});
+
 Route::get('/getinfo/{id}', [UserController::class, 'getInfo']);
 Route::post('admin/logout', [AdminAuthController::class, 'logout'])->name('api.admin.logout');
 
 Route::post('/register', [CustomerAuthController::class, 'register']);
 Route::post('/login', [CustomerAuthController::class, 'login']);
-Route::post('/logout', [CustomerAuthController::class, 'logout']);
+
 Route::post('/changepassword', [CustomerAuthController::class, 'changePassword']);

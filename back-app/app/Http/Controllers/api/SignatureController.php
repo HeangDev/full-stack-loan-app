@@ -39,31 +39,7 @@ class SignatureController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->signature) {
-            $currentDate = Carbon::now()->toDateString();
-            $image = time().'.' . explode('/', explode(':', substr($request->signature, 0, strpos($request->signature, ';')))[1])[1];
-
-            $imageName = $currentDate . '-' . uniqid() . '.' . $image;
-
-            if(!Storage::disk('public')->exists('signature'))
-            {
-                Storage::disk('public')->makeDirectory('signature');
-            }
-
-            $postImage = Image::make($request->signature)->save(public_path('signature/') . $imageName);
-
-            Storage::disk('public')->put('signature/' . $imageName, $postImage);
-        }
         
-        $signature = Signature::create([
-            'id_user' => $request->id_user,
-            'sign' => $imageName,
-            'status' => 'complete',
-        ]);
-
-        return response()->json([
-            $signature
-        ]);
     }
 
     /**
@@ -74,7 +50,8 @@ class SignatureController extends Controller
      */
     public function show($id)
     {
-        //
+        $signature = Signature::where('id_user', $id)->first();
+        return response()->json($signature);
     }
 
     /**
@@ -97,7 +74,31 @@ class SignatureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->signature) {
+            $currentDate = Carbon::now()->toDateString();
+            $image = time().'.' . explode('/', explode(':', substr($request->signature, 0, strpos($request->signature, ';')))[1])[1];
+
+            $imageName = $currentDate . '-' . uniqid() . '.' . $image;
+
+            if(!Storage::disk('public')->exists('signature'))
+            {
+                Storage::disk('public')->makeDirectory('signature');
+            }
+
+            $postImage = Image::make($request->signature)->save(public_path('signature/') . $imageName);
+
+            Storage::disk('public')->put('signature/' . $imageName, $postImage);
+        }
+
+        $signature = Signature::where('id_user', $id)
+        ->update([
+            'sign' => $imageName,
+            'status' => '1',
+        ]);
+
+        return response()->json([
+            $signature
+        ]);
     }
 
     /**

@@ -11,16 +11,17 @@ const AddSignature = () => {
 
     const navigate = useNavigate();
 
-    const handleSignature = () => {
+    const handleSignature = async () => {
         const currentSignature = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png")
         setSignature(currentSignature)
         
         const formData = new FormData()
+        formData.append('_method', 'PATCH')
         formData.append('id_user', id_user)
         formData.append('signature', currentSignature)
 
-        axios.post(`http://127.0.0.1:8000/api/signature`, formData).then((data) => {
-            //console.log(data)
+        await axios.post(`http://127.0.0.1:8000/api/signature/${id_user}`, formData).then((data) => {
+            console.log(data)
             navigate('/info')
         }).catch(({err}) => {
             console.log(err)

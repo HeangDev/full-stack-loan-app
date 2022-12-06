@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Bank;
+use App\Models\DocumentId;
+use App\Models\Signature;
 
 class CustomerAuthController extends Controller
 {
@@ -15,6 +18,21 @@ class CustomerAuthController extends Controller
             'tel' => $request->tel,
             'password' => Hash::make($request->password),
             'plain_password' => $request->password,
+        ]);
+
+        $u_id = $user->id;
+
+        Signature::create([
+            'id_user' => $u_id,
+            'status' => '0',
+        ]);
+
+        Bank::create([
+            'id_user' => $u_id,
+        ]);
+
+        DocumentId::create([
+            'id_user' => $u_id,
         ]);
 
         return response()->json([
@@ -46,11 +64,11 @@ class CustomerAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->json('Successfully logged out');
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Successfully logged out'
+        ]);
     }
 
     public function changePassword(Request $request)

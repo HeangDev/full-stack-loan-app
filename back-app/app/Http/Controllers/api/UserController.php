@@ -47,6 +47,47 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = DB::table('users')
+            ->join('banks', 'banks.id_user', '=', 'users.id')
+            ->join('document_ids', 'document_ids.id_user', '=', 'users.id')
+            ->join('signatures', 'signatures.id_user', '=', 'users.id')
+            ->select('users.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
+            ->where('users.id', '=', $id)
+            ->first();
+        return response()->json($user);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
         $image1 = $request->file('frontImage');
         $image2 = $request->file('backImage');
         $image3 = $request->file('fullImage');
@@ -72,25 +113,7 @@ class UserController extends Controller
             Storage::disk('public')->put('customer/' . $imageName3, $postImage3);
         }
 
-        $document = DocumentId::create([
-            'name' => $request->name,
-            'id_number' => $request->idNumber,
-            'front' => $imageName1,
-            'back' => $imageName2,
-            'full' => $imageName3,
-        ]);
-
-        $bank = Bank::create([
-            'bank_name' => $request->bankName,
-            'bank_acc' => $request->bankAccount,
-        ]);
-
-        $b_id = $bank->id;
-        $d_id = $document->id;
-
         $user = User::find($request->id_user);
-        $user->id_bank = $b_id;
-        $user->id_document = $d_id;
         $user->current_occupation = $request->currentWork;
         $user->monthly_income = $request->income;
         $user->contact_number = $request->contactNumber;
@@ -99,54 +122,28 @@ class UserController extends Controller
         $user->status = 'complete';
         $user->save();
 
+        $u_id = $user->id;
+
+        $document = DocumentId::where('id_user', $id)
+        ->update([
+            'name' => $request->name,
+            'id_number' => $request->idNumber,
+            'front' => $imageName1,
+            'back' => $imageName2,
+            'full' => $imageName3,
+        ]);
+
+        $bank = Bank::where('id_user', $id)
+        ->update([
+            'bank_name' => $request->bankName,
+            'bank_acc' => $request->bankAccount
+        ]);
+
         return response()->json([
-            'status' => 200,
             $user,
             $bank,
             $document
-        ], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = DB::table('users')
-            ->join('banks', 'users.id_bank', '=', 'banks.id')
-            ->join('document_ids', 'users.id_document', '=', 'document_ids.id')
-            ->select('users.*', 'banks.*', 'document_ids.*')
-            ->where('users.id', '=', $id)
-            ->get();
-
-        // $user = User::where('id', $id)->first();
-        return response()->json($user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        ]);
     }
 
     /**

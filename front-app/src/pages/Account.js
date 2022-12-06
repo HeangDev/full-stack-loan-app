@@ -26,13 +26,9 @@ const Account = () => {
     const navigate = useNavigate()
 
     const logout = () => {
-        axios.post(`http://127.0.0.1:8000/api/logout`).then(() => {
-            localStorage.removeItem('auth_token')
-            localStorage.removeItem('auth_id')
-            navigate('/')
-        }).catch(({err}) => {
-            console.log(err)
-        })
+        localStorage.removeItem('auth_token')
+        localStorage.removeItem('auth_id')
+        navigate('/')
     }
 
     const fetchUser = async () => {
