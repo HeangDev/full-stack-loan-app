@@ -27,7 +27,7 @@ const Register = () => {
                             http.post('http://127.0.0.1:8000/api/login', formData).then(({data}) => {
                                 localStorage.setItem('auth_id', data.id)
                                 localStorage.setItem('auth_token', data.token)
-                                navigate('/')
+                                navigate('/profileinfo')
                             }).catch(({err}) => {
                                 console.log(err)
                             })

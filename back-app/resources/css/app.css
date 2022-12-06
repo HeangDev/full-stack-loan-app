@@ -43,6 +43,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .btn svg{@apply mt-0.5 mr-[4px];}
 .btn_save{@apply bg-green-500;}
 .btn_back{@apply bg-blue-500;}
+.btn-light {@apply bg-white text-blue-500;}
 
 .wrap{@apply flex h-full bg-[#f7f7f7];}
 .sidebar{@apply fixed inset-y-0 left-0 z-[30] w-[250px] overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in;}
@@ -112,7 +113,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 .status_red{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-red-500;}
 .status_green{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-green-500;}
-
+.status_orange{@apply inline-block py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-orange-500;}
 .not_found_wrap{@apply text-center;}
 .not_found_wrap .tit{@apply text-[84px] text-indigo-600 leading-[90px];}
 .not_found_wrap .sub_tit{@apply mt-[24px] mb-[10px] text-[18px] text-[#f16782] uppercase;}
@@ -121,6 +122,8 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 .card_profile_box{@apply rounded-[4px] bg-[#727cf5] text-white;}
 .card_profile_wrap{@apply flex flex-wrap p-6;}
+.card_profile_box_info{@apply rounded-[4px] bg-[#FFF] text-white;}
+
 .card_profile_wrap .left{@apply flex items-center w-[66%];}
 .card_profile_wrap .left .avatar_lg{@apply w-[96px] h-[96px] -ml-[10px] px-[10px];}
 .card_profile_wrap .left .avatar_lg img{@apply max-w-full h-auto rounded-full border border-[#dee2e6] bg-[#dee2e6] p-[4px];}

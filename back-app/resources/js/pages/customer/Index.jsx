@@ -74,6 +74,8 @@ const Index = () => {
                                         <th>เครดิต</th>
                                         <th>ข้อมูลอื่น ๆ</th>
                                         <th>ลายเซ็น</th>
+                                        <th>สถานะการกู้</th> {/* description */}
+                                        <th>รหัสถอน</th> {/* withdraw code */}
                                         <th>ตัวเลือก</th>
                                     </tr>
                                 </thead>
@@ -109,6 +111,8 @@ const Index = () => {
                                                             <span className="status_red">ยังไม่ได้เซ็นชื่อค่ะ</span>
                                                         }
                                                     </td>
+                                                    <td><span className='status_orange'>กำหลังดำเนินการ</span></td>
+                                                    <td><span className='status_green'>6587</span></td>
                                                     <td>
                                                         <div className="btn_action">
                                                             <Link to={`/customer/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
