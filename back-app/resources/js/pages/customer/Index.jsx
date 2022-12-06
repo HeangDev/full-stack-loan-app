@@ -12,7 +12,7 @@ const Index = () => {
 
     const fetchCustomer = async () => {
         await axios.get(`http://127.0.0.1:8000/api/customer`).then(({data}) => {
-            console.log(data)
+            //console.log(data)
             setCustomer(data)
         })
     }

@@ -38,10 +38,8 @@ class CustomerAuthController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'tel' => $login->tel,
                 'id' => $login->id,
-                'token' => $token,
-                'message' => 'Customer User login successfully!'
+                'token' => $token
             ], 200);
         }
     }

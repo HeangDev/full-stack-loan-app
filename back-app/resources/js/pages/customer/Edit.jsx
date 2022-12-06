@@ -32,7 +32,7 @@ const Edit = () => {
 
     const fetchUser = async () => {
         await axios.get(`http://127.0.0.1:8000/api/customer/${id}`).then(({data}) => {
-            console.log(data)
+            //console.log(data)
             const { current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full} = data
             setCurrentWork(current_occupation)
             setIncome(monthly_income)

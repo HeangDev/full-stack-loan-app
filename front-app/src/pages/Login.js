@@ -40,14 +40,14 @@ const Login = () => {
             });
         } else {
             axios.get('/sanctum/csrf-cookie').then(response => {
-                console.log(response);
+                //console.log(response);
                 const formData = new FormData()
 
                 formData.append('tel', tel)
                 formData.append('password', password)
 
                 axios.post('/api/login', formData).then(({data}) => {
-                    console.log(data)
+                    //console.log(data)
                     localStorage.setItem('auth_id', data.id)
                     localStorage.setItem('auth_token', data.token)
                     navigate('/')
