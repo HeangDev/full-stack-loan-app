@@ -217,7 +217,7 @@ const Home = () => {
                 <div className="agr_wrap">
                     <div className="chkBx_control">
 						<label>
-                            <input type="checkbox" ref={checkedRef} onChange={handleChange}/><i></i>
+                            <input type="checkbox" ref={checkedRef} onChange={handleChange}/>
                             <span className="agre">
                                 เห็นด้วย
                                 <span className="txt_link">《ข้อตกลงการใช้บริการผู้ใช้》</span>

@@ -10,7 +10,8 @@ body{@apply m-0 p-0 font-nunito text-[16px] text-[#4c4c4c] bg-[#f5f5f9];}
 .bar.bar_blue{@apply bg-[#355180];}
 .bar.bar_tab{@apply z-[3] bottom-0 table table-fixed w-full max-w-[420px] h-[50px] mx-auto p-0 border-t border-[#eee] border-b-0;}
 .bottom_bar{@apply bg-white;}
-.bar_action_back{@apply block absolute top-[14px] w-[16px] h-[16px] bg-no-repeat bg-[16px_auto];}
+.bar_action_back{@apply block absolute top-[11px] bg-no-repeat bg-[16px_auto];}
+.bar_action_back svg{@apply text-white;}
 .bar .bar_title{@apply inline-block absolute right-[40px] left-[40px] w-auto m-0 text-[17px] font-medium text-white text-center leading-[44px] text-ellipsis whitespace-nowrap overflow-hidden;}
 .bar .bar_item{@apply table-cell overflow-hidden w-[1%] h-[50px] text-center align-middle whitespace-nowrap text-ellipsis text-[#929292];}
 .bar .bar_item .bar_icon{@apply inline-block relative top-[3px] w-[24px] h-[24px] p-0 m-0 text-[24px];}
@@ -66,11 +67,8 @@ body{@apply m-0 p-0 font-nunito text-[16px] text-[#4c4c4c] bg-[#f5f5f9];}
 
 .agr_wrap{@apply mt-[10px] px-[15px];}
 .chkBx_control{@apply inline-block align-middle;}
-.chkBx_control label{@apply block relative py-[3px] pl-[24px];}
-.chkBx_control input[type=checkbox]{@apply absolute top-[6px] left-0 w-[16px] h-[16px] align-middle cursor-pointer outline-none rounded-none opacity-0 z-[2];}
-.chkBx_control input[type=checkbox]:checked + i{@apply bg-[0_-16px];}
-.chkBx_control input[type=checkbox] + i{@apply absolute top-[6px] left-0 w-[16px] h-[16px] /*bg-ic-chkBx*/ bg-repeat bg-[0_0] z-[1];}
-.chkBx_control span{@apply text-[12px] text-[#666] leading-[24px];}
+.chkBx_control label{@apply block relative;}
+.chkBx_control span{@apply ml-[5px] text-[12px] text-[#666] leading-[24px];}
 .chkBx_control span a{@apply text-[#1776d4] hover:underline;}
 
 .frm_info{@apply py-[10px] text-[12px] font-normal text-center;}
