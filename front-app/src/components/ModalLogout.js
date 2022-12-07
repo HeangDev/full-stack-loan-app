@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const Modal = (logoutAction) => {
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = React.useState(false);
     return (
         <>
             {showModal ? (

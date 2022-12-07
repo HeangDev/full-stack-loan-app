@@ -55,7 +55,8 @@ class AgreementController extends Controller
      */
     public function show($id)
     {
-        //
+        $agreement = Agreement::Where('id', $id)->first();
+        return response()->json($agreement);
     }
 
     /**
@@ -66,9 +67,7 @@ class AgreementController extends Controller
      */
     public function edit($id)
     {
-        $agreement = Agreement::Where('id', $id);
-        
-        return response()->json($agreement);
+        //
     }
 
     /**
@@ -80,12 +79,10 @@ class AgreementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $agreement = Agreement::where('id_user', $id)
-        ->update([
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
-
+        $agreement = Agreement::find($id);
+        $agreement->description = $request->description;
+        $agreement->status = $request->status;
+        $agreement->save();
         return response()->json($agreement);
     }
 
