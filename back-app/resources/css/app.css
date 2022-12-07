@@ -59,17 +59,16 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .main{@apply flex flex-col flex-1 pt-[66px] pl-0 lg:pl-[250px] overflow-hidden;}
 .content {@apply block py-5 px-6 w-full;}
 
-.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 py-4 bg-white border-b-2 border-indigo-600 ;}
+.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 py-4 bg-white shadow-sm;}
 .header .left {@apply flex items-center;}
 .header .right {@apply flex items-center;}
 .header .right .profile_avatar {@apply relative;}
 .header .right .profile_avatar button.profile_avatar_action {@apply flex text-gray-600 focus:outline-none;}
 .header .right .profile_avatar button.profile_avatar_action img {@apply w-[32px] h-[32px] rounded-full object-cover;}
-.header .right .profile_avatar .drop_menu {@apply relative;}
-.header .right .profile_avatar .drop_menu a.active{@apply relative block w-6 h-6 overflow-hidden rounded-full shadow focus:outline-none;}
-.header .right .profile_avatar .drop_menu .drop_open {@apply absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl  hidden;}
-.header .right .profile_avatar .drop_menu .drop_open a{@apply  flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white;}
-.header button.sidebaropen {@apply text-gray-500 focus:outline-none lg:hidden;}
+.header .drop_menu{@apply absolute top-[48px] right-0 bg-[#fff] border border-[#eee] rounded-bl-[4px] rounded-br-[4px] py-[4px] px-0 text-[#333] text-left;}
+.header .drop_menu.show{@apply block;}
+.header .drop_menu a{@apply flex items-center bottom-0 w-full bg-transparent py-[7px] px-[20px] font-normal text-[#333] text-inherit whitespace-nowrap hover:bg-[#f7f7f7];}
+.header .drop_menu svg{@apply mr-[6px] w-4 h-4;}
 
 .content_body {@apply flex-1 bg-gray-200;}
 .main_tit{@apply mb-[10px] text-[20px] font-medium text-gray-700;}
@@ -131,8 +130,6 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .card_profile_wrap .left .profile_info ul li p{@apply text-[13px] text-gray-300;}
 .card_profile_wrap .right{@apply w-[33%];}
 .card_profile_wrap .profile_info h4{@apply mt-[6px] mb-[10px] text-[18px] font-bold;}
-
-
 
 
 
