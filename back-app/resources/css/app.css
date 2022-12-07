@@ -4,8 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html{@apply font-nunito;}
-body{@apply m-0;}
+body{@apply m-0 font-nunito font-normal text-left leading-[1.5] bg-[#f7f7f7];}
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;} /* Chrome, Safari, Edge, Opera */
 input[type=number]{-moz-appearance:textfield;} /* Firefox */
@@ -45,8 +44,8 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .btn_back{@apply bg-blue-500;}
 .btn-light {@apply bg-white text-blue-500;}
 
-.wrap{@apply flex h-full bg-[#f7f7f7];}
-.sidebar{@apply fixed inset-y-0 left-0 z-[30] w-[250px] overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in;}
+.wrap{@apply h-screen;}
+.sidebar{@apply fixed inset-y-0 left-0 z-[30] w-[250px] overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:inset-0 -translate-x-full ease-in;}
 .sidebar .side_logo{@apply py-[16px];}
 .sidebar .side_tit{@apply text-2xl font-semibold text-white text-center;}
 .sidebar .logo{@apply flex items-center;}
@@ -58,23 +57,22 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .sidebar .side_link svg{@apply w-6 h-6;}
 .sidebar .side_link span{@apply mx-3;}
 
-.main{@apply flex flex-col flex-1 overflow-hidden;}
-.content {@apply block pt-[66px] pb-8 px-6 w-full h-screen overflow-hidden;}
+.main{@apply flex flex-col flex-1 pt-[66px] pl-0 lg:pl-[250px] overflow-hidden;}
+.content {@apply block py-5 px-6 w-full;}
 
-.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 py-4 bg-white border-b-2 border-indigo-600 ;}
+.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 py-4 bg-white shadow-sm;}
 .header .left {@apply flex items-center;}
 .header .right {@apply flex items-center;}
 .header .right .profile_avatar {@apply relative;}
 .header .right .profile_avatar button.profile_avatar_action {@apply flex text-gray-600 focus:outline-none;}
 .header .right .profile_avatar button.profile_avatar_action img {@apply w-[32px] h-[32px] rounded-full object-cover;}
-.header .right .profile_avatar .drop_menu {@apply relative;}
-.header .right .profile_avatar .drop_menu a.active{@apply relative block w-6 h-6 overflow-hidden rounded-full shadow focus:outline-none;}
-.header .right .profile_avatar .drop_menu .drop_open {@apply absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl  hidden;}
-.header .right .profile_avatar .drop_menu .drop_open a{@apply  flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white;}
-.header button.sidebaropen {@apply text-gray-500 focus:outline-none lg:hidden;}
+.header .drop_menu{@apply absolute top-[48px] right-0 bg-[#fff] border border-[#eee] rounded-bl-[4px] rounded-br-[4px] py-[4px] px-0 text-[#333] text-left;}
+.header .drop_menu.show{@apply block;}
+.header .drop_menu a{@apply flex items-center bottom-0 w-full bg-transparent py-[7px] px-[20px] font-normal text-[#333] text-inherit whitespace-nowrap hover:bg-[#f7f7f7];}
+.header .drop_menu svg{@apply mr-[6px] w-4 h-4;}
 
 .content_body {@apply flex-1 bg-gray-200;}
-.main_tit{@apply my-[13px] text-[20px] font-medium text-gray-700;}
+.main_tit{@apply mb-[10px] text-[20px] font-medium text-gray-700;}
 .container {@apply mx-auto px-3 py-8}
 .content_container {@apply mt-8;}
 .content_header {@apply mt-4;}
@@ -135,8 +133,6 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .card_profile_wrap .left .profile_info ul li p{@apply text-[13px] text-gray-300;}
 .card_profile_wrap .right{@apply w-[33%];}
 .card_profile_wrap .profile_info h4{@apply mt-[6px] mb-[10px] text-[18px] font-bold;}
-
-
 
 
 
