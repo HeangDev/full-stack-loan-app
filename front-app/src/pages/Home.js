@@ -234,6 +234,7 @@ const Home = () => {
                 <div className="other"><img src={Other_01} alt=""/></div>
                 <div className="other"><img src={Other_02} alt=""/></div>
             </div>
+            {/* <Agreement/> */}
         </>
     )
 }
