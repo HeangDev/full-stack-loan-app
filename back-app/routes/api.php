@@ -6,6 +6,7 @@ use App\Http\Controllers\api\AdminAuthController;
 use App\Http\Controllers\api\DurationController;
 use App\Http\Controllers\api\CustomerAuthController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,9 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'signature' => SignatureController::class,
         'agreement' => AgreementController::class,
     ]);
+
+    Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
+    Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
     
 });
 

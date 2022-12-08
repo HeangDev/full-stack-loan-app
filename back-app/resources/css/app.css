@@ -27,6 +27,11 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .frm_wrap .frm_grp input[type=file]{@apply block w-full h-[31px] border border-[#eee] rounded-[4px] bg-[#fff] mt-1 text-[12px] font-normal text-[#3e4449] leading-[31px];}
 .frm_wrap .frm_grp input#file-upload-button{@apply h-[31px];}
 .frm_wrap .frm_grp .msg_error{@apply block w-full py-[4px] text-[12px] text-red-500 italic;}
+.frm_wrap .frm_grp .frm_lbl{@apply flex items-start justify-between;}
+.frm_wrap .frm_grp .frm_lbl .btn_generate{@apply text-blue-500 cursor-pointer hover:underline;}
+.frm_wrap .frm_grp .input_grp{@apply relative w-full;}
+.frm_wrap .frm_grp .input_grp .input_text{@apply block absolute top-[8px] right-[6px];}
+.frm_wrap .frm_grp .input_grp input{@apply pr-[25px];}
 
 .chkBx_control{@apply inline-block align-middle;}
 .chkBx_control label{@apply block relative py-[3px] pl-[24px];}
@@ -87,7 +92,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .main_card_wrap .card_header p {@apply text-[16px] font-medium text-gray-500;}
 
 .content .page_title_wrap .page_title{ @apply text-[18px] m-0 leading-[75px] overflow-hidden whitespace-nowrap text-ellipsis text-slate-100; }
-.card_tbl{@apply min-w-full h-auto p-[24px] rounded-[4px] bg-[#fff] ;}
+.card_tbl{@apply min-w-full h-auto p-[24px] rounded-[4px] bg-[#fff] shadow-sm;}
 .tbl_scroll{@apply m-0 min-w-full overflow-auto;}
 .tbl{@apply w-full text-sm text-left text-gray-500;}
 .tbl thead{@apply text-[13px] text-gray-700 bg-gray-50;}
@@ -133,13 +138,6 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .card_profile_wrap .left .profile_info ul li p{@apply text-[13px] text-gray-300;}
 .card_profile_wrap .right{@apply w-[33%];}
 .card_profile_wrap .profile_info h4{@apply mt-[6px] mb-[10px] text-[18px] font-bold;}
-
-
-
-
-
-
-
 
 
 

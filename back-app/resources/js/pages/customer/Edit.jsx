@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../layout/Layout'
 import { Link, useParams } from 'react-router-dom'
+import { Tab } from '@headlessui/react'
 import Swal from 'sweetalert2'
 
 const Edit = () => {
@@ -71,6 +72,7 @@ const Edit = () => {
         formData.append('fullImage', fullImage)
 
         axios.post(`http://127.0.0.1:8000/api/customer/${id}`, formData).then(({data}) => {
+            console.log(data)
             navigate("/customer")
         }).catch(({err}) => {
             console.log(err)
@@ -89,6 +91,7 @@ const Edit = () => {
                         </div>
                     </div>
                     <div className="card_tbl_body">
+                        
                         <form autoComplete="off" onSubmit={updateCustomer}>
                             <fieldset>
                                 <legend>กรอกข้อมูลจริงและถูกต้องการตรวจสอบจะผ่านไป</legend>
