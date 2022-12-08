@@ -43,7 +43,7 @@ const Edit = () => {
     return (
         <>
             <Layout>
-                <h5 className="main_tit">ระยะเวลาอัปเดต</h5>
+                <h5 className="main_tit">อัปเดตระยะเวลา</h5>
                 <div className="card_tbl">
                     <div className="card_tbl_header">
                         <div className="btn_wrap mb-[10px]">

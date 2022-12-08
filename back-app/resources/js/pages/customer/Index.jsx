@@ -74,6 +74,8 @@ const Index = () => {
                                         <th>เครดิต</th>
                                         <th>ข้อมูลอื่น ๆ</th>
                                         <th>ลายเซ็น</th>
+                                        <th>สถานะการกู้</th>
+                                        <th>รหัสถอน</th>
                                         <th>ตัวเลือก</th>
                                     </tr>
                                 </thead>
@@ -109,9 +111,16 @@ const Index = () => {
                                                             <span className="status_red">ยังไม่ได้เซ็นชื่อค่ะ</span>
                                                         }
                                                     </td>
+                                                    <td><span className='status_orange'>กำหลังดำเนินการ</span></td>
+                                                    <td><span className='status_green'>6587</span></td>
                                                     <td>
                                                         <div className="btn_action">
-                                                            <Link to={`/customer/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                            {
+                                                                row.status == 'complete' ?
+                                                                <Link to={`/customer/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                                :
+                                                                <Link to={`/customer/create/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                            }
                                                             <Link to={`/customer/changepassword/${row.id}`} className="btn_change"><AiOutlineLock/></Link>
                                                             <Link to={`/customer/${row.id}`} className="btn_show"><BiShowAlt/></Link>
                                                             <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>

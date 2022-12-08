@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Models\Bank;
 use App\Models\DocumentId;
@@ -43,23 +44,44 @@ class CustomerAuthController extends Controller
 
     public function login(Request $request)
     {
+        $request->validate([
+            'tel' => 'required',
+            'password' => 'required',
+        ]);
 
-        $login = User::where('tel', $request->tel)->first();
- 
-        if (! $login || ! Hash::check($request->password, $login->password)) {
-            return response([
-                'status' => 401,
-                'message' => 'หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'
-            ], 401);
+        $user = User::where('tel', $request->tel)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'],
+            ]);
         } else {
-            $token = $login->createToken($login->tel . '_CustomerToken', ['server:customer'])->plainTextToken;
+            $token = $user->createToken($request->tel . '_CustomerToken')->plainTextToken;
 
             return response()->json([
                 'status' => 200,
-                'id' => $login->id,
+                'id' => $user->id,
                 'token' => $token
             ], 200);
         }
+
+
+        // $login = User::where('tel', $request->tel)->first();
+ 
+        // if (! $login || ! Hash::check($request->password, $login->password)) {
+        //     return response([
+        //         'status' => 401,
+        //         'message' => 'หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'
+        //     ], 401);
+        // } else {
+        //     $token = $login->createToken($login->tel . '_CustomerToken', ['server:customer'])->plainTextToken;
+
+        //     return response()->json([
+        //         'status' => 200,
+        //         'id' => $login->id,
+        //         'token' => $token
+        //     ], 200);
+        // }
     }
 
     public function logout(Request $request)

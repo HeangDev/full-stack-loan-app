@@ -6,6 +6,7 @@ use App\Http\Controllers\api\AdminAuthController;
 use App\Http\Controllers\api\DurationController;
 use App\Http\Controllers\api\CustomerAuthController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,18 +32,24 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'admin_user' => AdminUserController::class,
         'customer' => CustomerController::class,
         'signature' => SignatureController::class,
+        'agreement' => AgreementController::class,
     ]);
+
+    Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
+    Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
     
 });
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::post('/logout', [CustomerAuthController::class, 'logout']);
+    
 });
-
+Route::post('/logout', [CustomerAuthController::class, 'logout']);
 Route::get('/getinfo/{id}', [UserController::class, 'getInfo']);
+Route::post('/changepassword', [CustomerAuthController::class, 'changePassword']);
+
 Route::post('admin/logout', [AdminAuthController::class, 'logout'])->name('api.admin.logout');
 
 Route::post('/register', [CustomerAuthController::class, 'register']);
 Route::post('/login', [CustomerAuthController::class, 'login']);
 
-Route::post('/changepassword', [CustomerAuthController::class, 'changePassword']);
+
