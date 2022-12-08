@@ -23,8 +23,14 @@ import DepositIndex from '../pages/deposit/Index'
 import DepositCreate from '../pages/deposit/Create'
 import DepositEdit from '../pages/deposit/Edit'
 
+import AgreementIndex from '../pages/agreement/Index'
+import AgreementCreate from '../pages/agreement/Create'
+import AgreementEdit from '../pages/agreement/Edit'
+
 import Login from '../pages/Login'
 import NotFound from '../pages/NotFound'
+
+
 
 const App = () => {
     return (
@@ -49,6 +55,11 @@ const App = () => {
                     <Route path="/deposit" element={<DepositIndex />} />
                     <Route path="/deposit/create" element={<DepositCreate />} />
                     <Route path="/deposit/edit/:id" element={<DepositEdit />} />
+
+                    <Route path="/agreement" element={<AgreementIndex />} />
+                    <Route path="/agreement/create" element={<AgreementCreate />} />
+                    <Route path="/agreement/edit/:id" element={<AgreementEdit />} />
+
 
                     <Route path="/*" element={<NotFound />} />
                 </Route>

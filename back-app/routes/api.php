@@ -31,6 +31,7 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'admin_user' => AdminUserController::class,
         'customer' => CustomerController::class,
         'signature' => SignatureController::class,
+        'agreement' => AgreementController::class,
     ]);
     
 });
