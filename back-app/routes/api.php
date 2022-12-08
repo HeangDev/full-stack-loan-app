@@ -41,11 +41,11 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
 });
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::post('/logout', [CustomerAuthController::class, 'logout']);
-    Route::get('/getinfo/{id}', [UserController::class, 'getInfo']);
-    Route::post('/changepassword', [CustomerAuthController::class, 'changePassword']);
+    
 });
-
+Route::post('/logout', [CustomerAuthController::class, 'logout']);
+Route::get('/getinfo/{id}', [UserController::class, 'getInfo']);
+Route::post('/changepassword', [CustomerAuthController::class, 'changePassword']);
 
 Route::post('admin/logout', [AdminAuthController::class, 'logout'])->name('api.admin.logout');
 

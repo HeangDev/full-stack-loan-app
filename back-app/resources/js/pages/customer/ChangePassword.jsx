@@ -28,7 +28,7 @@ const ChangePassword = () => {
 
     const generatePassword = () => {
         // Create a random password
-        const randomPassword = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)
+        const randomPassword = Math.random().toString(36).slice(-4) + Math.random().toString(36).slice(-4)
 
         // Set the generated password as state
         setNewPassword(randomPassword)

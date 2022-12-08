@@ -241,11 +241,22 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        // $customer = User::join('banks', 'users.id_bank', '=', 'banks.id')
-        // ->join('document_ids', 'users.id_document', '=', 'document_ids.id')
-        // ->where('users.id', $id)
-        // ->delete();
-        // return response()->json([$customer]);
+        $customer = User::where('id', $id)->delete();
+        $bank = Bank::where('id_user', $id)->delete();
+        $document = DocumentId::where('id_user', $id)->delete();
+        $signature = Signature::where('id_user', $id)->delete();
+
+        Storage::delete('public/customer' . '/' . $document->front);
+        Storage::delete('public/customer' . '/' . $document->back);
+        Storage::delete('public/customer' . '/' . $document->full);
+        Storage::delete('public/signature' . '/' . $signature->sign);
+
+        return response()->json([
+            $customer,
+            $bank,
+            $document,
+            $signature
+        ]);
     }
 
     public function changePassword(Request $request)
