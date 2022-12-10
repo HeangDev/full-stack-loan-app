@@ -26,6 +26,7 @@ const Home = () => {
     const navigate = useNavigate()
     const checkedRef = useRef(null)
     const amountRef = useRef(50000)
+    const [showModal, setShowModal] = useState(false)
 
     const handleChange = () => {
         setChecked(!checked);
@@ -159,7 +160,22 @@ const Home = () => {
         })
         
     }
-    const [showModal, setShowModal] = useState(false)
+    // Agreement TH
+    const [agreement, setAgreement] = useState()
+    
+    
+    const fetchAgreement = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/agreement`).then(({data}) => {
+            setAgreement(data)
+            console.log(data)
+        })
+    } 
+
+    useEffect(() => {
+        fetchAgreement()
+    }, [])
+    
+    
     return (
         <>
             <ToastContainer />
@@ -216,12 +232,12 @@ const Home = () => {
                 </div>
                 <div className="agr_wrap">
                     <div className="chkBx_control">
-						<label>
+						<label onClick={() => setShowModal(true)}>
                             <input type="checkbox" ref={checkedRef} onChange={handleChange}/>
                             <span className="agre">
                                 เห็นด้วย
                                 
-                                <span className="txt_link" onClick={() => setShowModal(true)}>《ข้อตกลงการใช้บริการผู้ใช้》</span>
+                                <span className="txt_link" >《ข้อตกลงการใช้บริการผู้ใช้》</span>
                                 
                             </span>
 						</label>
@@ -236,6 +252,35 @@ const Home = () => {
                 <div className="other"><img src={Other_01} alt=""/></div>
                 <div className="other"><img src={Other_02} alt=""/></div>
             </div>
+            {/* Modal TH */}
+            { showModal ? (
+                <div className="pop_wrap msg_wrap flexCenter w-[150px]">
+                    <div className="pop_inn mgbox_inn">
+                        <div className="pop_content">
+                            <div className="pop_msg">
+                                    {
+                                        agreement && agreement.length > 0 && (
+                                            agreement.map((item, i) => {
+                                                return (
+                                                    item.status === '1' ? 
+                                                    <p key={i}>{item.description}</p>
+                                                    :
+                                                    <p>กำหลังทำการปรับปรุงอยู่ค่ะ</p>
+                                                )
+                                            })
+                                        )
+
+                                    }
+                                
+                            </div>
+                        </div>
+                        <div className="pop_footer">
+                            <button  className="btn_g100" onClick={() => setShowModal(false)}> ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+        ) : null }
+            
         </>
     )
 }
