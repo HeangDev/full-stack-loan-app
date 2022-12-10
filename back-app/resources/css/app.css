@@ -23,7 +23,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .frm_wrap .frm_grp label{@apply block text-[13px] font-medium;}
 .frm_wrap .frm_grp:first-child label{@apply m-0;}
 .frm_wrap .frm_grp span{@apply text-gray-700 text-sm;}
-.frm_wrap .frm_grp input, .frm_wrap .frm_grp select{@apply block w-full h-[31px] border border-[#eee] rounded-[4px] bg-[#fff] mt-1 py-[2px] px-[13px] text-[12px] font-normal text-[#3e4449] leading-[31px] placeholder:text-[#999fa3] focus:outline-none;}
+.frm_wrap .frm_grp input, .frm_wrap .frm_grp select, .frm_wrap .frm_grp textarea{@apply block w-full border border-[#eee] rounded-[2px] bg-[#fff] mt-1 py-[2px] px-[13px] text-[12px] font-normal text-[#3e4449] leading-[25px] placeholder:text-[#999fa3] focus:outline-none;}
 .frm_wrap .frm_grp input[type=file]{@apply block w-full h-[31px] border border-[#eee] rounded-[4px] bg-[#fff] mt-1 text-[12px] font-normal text-[#3e4449] leading-[31px];}
 .frm_wrap .frm_grp input#file-upload-button{@apply h-[31px];}
 .frm_wrap .frm_grp .msg_error{@apply block w-full py-[4px] text-[12px] text-red-500 italic;}
@@ -141,17 +141,25 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .card_profile_wrap .profile_info p{@apply mb-[10px] text-[12px] font-bold text-gray-200;}
 
 .modal{@apply fixed top-0 left-0 z-[1055] w-full h-full bg-[#313a46]/[.6] overflow-x-hidden overflow-y-auto outline-0;}
-.modal_dialog{@apply relative w-full sm:max-w-[500px];}
+.modal_dialog{@apply w-full max-w-md transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all;}
 .modal_top{@apply mx-auto;}
 .modal_content{@apply relative flex flex-col w-full bg-white border border-transparent rounded-[0.2rem] outline-0;}
 .modal_header{@apply flex justify-between items-center shrink-0 p-[16px] border-b border-[#dee2e6] rounded-tl-[2px] rounded-tr-[2px];}
 .modal_header .modal_title{@apply mt-0 mb-0 text-[18px] leading-normal;}
 .modal_header .btn_close{@apply p-[8px] text-[#313a46] cursor-pointer;}
 .modal_body{@apply relative flex-auto p-[16px];}
+.modal_body .frm_wrap{@apply flex-col w-full;}
+.modal_body .frm_wrap .frm_grp{@apply w-full;}
 .modal_footer{@apply flex justify-end shrink-0 p-[12px] border-t border-[#dee2e6] rounded-bl-[2px] rounded-br-[2px] space-x-2;}
-.modal_footer .btn_close{@apply inline-block px-[14px] text-[14px] font-normal text-[#313a46] text-center leading-[37px] align-middle border border-[#eef2f7] rounded-[2px] bg-[#eef2f7];}
-.modal_footer .btn_save{@apply inline-block px-[14px] text-[14px] font-normal text-white text-center leading-[37px] align-middle border border-[#0acf97] rounded-[2px] bg-[#0acf97] shadow-sm hover:bg-[#0bbd8a];}
+.modal_footer .btn_close{@apply inline-block h-[31px] px-[14px] text-[14px] font-normal text-[#313a46] text-center align-middle border border-[#eef2f7] rounded-[2px] bg-[#eef2f7];}
+.modal_footer .btn_save{@apply inline-block h-[31px] px-[14px] text-[14px] font-normal text-white text-center align-middle border border-[#0acf97] rounded-[2px] bg-[#0acf97] shadow-sm hover:bg-[#0bbd8a];}
 
 
-
-
+.card_row{@apply flex flex-col flex-wrap -mx-[12px] md:flex-row;}
+.card_row .card_left{@apply w-full px-[12px] md:w-[30%];}
+.card_row .card_right{@apply w-full px-[12px] md:w-[70%];}
+.card{@apply flex flex-col min-w-0 bg-white shadow rounded-[4px];}
+.card_body{@apply flex-auto p-[24px];}
+.card .card_title{@apply mb-[15px] text-[14px] text-[#333];}
+.card p{@apply mb-[16px] text-[12px] font-medium text-[#8a969c];}
+.card span{@apply ml-[12px];}

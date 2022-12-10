@@ -34,6 +34,7 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'signature' => SignatureController::class,
         'agreement' => AgreementController::class,
         'loan' => LoanController::class,
+        'deposit' => DepositController::class,
     ]);
 
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
