@@ -51,6 +51,7 @@ const Create = () => {
                                         onChange={(e) => {setDescription(e.target.value)}}
                                     />
                                     {errors.description && <span className="msg_error">{errors.description?.message}</span>}
+                                    
                                 </div>
                                
                             </div>

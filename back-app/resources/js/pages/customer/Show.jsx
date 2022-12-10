@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../layout/Layout";
 import { Link, useParams } from "react-router-dom";
 import Avatar from "../../assets/avatar.jpg";
+import { MdAttachMoney } from "react-icons/md";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Show = () => {
     const [currentWork, setCurrentWork] = useState("");
@@ -67,6 +69,7 @@ const Show = () => {
                             </div>
                             <div className="profile_info">
                                 <h4>{name}</h4>
+                                <p>กำหลังดำเนินการ</p>
                                 <ul>
                                     <li>
                                         <h5>$ 25,184</h5>
@@ -80,10 +83,11 @@ const Show = () => {
                             </div>
                         </div>
                         <div className="right">
-                            <div className="text-center mt-sm-0 mt-3 text-sm-end">
-                                <Link to="" className="btn btn-light">
-                                    แก้ไขโปรไฟล์
-                                </Link>
+                            <div className="text-center text-sm-end">
+                                <button type="button" className="btn btn_light">
+                                    <MdAttachMoney/>
+                                    <span>ใส่เครดิต</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -92,6 +96,23 @@ const Show = () => {
                 <div className="card_profile_box_info mt-10">
                     <div className="card_profile_wrap">
 
+                    </div>
+                </div>
+                <div className="modal show">
+                    <div className="modal_dialog modal_top">
+                        <div className="modal_content">
+                            <div className="modal_header">
+                                <h4 className="modal_title">สมัครขอสินเชื่อ</h4>
+                                <button type="button" className="btn_close"><AiOutlineClose/></button>
+                            </div>
+                            <div className="modal_body">
+
+                            </div>
+                            <div className="modal_footer">
+                                <button type="button" className="btn_close">ออกจาก</button>
+                                <button type="button" className="btn_save">ประหยัด</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Layout>

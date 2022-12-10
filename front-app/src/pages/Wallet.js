@@ -35,8 +35,8 @@ const Wallet = () => {
         </div>
         <div className="windraw_des">
           <p className="tit_note">สถานะการกู้:</p>
+          <p>คำเตือน:<br /></p>
           <p className="txt_note">
-            คำเตือน:<br />
             <img src={Safe_icon} /> 
             <span>โปรดติดต่อฝ่ายบริการลูกค้าออนไลน์เพื่อขอรับรหัสถอนความปลอดภัยของเงินในบัญชีได้รับการประกันโดยธนาคาร</span>
           </p>
