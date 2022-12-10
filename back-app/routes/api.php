@@ -33,6 +33,7 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'customer' => CustomerController::class,
         'signature' => SignatureController::class,
         'agreement' => AgreementController::class,
+        'loan' => LoanController::class,
     ]);
 
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import http from '../services/api';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -63,7 +64,7 @@ const Register = () => {
                                     type={isRevealPwd ? "text" : "password"} placeholder="กรุณาตั้งรหัสผ่าน 6-16 หลัก"
                                     id="password" value={password} onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <span className={isRevealPwd ? 'ic_hide' : 'ic_view'} onClick={() => setIsRevealPwd(prevState => !prevState)}></span>
+                                <span className="input_text" onClick={() => setIsRevealPwd(prevState => !prevState)}>{isRevealPwd ? <AiOutlineEye/> : <AiOutlineEyeInvisible/>}</span>
                             </div>
                             {errors.password && <span className="msg_error">{errors.password?.message}</span>}
                         </div>

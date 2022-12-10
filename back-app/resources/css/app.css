@@ -43,11 +43,11 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 .btn_b38{@apply block w-full h-[38px] border-0 rounded-[4px] bg-[#1776d4] text-[13px] font-normal text-white text-center leading-[38px];}
 .btn_wrap {@apply flex justify-between}
-.btn{@apply h-[31px] text-white text-[12px] font-bold leading-[31px] px-4 rounded-[3px] inline-flex;}
-.btn svg{@apply mt-0.5 mr-[4px];}
+.btn{@apply flex items-center justify-center h-[31px] text-white text-[12px] font-bold px-4 rounded-[3px];}
+.btn svg{@apply mr-[4px] w-[15px] h-[15px];}
 .btn_save{@apply bg-green-500;}
 .btn_back{@apply bg-blue-500;}
-.btn-light {@apply bg-white text-blue-500;}
+.btn_light {@apply bg-white text-blue-500 shadow-sm;}
 
 .wrap{@apply h-screen;}
 .sidebar{@apply fixed inset-y-0 left-0 z-[30] w-[250px] overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:inset-0 -translate-x-full ease-in;}
@@ -124,10 +124,10 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 
 .card_profile_box{@apply rounded-[4px] bg-[#727cf5] text-white;}
-.card_profile_wrap{@apply flex flex-wrap p-6;}
+.card_profile_wrap{@apply flex items-start flex-wrap p-6;}
 .card_profile_box_info{@apply rounded-[4px] bg-[#FFF] text-white;}
 
-.card_profile_wrap .left{@apply flex items-center w-[66%];}
+.card_profile_wrap .left{@apply flex items-center w-[70%];}
 .card_profile_wrap .left .avatar_lg{@apply w-[96px] h-[96px] -ml-[10px] px-[10px];}
 .card_profile_wrap .left .avatar_lg img{@apply max-w-full h-auto rounded-full border border-[#dee2e6] bg-[#dee2e6] p-[4px];}
 .card_profile_wrap .left .profile_info{@apply px-[10px];}
@@ -136,9 +136,21 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .card_profile_wrap .left .profile_info ul li:first-child{@apply mr-6;}
 .card_profile_wrap .left .profile_info ul li h5{@apply my-1 text-[15px] font-semibold;}
 .card_profile_wrap .left .profile_info ul li p{@apply text-[13px] text-gray-300;}
-.card_profile_wrap .right{@apply w-[33%];}
-.card_profile_wrap .profile_info h4{@apply mt-[6px] mb-[10px] text-[18px] font-bold;}
+.card_profile_wrap .right{@apply flex justify-end w-[30%];}
+.card_profile_wrap .profile_info h4{@apply text-[18px] font-bold;}
+.card_profile_wrap .profile_info p{@apply mb-[10px] text-[12px] font-bold text-gray-200;}
 
+.modal{@apply fixed top-0 left-0 z-[1055] w-full h-full bg-[#313a46]/[.6] overflow-x-hidden overflow-y-auto outline-0;}
+.modal_dialog{@apply relative w-full sm:max-w-[500px];}
+.modal_top{@apply mx-auto;}
+.modal_content{@apply relative flex flex-col w-full bg-white border border-transparent rounded-[0.2rem] outline-0;}
+.modal_header{@apply flex justify-between items-center shrink-0 p-[16px] border-b border-[#dee2e6] rounded-tl-[2px] rounded-tr-[2px];}
+.modal_header .modal_title{@apply mt-0 mb-0 text-[18px] leading-normal;}
+.modal_header .btn_close{@apply p-[8px] text-[#313a46] cursor-pointer;}
+.modal_body{@apply relative flex-auto p-[16px];}
+.modal_footer{@apply flex justify-end shrink-0 p-[12px] border-t border-[#dee2e6] rounded-bl-[2px] rounded-br-[2px] space-x-2;}
+.modal_footer .btn_close{@apply inline-block px-[14px] text-[14px] font-normal text-[#313a46] text-center leading-[37px] align-middle border border-[#eef2f7] rounded-[2px] bg-[#eef2f7];}
+.modal_footer .btn_save{@apply inline-block px-[14px] text-[14px] font-normal text-white text-center leading-[37px] align-middle border border-[#0acf97] rounded-[2px] bg-[#0acf97] shadow-sm hover:bg-[#0bbd8a];}
 
 
 

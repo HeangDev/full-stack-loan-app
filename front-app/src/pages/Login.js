@@ -5,6 +5,7 @@ import Other_03 from '../assets/other_03.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://127.0.0.1:8000";
 
@@ -69,17 +70,17 @@ const Login = () => {
                 <div className="frm_wrap">
                     <div className="frm_grp">
                         <label style={{width: '40px'}}>
-                            <span className="ic_phone"></span>
+                            <span className="icon"><AiOutlineUser/></span>
                         </label>
                         <input type="text" placeholder="กรุณาใส่หมายเลขโทรศัพท์" autoFocus onChange={e => setTel(e.target.value)}/>
                     </div>
                     <div className="frm_grp">
                         <label style={{width: '40px'}}>
-                            <span className="ic_lock"></span>
+                            <span className="icon"><AiOutlineLock/></span>
                         </label>
                         <div className="frm_ic_grp">
                             <input type={isRevealPwd ? "text" : "password"} placeholder="กรุณาใส่รหัสผ่าน" onChange={e => setPassword(e.target.value)}/>
-                            <span className={isRevealPwd ? 'ic_hide' : 'ic_view'} onClick={() => setIsRevealPwd(prevState => !prevState)}></span>
+                            <span className="input_text" onClick={() => setIsRevealPwd(prevState => !prevState)}>{isRevealPwd ? <AiOutlineEye/> : <AiOutlineEyeInvisible/>}</span>
                         </div>
                     </div>
                 </div>

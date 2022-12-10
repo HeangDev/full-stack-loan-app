@@ -16,12 +16,16 @@ import Agreement from '../components/Agreement'
 
 const Home = () => {
     const [checked, setChecked] = useState(false);
+
+    const [durations, setDurations] = useState()
+    const [durationId, setDurationId] = useState()
     const [amount, setAmount] = useState(50000)
-    const [month, setMonth] = useState(12)
-    const [percent, setPercent] = useState(1.2)
-    const [durations, setDurations] = useState([])
+    const [month, setMonth] = useState()
+    const [percent, setPercent] = useState()
     const [interest, setInterest] = useState()
-    const [totalAmount, setTotalAmount] = useState()
+    const [payMonthly, setPayMonthly] = useState()
+    const [total, setTotal] = useState()
+
     const [active, setActive] = useState(1)
     const navigate = useNavigate()
     const checkedRef = useRef(null)
@@ -39,8 +43,9 @@ const Home = () => {
             const totalAmount = currentAmount + totalInterest
             const totalPayMonthly = totalAmount / month
 
-            setInterest(currencyFormat(totalInterest))
-            setTotalAmount(currencyFormat(totalPayMonthly))
+            setInterest(totalInterest)
+            setPayMonthly(totalPayMonthly)
+            setTotal(totalAmount)
         } else {
             toast.warn('คุณไม่สามารถน้อยกว่า จำนวนเงิน ที่น้อย ที่สุด', {
                 position: "top-right",
@@ -64,8 +69,9 @@ const Home = () => {
             const totalAmount = currentAmount + totalInterest
             const totalPayMonthly = totalAmount / month
 
-            setInterest(currencyFormat(totalInterest))
-            setTotalAmount(currencyFormat(totalPayMonthly))
+            setInterest(totalInterest)
+            setPayMonthly(totalPayMonthly)
+            setTotal(totalAmount)
         } else {
             toast.warn('ไม่สามารถอยู่เหนือจำนวนเงิน ที่มาก ที่สุดได้', {
                 position: "top-right",
@@ -83,14 +89,16 @@ const Home = () => {
     const selectMonth = (id, month, percent) => {
         setMonth(month)
         setPercent(percent)
+        setDurationId(id)
 
         const totalInterest = amount * (percent / 100)
         const totalAmount = amount + totalInterest
         const totalPayMonthly = totalAmount / month
 
         setPercent(percent)
-        setInterest(currencyFormat(totalInterest))
-        setTotalAmount(currencyFormat(totalPayMonthly))
+        setInterest(totalInterest)
+        setPayMonthly(totalPayMonthly)
+        setTotal(totalAmount)
         setActive(id)
     }
 
@@ -99,13 +107,15 @@ const Home = () => {
             setMonth(data[0].month)
             setPercent(data[0].percent)
             setDurations(data)
+            setDurationId(data[0].id)
             
             const totalInterest = amount * (data[0].percent / 100)
             const totalAmount = amount + totalInterest
             const totalPayMonthly = totalAmount / data[0].month
 
-            setInterest(currencyFormat(totalInterest))
-            setTotalAmount(currencyFormat(totalPayMonthly))
+            setInterest(totalInterest)
+            setPayMonthly(totalPayMonthly)
+            setTotal(totalAmount)
         })
     }
 
@@ -117,8 +127,9 @@ const Home = () => {
         const totalAmount = value + totalInterest
         const totalPayMonthly = totalAmount / month
 
-        setInterest(currencyFormat(totalInterest))
-        setTotalAmount(currencyFormat(totalPayMonthly))
+        setInterest(totalInterest)
+        setPayMonthly(totalPayMonthly)
+        setTotal(totalAmount)
     }
 
     useEffect(() => {
@@ -129,10 +140,22 @@ const Home = () => {
         const id_user = localStorage.getItem('auth_id')
         await axios.get(`http://127.0.0.1:8000/api/user/${id_user}`).then(({data}) => {
             const status = data.status
+            const sign_status = data.sign_status
             if (!localStorage.getItem('auth_token')) {
                 navigate('/login')
             } else if (status == 'incomplete') {
                 toast.warn('โปรดกรอกข้อมูลให้ครบค่ะ', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } else if (sign_status === '0') {
+                toast.warn('คุณยังไม่ได้สมัครขอสินเชื่อ', {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -154,7 +177,28 @@ const Home = () => {
                     theme: "light",
                 });
             } else {
-                console.log('success')
+                const formData = new FormData()
+                formData.append('id_user', id_user)
+                formData.append('durationId', durationId)
+                formData.append('amount', amount)
+                formData.append('interest', interest)
+                formData.append('payMonthly', payMonthly)
+                formData.append('total', total)
+
+                axios.post(`http://127.0.0.1:8000/api/loan`, formData).then(({data}) => {
+                    toast.success('คุณสมัครสินเชื่อสำเร็จแล้ว', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                }).catch(({err}) => {
+                    console.log(err)
+                })
             }
         })
         
@@ -193,7 +237,7 @@ const Home = () => {
                             durations && durations.length > 0 && (
                                 durations.map((item, i) => {
                                     return (
-                                        <button id={item.month} className={active === item.id ? 'btn_duration active': 'btn_duration'} key={i} onClick={() => selectMonth(item.id, item.month, item.percent)}>
+                                        <button id={item.month} className={active === item.id ? 'btn_duration active': 'btn_duration'} key={i} onClick={(e) => selectMonth(item.id, item.month, item.percent, e)}>
                                             <span className="duration_value">{item.month}</span>
                                             เดือน
                                         </button>
@@ -206,11 +250,11 @@ const Home = () => {
                 <div className="total_wrap">
                     <h3 className="total_text">ผ่อนต่องวด</h3>
                     <div className="total_loan">
-                        <span className="monthly_pay">{totalAmount}</span> ฿
+                        <span className="monthly_pay">{currencyFormat(payMonthly)}</span>
                         <span className="total_sub">
                             (ด้วยอัตราดอกเบี้ย
                             <span> {percent}</span>%
-                            <span> {interest}</span> ฿)
+                            <span> {currencyFormat(interest)}</span>)
                         </span>
                     </div>
                 </div>

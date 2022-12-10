@@ -16,6 +16,7 @@ const ShowProfile = () => {
 
     const fetchCustomerInfo = async () => {
         await axios.get(`http://127.0.0.1:8000/api/user/${id}`).then(({data}) => {
+            console.log(data)
             const { current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number } = data[0]
             setCurrentWork(current_occupation)
             setIncome(monthly_income)
