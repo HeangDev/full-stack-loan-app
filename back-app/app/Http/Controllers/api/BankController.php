@@ -79,7 +79,13 @@ class BankController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $bank = Bank::where('id_user', $id)
+            ->update([
+                'bank_name' => $request->bankName,
+                'bank_acc' => $request->bankAccount,
+            ]);
+
+        return response()->json($bank);
     }
 
     /**
