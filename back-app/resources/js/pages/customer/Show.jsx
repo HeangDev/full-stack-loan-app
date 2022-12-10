@@ -7,6 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2'
+import { currencyFormat } from '../../utils/Formatter'
 
 const Show = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
@@ -122,7 +123,7 @@ const Show = () => {
                                     </p>
                                     <p>
                                         <strong>รายได้ต่อเดือน :</strong>
-                                        <span>{income}</span>
+                                        <span>{currencyFormat(income)}</span>
                                     </p>
                                     <p>
                                         <strong>เบอร์ติดต่อ :</strong>
@@ -141,29 +142,6 @@ const Show = () => {
                         </div>
                     </div>
                     <div className="card_right">
-                        <div className="card_row">
-                            <div className="card_col_4">
-                                <div className="card">
-                                    <div className="card_body">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card_col_4">
-                                <div className="card">
-                                    <div className="card_body">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card_col_4">
-                                <div className="card">
-                                    <div className="card_body">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div className="card">
                             <div className="card_body">
                                 <h4 className="card_title">ข้อมูลลูกค้า</h4>

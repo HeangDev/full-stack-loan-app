@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Layout from '../../layout/Layout'
 import { Link, useParams } from 'react-router-dom'
 import { Tab } from '@headlessui/react'
@@ -91,6 +91,31 @@ const Edit = () => {
                         </div>
                     </div>
                     <div className="card_tbl_body">
+
+                        <Tab.Group>
+                            <Tab.List as="div" className="tab">
+                                <Tab as={Fragment}>
+                                    {({ selected }) => (
+                                        <button type="button" className={selected ? 'tab_item active' : 'tab_item'}>ข้อมูลลูกค้า</button>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({ selected }) => (
+                                        <button type="button" className={selected ? 'tab_item active' : 'tab_item'}>ข้อมูลธนาคาร</button>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({ selected }) => (
+                                        <button type="button" className={selected ? 'tab_item active' : 'tab_item'}>ระบุข้อมูลบัตร</button>
+                                    )}
+                                </Tab>
+                            </Tab.List>
+                            <Tab.Panels className="">
+                                <Tab.Panel>Content 1</Tab.Panel>
+                                <Tab.Panel>Content 2</Tab.Panel>
+                                <Tab.Panel>Content 3</Tab.Panel>
+                            </Tab.Panels>
+                        </Tab.Group>
                         
                         <form autoComplete="off" onSubmit={updateCustomer}>
                             <fieldset>
