@@ -21,8 +21,8 @@ const DataTableCustomer = () => {
 
     const columns = [
         {
-            name: "ชื่อลูกค้า",
-            selector: (row) => row.name,
+            name: "#",
+            selector: (row) => number++,
         },
         {
             name: "ลูกค้าโทร",
@@ -64,6 +64,9 @@ const DataTableCustomer = () => {
   title="รายชื่อลูกค้า" 
   columns={columns}
   data={customers}
+  pagination
+  selectableRows
+  selectableRowsHighlight
   />
 );
 };
