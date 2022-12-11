@@ -35,6 +35,7 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'agreement' => AgreementController::class,
         'loan' => LoanController::class,
         'deposit' => DepositController::class,
+        'withdraw' => WithdrawController::class,
         'bank' => BankController::class,
     ]);
 

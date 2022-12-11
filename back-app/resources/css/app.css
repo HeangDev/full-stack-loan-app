@@ -94,11 +94,11 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .content .page_title_wrap .page_title{ @apply text-[18px] m-0 leading-[75px] overflow-hidden whitespace-nowrap text-ellipsis text-slate-100; }
 .card_tbl{@apply min-w-full h-auto p-[24px] rounded-[4px] bg-[#fff] shadow-sm;}
 .tbl_scroll{@apply m-0 min-w-full overflow-auto;}
-.tbl{@apply w-full text-sm text-left text-gray-500;}
-.tbl thead{@apply text-[13px] text-gray-700 bg-gray-50;}
-.tbl thead tr th{@apply h-[38px] border border-[#eee] bg-[#fff] px-3 text-gray-500 whitespace-nowrap;}
-.tbl thead tr th:first-child{@apply border-l-0;}
-.tbl thead tr th:last-child{@apply border-r-0;}
+.rdt_Table{@apply w-full text-sm text-left text-gray-500;}
+.rdt_Table .rdt_TableRow{@apply text-[13px] text-gray-700 bg-gray-50;}
+.rdt_Table .rdt_TableRow .rdt_TableCol{@apply h-[38px] border border-[#eee] bg-[#fff] px-3 text-gray-500 whitespace-nowrap;}
+.rdt_Table .rdt_TableRow .rdt_TableCol:first-child{@apply border-l-0;}
+.rdt_Table .rdt_TableRow .rdt_TableCol:last-child{@apply border-r-0;}
 .tbl tbody tr{@apply bg-[#fff] border-b;}
 .tbl tbody tr td{@apply h-[38px] border border-[#f1f1f1] px-3 text-gray-900 font-normal whitespace-nowrap;}
 .tbl tbody tr td a{@apply text-blue-400;}
@@ -167,9 +167,12 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .tab{@apply flex flex-wrap pl-0 mb-[24px] sm:flex-nowrap;}
 .tab_item{@apply block py-[8px] px-[16px] font-normal text-[#6c757d] w-full bg-[#eef2f7] rounded-none outline-none;}
 .tab_item.active{@apply text-white bg-[#0acf97];}
+<<<<<<< HEAD
 
 /* BTH Style */
 .btn_edit{@apply inline-block rounded-[0.2rem] text-white bg-blue-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
 .btn_show{@apply inline-block rounded-[0.2rem] text-white bg-indigo-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
 .btn_delete{@apply inline-block rounded-[0.2rem] text-white bg-red-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
 .btn_change{@apply inline-block rounded-[0.2rem] text-white bg-green-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
+=======
+>>>>>>> 059e93082ce7cd0989d0a872213116b8690d6cf1

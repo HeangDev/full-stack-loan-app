@@ -2,18 +2,29 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { currencyFormat } from '../utils/Formatter'
 import Other_03 from "../assets/other_03.jpg";
 import Safe_icon from '../assets/safe-icon.png'
 
 const Wallet = () => {
-    const [checkCode, setCheckCode] = useState()
-    const [withdrawCode, setWithdrawCode] = useState()
+    const [credit, setCredit] = useState()
+    const [code, setCode] = useState()
+    const [withdrawCode, setWithdrawCode] = useState('')
     const id = localStorage.getItem('auth_id')
 
     const fetchDeposit = async () => {
         await axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then(({data}) => {
-            const { withdraw_code } = data
-            setCheckCode(withdraw_code)
+            const { withdraw_code, credit } = data
+            setCode(withdraw_code)
+            setCredit(credit)
+        }).catch (({err}) => {
+            console.log(err)
+        })
+    }
+
+    const fetchWithdraw = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/withdraw/${id}`).then(({data}) => {
+            console.log(data)
         }).catch (({err}) => {
             console.log(err)
         })
@@ -31,7 +42,7 @@ const Wallet = () => {
                 progress: undefined,
                 theme: "light",
             });
-        } else if (withdrawCode != checkCode) {
+        } else if (withdrawCode !== code) {
             toast.warn('รหัสถอนเงินของคุณไม่ถูกต้อง', {
                 position: "top-right",
                 autoClose: 2000,
@@ -42,13 +53,47 @@ const Wallet = () => {
                 progress: undefined,
                 theme: "light",
             });
+            setWithdrawCode('')
+        } else if (credit == '0' || credit == null) {
+            toast.warn('คุณไม่มีเงินที่จะถอน', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setWithdrawCode('')
         } else {
-            console.log('success')
+            const formData = new FormData()
+            formData.append('id', id)
+            formData.append('credit', credit)
+
+            axios.post(`http://127.0.0.1:8000/api/withdraw`, formData).then((data) => {
+                console.log(data)
+                toast.success('คุณได้ถอนเงินกู้ของคุณสำเร็จแล้ว', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setWithdrawCode('')
+                fetchDeposit()
+            }).catch(({err}) => {
+                console.log(err)
+            })
         }
     }
 
     useEffect(() => {
         fetchDeposit()
+        fetchWithdraw()
     }, [])
 
     return (
@@ -61,25 +106,31 @@ const Wallet = () => {
                 <div className="head_windraw">
                     <div className="left">
                         <h4 className="tit">จำนวนเงินที่ดำเนินการถอน (บาท)</h4>
-                        <h3 className="des">0.00</h3>
+                        {
+                            credit == '' || credit == null ?
+                            <h3 className="des">{currencyFormat(0)}</h3>
+                            :
+                            <h3 className="des">{currencyFormat(credit)}</h3>
+                        }
                     </div>
                     <div className="right">
                         <h4 className="tit">จำนวนเงินสด (บาท)</h4>
-                        <h3 className="des">0.00</h3>
+                        {
+                            credit == '' || credit == null ?
+                            <h3 className="des">{currencyFormat(0)}</h3>
+                            :
+                            <h3 className="des">{currencyFormat(credit)}</h3>
+                        }
                     </div>
                 </div>
 
                 <div>
-                <div className="px-8">
-                    <div className="frm_wrap border">
-                        <div className="frm_grp">
-                            <input type="number" placeholder="ครุณาใส่รหัสถอนด้วยค่ะ" onChange={e => setWithdrawCode(e.target.value)}/>
-                        </div>
-                    </div>
+                <div className="input_wrap">
+                    <input type="number" placeholder="ครุณาใส่รหัสถอนด้วยค่ะ" autoFocus value={withdrawCode} onChange={e => setWithdrawCode(e.target.value)}/>
                 </div>
-                <div className="flex justify-center w-[100%]">
-                    <button className="btn_b50" onClick={handleWithdraw}>ถอน</button>
-                    <button className="btn_b50">ยกเลิก</button>
+                <div className="btn_wrap">
+                    <button className="btn_b100" onClick={handleWithdraw}>ถอน</button>
+                    <button className="btn_b100">ยกเลิก</button>
                 </div>
                 </div>
                 <div className="windraw_des">

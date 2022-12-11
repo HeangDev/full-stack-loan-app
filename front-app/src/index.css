@@ -48,7 +48,8 @@ input[type=number]{-moz-appearance:textfield;} /* Firefox */
 
 .btn_wrap{@apply flex items-center flex-col flex-wrap py-[10px] px-[15px] gap-3;}
 .btn_b40{@apply inline-block w-full h-[40px] bottom-0 rounded-[3px] bg-[#355180] shadow-btn_act_shadow text-[15px] text-white text-center leading-[40px];}
-.btn_b50{@apply inline-block w-[20%] h-[40px] m-[20px] bottom-0 rounded-[3px] bg-[#355180] shadow-btn_act_shadow text-[15px] text-white text-center leading-[40px];}
+.btn_b50{@apply inline-block w-[20%] h-[40px] bottom-0 rounded-[3px] bg-[#355180] shadow-btn_act_shadow text-[15px] text-white text-center leading-[40px];}
+.btn_b100{@apply inline-block w-full h-[40px] bottom-0 rounded-[3px] bg-[#355180] shadow-btn_act_shadow text-[15px] text-white text-center leading-[40px];}
 
 .list{@apply border-t border-[#eee] mb-[15px];}
 .list:last-child{@apply m-0;}
@@ -134,9 +135,12 @@ input[type=number]{-moz-appearance:textfield;} /* Firefox */
 .head_windraw .left{@apply w-[50%] pr-[10px];}
 .head_windraw .tit{@apply text-[14px] font-medium text-[#333] text-ellipsis whitespace-nowrap overflow-hidden w-[98%];}
 .head_windraw .des{@apply text-[20px] font-semibold text-orange-500;}
-.windraw_des {@apply w-full p-[10px];}
+.windraw_des {@apply w-full py-[10px] px-[15px];}
 .windraw_des .tit_note{@apply text-center text-red-500}
 .windraw_des p{@apply text-center text-gray-400;}
 .windraw_des .txt_note{@apply flex justify-between}
-.windraw_des p img{@apply flex justify-start h-[28px] w-[30px] mx-[5px];}
-.windraw_des p span{@apply font-[11px] flex justify-end;}
+.windraw_des p img{@apply flex justify-start h-[28px] w-[30px] ml-[5px];}
+.windraw_des p span{@apply font-[11px];}
+.windraw_wrap .btn_wrap{@apply flex-row flex-nowrap;}
+.windraw_wrap .input_wrap{@apply px-[15px];}
+.windraw_wrap input{@apply w-full h-[40px] border border-[#eee] rounded-[2px] outline-none px-[13px];}
