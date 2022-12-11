@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_user');
             $table->string('withdraw_code')->default('0000');
-            $table->string('deposit_amount')->default('0');
+            $table->float('deposit_amount', 8, 2)->default('0');
             $table->text('description')->default('กำหลังดำเนินการ');
             $table->date('deposit_date');
             $table->timestamps();

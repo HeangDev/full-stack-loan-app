@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->integer('id_user');
             $table->integer('id_duration');
-            $table->float('amount', 8, 2);
-            $table->float('interest', 8, 2);
-            $table->float('total', 8, 2);
-            $table->float('pay_month', 8, 2);
+            $table->string('amount');
+            $table->string('interest');
+            $table->string('total');
+            $table->string('pay_month');
             $table->date('date');
             $table->timestamps();
         });
