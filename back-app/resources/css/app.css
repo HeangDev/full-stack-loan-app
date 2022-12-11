@@ -94,11 +94,11 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .content .page_title_wrap .page_title{ @apply text-[18px] m-0 leading-[75px] overflow-hidden whitespace-nowrap text-ellipsis text-slate-100; }
 .card_tbl{@apply min-w-full h-auto p-[24px] rounded-[4px] bg-[#fff] shadow-sm;}
 .tbl_scroll{@apply m-0 min-w-full overflow-auto;}
-.tbl{@apply w-full text-sm text-left text-gray-500;}
-.tbl thead{@apply text-[13px] text-gray-700 bg-gray-50;}
-.tbl thead tr th{@apply h-[38px] border border-[#eee] bg-[#fff] px-3 text-gray-500 whitespace-nowrap;}
-.tbl thead tr th:first-child{@apply border-l-0;}
-.tbl thead tr th:last-child{@apply border-r-0;}
+.rdt_Table{@apply w-full text-sm text-left text-gray-500;}
+.rdt_Table .rdt_TableRow{@apply text-[13px] text-gray-700 bg-gray-50;}
+.rdt_Table .rdt_TableRow .rdt_TableCol{@apply h-[38px] border border-[#eee] bg-[#fff] px-3 text-gray-500 whitespace-nowrap;}
+.rdt_Table .rdt_TableRow .rdt_TableCol:first-child{@apply border-l-0;}
+.rdt_Table .rdt_TableRow .rdt_TableCol:last-child{@apply border-r-0;}
 .tbl tbody tr{@apply bg-[#fff] border-b;}
 .tbl tbody tr td{@apply h-[38px] border border-[#f1f1f1] px-3 text-gray-900 font-normal whitespace-nowrap;}
 .tbl tbody tr td a{@apply text-blue-400;}

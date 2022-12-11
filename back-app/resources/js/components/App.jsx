@@ -21,10 +21,6 @@ import CustomerEdit from '../pages/customer/Edit'
 import ChangePassword from '../pages/customer/ChangePassword';
 import CreateByID from '../pages/customer/CreateByID';
 
-import DepositIndex from '../pages/deposit/Index'
-import DepositCreate from '../pages/deposit/Create'
-import DepositEdit from '../pages/deposit/Edit'
-
 import AgreementIndex from '../pages/agreement/Index'
 import AgreementCreate from '../pages/agreement/Create'
 import AgreementEdit from '../pages/agreement/Edit'
@@ -55,10 +51,6 @@ const App = () => {
                     <Route path="/customer/edit/:id" element={<CustomerEdit />} />
                     <Route path="/customer/changepassword/:id" element={<ChangePassword />} />
                     <Route path="/customer/create/:id" element={<CreateByID />} />
-
-                    <Route path="/deposit" element={<DepositIndex />} />
-                    <Route path="/deposit/create" element={<DepositCreate />} />
-                    <Route path="/deposit/edit/:id" element={<DepositEdit />} />
 
                     <Route path="/agreement" element={<AgreementIndex />} />
                     <Route path="/agreement/create" element={<AgreementCreate />} />

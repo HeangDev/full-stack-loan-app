@@ -3,6 +3,7 @@ import Layout from '../../layout/Layout'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import DataTable from 'react-data-table-component'
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
 const Index = () => {
@@ -49,6 +50,24 @@ const Index = () => {
         })
     }
 
+    const columns = [
+        {
+            name: 'เดือน',
+            selector: (row) => row.month,
+            sortable: true,
+        },
+        {
+            name: 'เปอร์เซ็นต์',
+            selector: (row) => row.percent,
+            sortable: true,
+        },
+        {
+            name: 'สถานะ',
+            selector: (row) => row.status,
+            sortable: true,
+        },
+    ]
+
     return (
         <>
             <Layout>
@@ -63,7 +82,12 @@ const Index = () => {
                     </div>
                     <div className="card_tbl_body">
                         <div className="tbl_scroll">
-                            <table className="tbl">
+                            <DataTable
+                                columns={columns}
+                                data={duration}
+                                pagination
+                            />
+                            {/* <table className="tbl">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -100,7 +124,7 @@ const Index = () => {
                                         )
                                     }
                                 </tbody>
-                            </table>
+                            </table> */}
                         </div>
                     </div>
                 </div>
