@@ -167,3 +167,9 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .tab{@apply flex flex-wrap pl-0 mb-[24px] sm:flex-nowrap;}
 .tab_item{@apply block py-[8px] px-[16px] font-normal text-[#6c757d] w-full bg-[#eef2f7] rounded-none outline-none;}
 .tab_item.active{@apply text-white bg-[#0acf97];}
+
+/* BTH Style */
+.btn_edit{@apply inline-block rounded-[0.2rem] text-white bg-blue-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
+.btn_show{@apply inline-block rounded-[0.2rem] text-white bg-indigo-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
+.btn_delete{@apply inline-block rounded-[0.2rem] text-white bg-red-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
+.btn_change{@apply inline-block rounded-[0.2rem] text-white bg-green-500 mx-[4px] py-[8px] px-[15px] text-center align-middle no-underline;}
