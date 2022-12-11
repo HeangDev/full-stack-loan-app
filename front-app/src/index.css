@@ -5,6 +5,8 @@
 @tailwind utilities;
 
 body{@apply m-0 p-0 font-nunito text-[16px] text-[#4c4c4c] bg-[#f5f5f9];}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;} /* Chrome, Safari, Edge, Opera */
+input[type=number]{-moz-appearance:textfield;} /* Firefox */
 .wrapper{@apply relative max-w-[420px] h-screen mx-auto bg-white;}
 .bar{@apply fixed right-0 left-0 z-10 mx-auto px-[10px] max-w-[420px] h-[44px] border-b-0;}
 .bar.bar_blue{@apply bg-[#355180];}

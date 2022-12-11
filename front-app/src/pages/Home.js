@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Banner from '../assets/banner.jpg'
 import Other_01 from '../assets/other_01.jpg'
 import Other_02 from '../assets/other_02.jpg'
@@ -25,6 +25,8 @@ const Home = () => {
     const [interest, setInterest] = useState()
     const [payMonthly, setPayMonthly] = useState()
     const [total, setTotal] = useState()
+
+    const [agreement, setAgreement] = useState()
 
     const [active, setActive] = useState(1)
     const navigate = useNavigate()
@@ -120,6 +122,17 @@ const Home = () => {
         })
     }
 
+    const fetchAgreement = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/agreement`).then(({data}) => {
+            setAgreement(data)
+        })
+    }
+
+    useEffect(() => {
+        fetchDuration()
+        fetchAgreement()
+    }, [])
+
     const updateAmount = (value) => {
         setAmount(value)
         setActive(1)
@@ -132,10 +145,6 @@ const Home = () => {
         setPayMonthly(totalPayMonthly)
         setTotal(totalAmount)
     }
-
-    useEffect(() => {
-        fetchDuration()
-    }, [])
 
     const handleBorrow = async (e) => {
         const id_user = localStorage.getItem('auth_id')
@@ -201,24 +210,9 @@ const Home = () => {
                     console.log(err)
                 })
             }
-        })
-        
+        })   
     }
-    // Agreement TH
-    const [agreement, setAgreement] = useState()
-    
-    
-    const fetchAgreement = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/agreement`).then(({data}) => {
-            setAgreement(data)
-            console.log(data)
-        })
-    } 
 
-    useEffect(() => {
-        fetchAgreement()
-    }, [])
-    
     
     return (
         <>
@@ -280,9 +274,7 @@ const Home = () => {
                             <input type="checkbox" ref={checkedRef} onChange={handleChange}/>
                             <span className="agre">
                                 เห็นด้วย
-                                
                                 <span className="txt_link" >《ข้อตกลงการใช้บริการผู้ใช้》</span>
-                                
                             </span>
 						</label>
 					</div>
@@ -296,39 +288,31 @@ const Home = () => {
                 <div className="other"><img src={Other_01} alt=""/></div>
                 <div className="other"><img src={Other_02} alt=""/></div>
             </div>
-
-            {/* Modal TH */}
             { showModal ? (
                 <div className="pop_wrap msg_wrap flexCenter w-[150px]">
                     <div className="pop_inn mgbox_inn">
                         <div className="pop_content">
                             <div className="pop_msg">
-                                    {
-                                        agreement && agreement.length > 0 && (
-                                            agreement.map((item, i) => {
-                                                return (
-                                                    item.status === '1' ? 
-                                                    <p key={i}>{item.description}</p>
-                                                    :
-                                                    <p>กำหลังทำการปรับปรุงอยู่ค่ะ</p>
-                                                )
-                                            })
-                                        )
-
-                                    }
-                                
+                                {
+                                    agreement && agreement.length > 0 && (
+                                        agreement.map((item, i) => {
+                                            return (
+                                                item.status === '1' ? 
+                                                <p key={i}>{item.description}</p>
+                                                :
+                                                <></>
+                                            )
+                                        })
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="pop_footer">
-                            <button  className="btn_g100" onClick={() => setShowModal(false)}> ยกเลิก </button>
+                            <button  className="btn_g100" onClick={() => setShowModal(false)}>ยกเลิก</button>
                         </div>
                     </div>
                 </div>
         ) : null }
-            
-
-            {/* <Agreement/> */}
-
         </>
     )
 }

@@ -56,7 +56,8 @@ class DepositController extends Controller
      */
     public function show($id)
     {
-        //
+        $deposit = Deposit::where('id_user', $id)->first();
+        return response()->json($deposit);
     }
 
     /**
