@@ -162,8 +162,8 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .card_profile_wrap{@apply flex items-start flex-wrap p-6;}
 .card_profile_box_info{@apply rounded-[4px] bg-[#FFF] text-white;}
 
-.card_profile_box .left{@apply flex items-center w-[70%];}
-.card_profile_box .left .avatar_lg{@apply w-[96px] h-[96px] -ml-[10px] px-[10px];}
+.card_profile_box .left{@apply flex items-center justify-center flex-wrap flex-col w-full text-center sm:justify-start sm:flex-nowrap sm:flex-row sm:w-[70%] sm:text-left;}
+.card_profile_box .left .avatar_lg{@apply w-[96px] h-[96px] -ml-0 px-[10px] sm:-ml-[10px];}
 .card_profile_box .left .avatar_lg img{@apply max-w-full h-auto rounded-full border border-[#dee2e6] bg-[#dee2e6] p-[4px];}
 .card_profile_box .left .profile_info{@apply px-[10px];}
 .card_profile_wrap .left .profile_info ul{@apply text-[#eef2f7];}
@@ -181,3 +181,6 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .profile_info h4{@apply mb-[5px] text-[18px] font-bold;}
 .profile_info h6{@apply text-[14px] text-[#e7e7e7];}
 .profile_info p{@apply mb-[15px] text-[12px] font-bold text-gray-200;}
+.profile_tel{@apply font-bold text-[18px] text-white text-center leading-normal;}
+
+.bg_indigo{@apply  bg-[#727cf5] !important;}

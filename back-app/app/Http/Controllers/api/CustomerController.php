@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Bank;
 use App\Models\DocumentId;
 use App\Models\Signature;
+use App\Models\Deposit;
 
 class CustomerController extends Controller
 {
@@ -88,6 +89,11 @@ class CustomerController extends Controller
 
         $u_id = $customer->id;
 
+        $deposit = Deposit::create([
+            'id_user' => $u_id,
+            'description' => 'กำหลังดำเนินการ',
+        ]);
+
         $signature = Signature::create([
             'id_user' => $u_id,
             'status' => '0',
@@ -112,7 +118,8 @@ class CustomerController extends Controller
             $customer,
             $bank,
             $document,
-            $signature
+            $signature,
+            $deposit
         ]);
     }
 

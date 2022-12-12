@@ -37,15 +37,7 @@ class DepositController extends Controller
      */
     public function store(Request $request)
     {
-        $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::create([
-            'id_user' => $request->id,
-            'withdraw_code' => $request->withdrawCode,
-            'credit' => $request->credit,
-            'description' => $request->description,
-            'deposit_date' => $currentDate
-        ]);
-        return response()->json($deposit);
+        //
     }
 
     /**
@@ -56,7 +48,7 @@ class DepositController extends Controller
      */
     public function show($id)
     {
-        $deposit = Deposit::where('id_user', $id)->first();
+        $deposit = Deposit::where('id_user', $id)->get();
         return response()->json($deposit);
     }
 
@@ -80,7 +72,15 @@ class DepositController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $deposit = Deposit::where('id_user', $request->id)
+        ->update([
+            'withdraw_code' => $request->withdrawCode,
+            'credit' => $request->credit,
+            'description' => $request->description,
+            'deposit_date' => $currentDate
+        ]);
+        return response()->json($deposit);
     }
 
     /**
