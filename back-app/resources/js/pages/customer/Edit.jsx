@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Layout from '../../layout/Layout'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Tab } from '@headlessui/react'
-import Swal from 'sweetalert2'
 
 const Edit = () => {
     const [currentWork, setCurrentWork] = useState('')
@@ -34,7 +33,6 @@ const Edit = () => {
 
     const fetchUser = async () => {
         await axios.get(`http://127.0.0.1:8000/api/customer/${id}`).then(({data}) => {
-            //console.log(data)
             const { current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full} = data
             setCurrentWork(current_occupation)
             setIncome(monthly_income)
@@ -54,24 +52,6 @@ const Edit = () => {
         fetchUser()
     }, [])
 
-    const updateCustomer = async (e) => {
-        e.preventDefault();
-        const formData = new FormData()
-        formData.append('_method', 'PATCH')
-        formData.append('name', name)
-        formData.append('idNumber', idNumber)
-        formData.append('frontImage', frontImage)
-        formData.append('backImage', backImage)
-        formData.append('fullImage', fullImage)
-
-        axios.post(`http://127.0.0.1:8000/api/customer/${id}`, formData).then(({data}) => {
-            console.log(data)
-            navigate("/customer")
-        }).catch(({err}) => {
-            console.log(err)
-        })
-    }
-
     const updateCustomerInfo = async (e) => {
         e.preventDefault();
         const formData = new FormData()
@@ -83,7 +63,6 @@ const Edit = () => {
         formData.append('otherContact', otherContact)
 
         axios.post(`http://127.0.0.1:8000/api/customer/${id}`, formData).then(({data}) => {
-            console.log(data)
             navigate("/customer")
         }).catch(({err}) => {
             console.log(err)
@@ -99,7 +78,6 @@ const Edit = () => {
         formData.append('bankAccount', bankAccount)
 
         axios.post(`http://127.0.0.1:8000/api/bank/${id}`, formData).then(({data}) => {
-            console.log(data)
             navigate("/customer")
         }).catch(({err}) => {
             console.log(err)
@@ -108,6 +86,20 @@ const Edit = () => {
 
     const updateCardInfo = async (e) => {
         e.preventDefault();
+        const formData = new FormData()
+        formData.append('_method', 'PATCH')
+        formData.append('name', name)
+        formData.append('idNumber', idNumber)
+        formData.append('frontImage', frontImage)
+        formData.append('backImage', backImage)
+        formData.append('fullImage', fullImage)
+
+        axios.post(`http://127.0.0.1:8000/api/documentid/${id}`, formData).then(({data}) => {
+            console.log(data)
+            navigate("/customer")
+        }).catch(({err}) => {
+            console.log(err)
+        })
     }
     return (
         <>

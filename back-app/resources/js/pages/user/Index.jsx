@@ -3,6 +3,7 @@ import Layout from '../../layout/Layout'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import DataTable from 'react-data-table-component'
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
 const Index = () => {
@@ -49,6 +50,37 @@ const Index = () => {
         })
     }
 
+    const columns = [
+        {
+            name: 'ชื่อ',
+            selector: (row) => row.name,
+            sortable: true,
+        },
+        {
+            name: 'ชื่อผู้ใช้',
+            selector: (row) => row.username,
+            sortable: true,
+        },
+        {
+            name: 'สถานะ',
+            selector: (row) =>
+            row.status === 'active' ?
+            <span className="status_green">ใช้งาน</span>
+            :
+            <span className="status_red">ปิดการใช้งาน</span>,
+            sortable: true,
+        },
+        {
+            name: 'ตัวเลือก',
+            selector: (row) => [
+                <div className="btn_action">
+                    <Link to={`/user/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                    <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
+                </div>
+            ],
+        },
+    ]
+
     return (
         <>
             <Layout>
@@ -63,44 +95,11 @@ const Index = () => {
                     </div>
                     <div className="card_tbl_body">
                         <div className="tbl_scroll">
-                            <table className="tbl">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>ชื่อ</th>
-                                        <th>ชื่อผู้ใช้</th>
-                                        <th>สถานะ</th>
-                                        <th>ตัวเลือก</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        user && user.length > 0 && (
-                                            user.map((row, i) => (
-                                                <tr key={i}>
-                                                    <td>{number++}</td>
-                                                    <td>{row.name}</td>
-                                                    <td>{row.username}</td>
-                                                    <td>
-                                                        {
-                                                            row.status === 'active' ?
-                                                            <span className="status_green">ใช้งาน</span>
-                                                            :
-                                                            <span className="status_red">ปิดการใช้งาน</span>
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <div className="btn_action">
-                                                            <Link to={`/user/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
-                                                            <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        )
-                                    }
-                                </tbody>
-                            </table>
+                            <DataTable
+                                columns={columns}
+                                data={user}
+                                pagination
+                            />
                         </div>
                     </div>
                 </div>

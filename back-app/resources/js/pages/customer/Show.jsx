@@ -11,6 +11,7 @@ import { currencyFormat } from '../../utils/Formatter'
 
 const Show = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
+    const [customerStatus, setCustomerStatus] = useState('')
     const [currentWork, setCurrentWork] = useState("");
     const [income, setIncome] = useState("");
     const [contactNumber, setContactNumber] = useState("");
@@ -30,46 +31,23 @@ const Show = () => {
     const [credit, setCredit] = useState('')
     const [description, setDescription] = useState('')
 
-    function closeModal() {
-        setIsOpen(false)
-      }
-    
-      function openModal() {
-        setIsOpen(true)
-      }
-
     const fetchCustomer = async () => {
-        await axios
-            .get(`http://127.0.0.1:8000/api/customer/${id}`)
-            .then(({ data }) => {
-                console.log(data)
-                const {
-                    current_occupation,
-                    monthly_income,
-                    contact_number,
-                    current_address,
-                    emergency_contact_number,
-                    bank_name,
-                    bank_acc,
-                    name,
-                    id_number,
-                    front,
-                    back,
-                    full,
-                } = data;
-                setCurrentWork(current_occupation);
-                setIncome(monthly_income);
-                setContactNumber(contact_number);
-                setCurrentAddress(current_address);
-                setOtherContact(emergency_contact_number);
-                setBankName(bank_name);
-                setBankAccount(bank_acc);
-                setName(name);
-                setIdNumber(id_number);
-            })
-            .catch(({ err }) => {
-                console.log(err);
-            });
+        await axios.get(`http://127.0.0.1:8000/api/customer/${id}`).then(({ data }) => {
+            console.log(data)
+            const { status, current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full, } = data;
+            setCustomerStatus(status)
+            setCurrentWork(current_occupation);
+            setIncome(monthly_income);
+            setContactNumber(contact_number);
+            setCurrentAddress(current_address);
+            setOtherContact(emergency_contact_number);
+            setBankName(bank_name);
+            setBankAccount(bank_acc);
+            setName(name);
+            setIdNumber(id_number);
+        }).catch(({ err }) => {
+            console.log(err);
+        });
     };
 
     useEffect(() => {
@@ -79,47 +57,72 @@ const Show = () => {
         <>
             <Layout>
                 <h3 className="main_tit">สร้างระยะเวลา</h3>
-                <div className="card_profile_box">
-                    <div className="card_profile_wrap">
-                        <div className="left">
-                            <div className="avatar_lg">
-                                <img src={Avatar} alt="" />
-                            </div>
-                            <div className="profile_info">
-                                <h4>{name}</h4>
-                                <p>กำหลังดำเนินการ</p>
-                                <ul>
-                                    <li>
-                                        <h5>$ 25,184</h5>
-                                        <p>เงินกู้รวม</p>
-                                    </li>
-                                    <li>
-                                        <h5>5,482</h5>
-                                        <p>จำนวนเงินกู้</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="right">
-                            <div className="text-center text-sm-end">
-                                <button type="button" className="btn btn_light" onClick={() => setIsOpen(true)}>
-                                    <MdAttachMoney/>
-                                    <span>ใส่เครดิต</span>
-                                </button>
+                <div className="grid grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1">
+                        <div className="card">
+                            <div className="card_body card_profile_box">
+                                <div className="grid grid-cols-1 sm:grid-cols-2">
+                                    <div className="left col-auto sm:col-span-2">
+                                        <div className="avatar_lg">
+                                            <img src={Avatar} alt="" />
+                                        </div>
+                                        <div className="profile_info">
+                                            {
+                                                name == null ? (
+                                                    <h4>ไม่มีข้อมูล</h4>
+                                                ) : (
+                                                    <h4>{name}</h4>
+                                                )
+                                            }
+                                            <p>กำหลังดำเนินการ</p>
+                                            <ul className="inline-block">
+                                                <li>
+                                                    <h5>{currencyFormat(25000)}</h5>
+                                                    <h6>ยอดเงิน</h6>
+                                                </li>
+                                                <li>
+                                                    <h5>{currencyFormat(25000)}</h5>
+                                                    <h6>ดอกเบี้ย</h6>
+                                                </li>
+                                                <li>
+                                                    <h5>{currencyFormat(25000)}</h5>
+                                                    <h6>ยอดเงินรวม</h6>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="right">
+                                        <div className="text-center text-sm-end">
+                                            {
+                                                customerStatus === 'incomplete' ? (
+                                                    <></>
+                                                ) : (
+                                                    <button type="button" className="btn btn_light" onClick={() => setIsOpen(true)}>
+                                                        <MdAttachMoney/>
+                                                        <span>ใส่เครดิต</span>
+                                                    </button> 
+                                                )
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div className="card_row">
-                    <div className="card_left">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="card">
                             <div className="card_body">
                                 <h4 className="card_title">ข้อมูลลูกค้า</h4>
-                                <div>
+                                <div className="card_info">
                                     <p>
                                         <strong>อาชีพปัจจุบัน :</strong>
-                                        <span>{currentWork}</span>
+                                        {
+                                            currentWork == null ? (
+                                                <span>ไม่มีข้อมูล</span>
+                                            ) : (
+                                                <span>{currentWork}</span>
+                                            )
+                                        }
                                     </p>
                                     <p>
                                         <strong>รายได้ต่อเดือน :</strong>
@@ -127,38 +130,53 @@ const Show = () => {
                                     </p>
                                     <p>
                                         <strong>เบอร์ติดต่อ :</strong>
-                                        <span>{contactNumber}</span>
+                                        {
+                                            contactNumber == null ? (
+                                                <span>ไม่มีข้อมูล</span>
+                                            ) : (
+                                                <span>{contactNumber}</span>
+                                            )
+                                        }
                                     </p>
                                     <p>
                                         <strong>ที่อยู่ปัจจุบัน :</strong>
-                                        <span>{currentAddress}</span>
+                                        {
+                                            currentAddress == null ? (
+                                                <span>ไม่มีข้อมูล</span>
+                                            ) : (
+                                                <span>{currentAddress}</span>
+                                            )
+                                        }
                                     </p>
                                     <p>
                                         <strong>เบอร์ติดต่อฉุกเฉิน :</strong>
-                                        <span>{otherContact}</span>
+                                        {
+                                            otherContact == null ? (
+                                                <span>ไม่มีข้อมูล</span>
+                                            ) : (
+                                                <span>{otherContact}</span>
+                                            )
+                                        }
                                     </p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="card_right">
-                        <div className="card">
-                            <div className="card_body">
-                                <h4 className="card_title">ข้อมูลลูกค้า</h4>
-                                <div className="tbl_scroll">
-                                    <table className="tbl">
-                                        <thead>
-                                            <tr>
-                                                <th>รหัสถอนเงิน</th>
-                                                <th>เครดิต</th>
-                                                <th>รายละเอียด</th>
-                                                <th>ตัวเลือก</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
+                        <div className="col-span-2">
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="card">
+                                    <div className="card_body">
+                                        <h4 className="card_title"></h4>
+                                        <table className="tbl">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

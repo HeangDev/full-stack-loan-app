@@ -39,6 +39,10 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
         'bank' => BankController::class,
     ]);
 
+    Route::resource('documentid', DocumentIdController::class)->only([
+        'update'
+    ]);
+
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
     Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
     

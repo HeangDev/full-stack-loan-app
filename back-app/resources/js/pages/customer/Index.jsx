@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../../layout/Layout'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import DataTable from 'react-data-table-component'
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock } from "react-icons/ai";
 import { BiShowAlt } from "react-icons/bi";
-import DataTableCustomer from '../../components/DataTableCustomer';
-
 
 const Index = () => {
-    
+    const [customer, setCustomer] = useState([])
+    let number = 1
+
+    const fetchCustomer = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/customer`).then(({data}) => {
+            console.log(data)
+            setCustomer(data)
+        })
+    }
+
+    useEffect(() => {
+        fetchCustomer()
+    }, [])
+
     const handleDelete = async (id) => {
         const isConfirm = await Swal.fire({
             title: 'Are you sure?',
@@ -40,10 +52,94 @@ const Index = () => {
         })
     }
 
+    const columns = [
+        {
+            name: "ชื่อลูกค้า",
+            selector: (row) => 
+            row.name === '' || row.name === null ?
+            <>ไม่สมบูรณ์</>
+            :
+            <>{row.name}</>,
+            sortable: true,
+        },
+        {
+            name: "ลูกค้าโทร",
+            selector: (row) => row.tel,
+            sortable: true,
+        },
+        {
+            name: "เครดิต",
+            selector: (row) => row.deposit_amount,
+            sortable: true,
+        },
+        {
+            name: "ข้อมูลอื่น ๆ",
+            selector: (row) =>
+            row.status === 'complete' ?
+            <span className="status_green">กรอกข้อมูลแล้ว</span>
+            :
+            <span className="status_red">ไม่สมบูรณ์</span>,
+            sortable: true,
+        },
+        {
+            name: "ลายเซ็น",
+            selector: (row) =>
+            row.sign_status === '1' ?
+            <span className="status_green">เซ็นชื่อเรียบร้อยแล้วค่ะ</span>
+            :
+            <span className="status_red">ยังไม่ได้เซ็นชื่อค่ะ</span>,
+            sortable: true,
+        },
+        {
+            name: "สถานะการกู้",
+            selector: (row) => <span className='status_orange'>{row.deposits_status}</span>,
+        },
+        {
+            name: "รหัสถอน",
+            selector: (row) =>
+            row.withdraw_code === '' ?
+            <span className="status_red">ยังไม่มีรหัสถอนเงินค่ะ</span>
+            :
+            <span className="status_green">{row.withdraw_code}</span>,
+            sortable: true,
+        },
+        {
+            name: "ตัวเลือก",
+            cell: (row) => [
+                row.status == 'complete' ?
+                    <Link to={`/customer/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                    :
+                    <Link to={`/customer/create/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>,
+                
+                    <Link to={`/customer/changepassword/${row.id}`} className="btn_change"><AiOutlineLock/></Link>,
+                    <Link to={`/customer/${row.id}`} className="btn_show"><BiShowAlt/></Link>,
+                    <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
+           ]
+        },
+    ]
+
     return (
         <>
             <Layout>
-                <DataTableCustomer />
+                <h3 className="main_tit">รายชื่อลูกค้า</h3>
+                <div className="card_tbl">
+                    <div className="card_tbl_header">
+                        <div className="btn_wrap mb-[10px]">
+                            <Link to="/customer/create" className="btn btn_save">
+                                <span>เพิ่มลูกค้าใหม่</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="card_tbl_body">
+                        <div className="tbl_scroll">
+                            <DataTable
+                                columns={columns}
+                                data={customer}
+                                pagination
+                            />
+                        </div>
+                    </div>
+                </div>
             </Layout>
         </>
     )
