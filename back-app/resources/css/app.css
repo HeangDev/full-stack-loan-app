@@ -76,7 +76,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .header .right .profile_avatar button.profile_avatar_action img {@apply w-[32px] h-[32px] rounded-full object-cover;}
 .header .drop_menu{@apply absolute top-[48px] right-0 bg-[#fff] border border-[#eee] rounded-bl-[4px] rounded-br-[4px] py-[4px] px-0 text-[#333] text-left;}
 .header .drop_menu.show{@apply block;}
-.header .drop_menu a{@apply flex items-center bottom-0 w-full bg-transparent py-[7px] px-[20px] font-normal text-[#333] text-inherit whitespace-nowrap hover:bg-[#f7f7f7];}
+.header .drop_menu a, .header .drop_menu button{@apply flex items-center bottom-0 w-full bg-transparent py-[7px] px-[20px] font-normal text-[#333] text-inherit whitespace-nowrap hover:bg-[#f7f7f7];}
 .header .drop_menu svg{@apply mr-[6px] w-4 h-4;}
 
 .content_body {@apply flex-1 bg-gray-200;}
@@ -84,15 +84,13 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .container {@apply mx-auto px-3 py-8}
 .content_container {@apply mt-8;}
 .content_header {@apply mt-4;}
-.main_card_wrap {@apply flex flex-wrap -mx-5;}
-.main_card_wrap .card {@apply w-full sm:w-1/2 xl:w-1/3 px-5 mb-5 xl:mb-0;}
-.main_card_wrap .card:last-child {@apply mb-0;}
-.main_card_wrap .card_item {@apply flex items-center px-5 py-6 shadow-sm rounded-md bg-white;}
-.main_card_wrap .card_icon {@apply p-3 rounded-full bg-opacity-75;}
-.main_card_wrap .card_icon .icon {@apply h-8 w-8 text-white;}
-.main_card_wrap .card_header {@apply mx-5;}
-.main_card_wrap .card_header h4 {@apply text-2xl font-semibold text-gray-700;}
-.main_card_wrap .card_header p {@apply text-[16px] font-medium text-gray-500;}
+.card .card:last-child {@apply mb-0;}
+.card .card_item {@apply flex items-center px-5 py-6 shadow-sm rounded-md bg-white;}
+.card .card_icon {@apply p-3 rounded-full bg-opacity-75;}
+.card .card_icon .icon {@apply h-8 w-8 text-white;}
+.card .card_header {@apply mx-5;}
+.card .card_header h4 {@apply text-2xl font-semibold text-gray-700;}
+.card .card_header p {@apply text-[16px] font-medium text-gray-500;}
 
 .content .page_title_wrap .page_title{ @apply text-[18px] m-0 leading-[75px] overflow-hidden whitespace-nowrap text-ellipsis text-slate-100; }
 .card_tbl{@apply min-w-full h-auto p-[24px] rounded-[4px] bg-[#fff] shadow-sm;}

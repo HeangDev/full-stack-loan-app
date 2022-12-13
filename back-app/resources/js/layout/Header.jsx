@@ -1,11 +1,48 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BiMenuAltLeft } from "react-icons/bi";
 import { Link } from 'react-router-dom'
 import Avatar from '../assets/avatar.jpg'
 import { dropmenu } from '../data/dropmenu';
 import { Menu, Transition } from '@headlessui/react'
+const events = [
+    "load",
+    "mousemove",
+    "mousedown",
+    "click",
+    "scroll",
+    "keypress",
+];
 
 const Header = () => {
+    let timer;
+
+    const logout = () => {
+        localStorage.clear();
+        window.location.pathname = '/'
+    }
+
+    const resetTimer = () => {
+        if (timer) clearTimeout(timer)
+    }
+
+    const handleTimer = () => {
+        timer = setTimeout(() => {
+            resetTimer()
+            Object.values(events).forEach((item) => {
+                window.removeEventListener(item, resetTimer)
+            })
+            logout()
+        }, 600000)
+    }
+
+    useEffect(() => {
+        Object.values(events).forEach((item) => {
+            window.addEventListener(item, () => {
+                resetTimer()
+                handleTimer()
+            })
+        })
+    }, [])
     return (
         <>
             <Menu as="div" className="header">
@@ -27,10 +64,10 @@ const Header = () => {
                                             {dropmenu.map(( item ) => {
                                                 return (
                                                     <Menu.Item key={item.id}>
-                                                        <Link to={item.url}>
+                                                        <button type="button" onClick={logout}>
                                                             <item.icon/>
                                                             <span>{item.name}</span>
-                                                        </Link>
+                                                        </button>
                                                     </Menu.Item>
                                                 )
                                             })}
