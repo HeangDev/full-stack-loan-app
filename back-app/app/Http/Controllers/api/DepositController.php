@@ -14,7 +14,7 @@ class DepositController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
     }
@@ -48,7 +48,7 @@ class DepositController extends Controller
      */
     public function show($id)
     {
-        $deposit = Deposit::where('id_user', $id)->get();
+        $deposit = Deposit::where('id_user', $id)->first();
         return response()->json($deposit);
     }
 
@@ -76,7 +76,7 @@ class DepositController extends Controller
         $deposit = Deposit::where('id_user', $request->id)
         ->update([
             'withdraw_code' => $request->withdrawCode,
-            'credit' => $request->credit,
+            'deposit_amount' => $request->credit,
             'description' => $request->description,
             'deposit_date' => $currentDate
         ]);
@@ -92,5 +92,11 @@ class DepositController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDepositById($id)
+    {
+        $deposit = Deposit::where('id_user', $id)->get();
+        return response()->json($deposit);
     }
 }

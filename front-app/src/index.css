@@ -134,7 +134,7 @@ input[type=number]{-moz-appearance:textfield;} /* Firefox */
 .head_windraw .right{@apply w-[50%] border-l border-[#f7f7f7] pl-[10px];}
 .head_windraw .left{@apply w-[50%] pr-[10px];}
 .head_windraw .tit{@apply text-[14px] font-medium text-[#333] text-ellipsis whitespace-nowrap overflow-hidden w-[98%];}
-.head_windraw .des{@apply text-[20px] font-semibold text-orange-500;}
+.head_windraw .des{@apply text-[17px] font-semibold text-orange-500;}
 .windraw_des {@apply w-full py-[10px] px-[15px];}
 .windraw_des .tit_note{@apply text-center text-red-500}
 .windraw_des p{@apply text-center text-gray-400;}

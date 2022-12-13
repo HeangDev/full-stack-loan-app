@@ -7,6 +7,7 @@ use App\Http\Controllers\api\DurationController;
 use App\Http\Controllers\api\CustomerAuthController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\CustomerController;
+use App\Http\Controllers\api\DepositController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
 
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
     Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
+    Route::get('/getdepositbyid/{id}', [DepositController::class, 'getDepositById']);
     
 });
 

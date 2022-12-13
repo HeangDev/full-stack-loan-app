@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('total');
             $table->string('pay_month');
             $table->date('date');
+            $table->enum('status', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }

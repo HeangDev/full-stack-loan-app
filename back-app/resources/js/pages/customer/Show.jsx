@@ -53,11 +53,37 @@ const Show = () => {
     };
 
     const fetchDepositById = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then(({ data }) => {
+        await axios.get(`http://127.0.0.1:8000/api/getdepositbyid/${id}`).then(({ data }) => {
             setDeposit(data)
         }).catch(({ err }) => {
             console.log(err);
         });
+    }
+
+    const createDeposit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData()
+            formData.append('_method', 'PATCH')
+            formData.append('id', id)
+            formData.append('withdrawCode', withdrawCode)
+            formData.append('credit', credit)
+            formData.append('description', description)
+            axios.post(`http://127.0.0.1:8000/api/deposit/${id}`, formData).then((data) => {
+                console.log(data)
+                Swal.fire({
+                    title: 'Success!',
+                    text: "คุณได้ให้เครดิตแก่ลูกค้าของคุณเรียบร้อยแล้ว",
+                    icon: "success",
+                    timer: '1500'
+                })
+                setWithDrawCode('')
+                setCredit('')
+                setDescription('')
+                setIsOpen(false)
+                fetchDepositById()
+            }).catch(({err}) => {
+                console.log(err)
+            })
     }
 
     useEffect(() => {
@@ -219,9 +245,9 @@ const Show = () => {
                                                         deposit && deposit.length > 0 && (
                                                             deposit.map((row, i) => (
                                                                 <tr key={i}>
-                                                                    <td>{row.withdraw_code}</td>
-                                                                    <td>{row.deposit_amount}</td>
-                                                                    <td>{row.description}</td>
+                                                                    <td>{row.withdraw_code == null ? '-' : row.withdraw_code}</td>
+                                                                    <td>{row.deposit_amount == null ? '-' : row.deposit_amount}</td>
+                                                                    <td>{row.description == null ? '-' : row.description}</td>
                                                                     <td>{row.deposit_date == null ? 'ไม่มีข้อมูล' : row.deposit_date}</td>
                                                                 </tr>
                                                             ))
@@ -286,30 +312,7 @@ const Show = () => {
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="modal_dialog">
-                                <form
-                                    autoComplete="off"
-                                    onSubmit={handleSubmit(() => {
-                                        const formData = new FormData()
-                                        formData.append('id', id)
-                                        formData.append('withdrawCode', withdrawCode)
-                                        formData.append('credit', credit)
-                                        formData.append('description', description)
-                                        axios.post(`http://127.0.0.1:8000/api/deposit/${id}`, formData).then((data) => {
-                                            console.log(data)
-                                            Swal.fire({
-                                                title: 'Success!',
-                                                text: "คุณได้ให้เครดิตแก่ลูกค้าของคุณเรียบร้อยแล้ว",
-                                                icon: "success",
-                                                timer: '1500'
-                                            })
-                                            setWithDrawCode('')
-                                            setCredit('')
-                                            setDescription('')
-                                            setIsOpen(false)
-                                        }).catch(({err}) => {
-                                            console.log(err)
-                                        })
-                                    })}>
+                                <form autoComplete="off" onSubmit={createDeposit}>
                                     <div className="modal_header">
                                         <Dialog.Title
                                             as="h4"
@@ -321,23 +324,13 @@ const Show = () => {
                                     </div>
                                     <div className="modal_body">
                                         <div className="frm_wrap">
-                                            <div className="frm_grp required">
+                                            <div className="frm_grp">
                                                 <label>รหัสถอนเงิน</label>
-                                                <input
-                                                    {...register("withdrawCode", { required: 'ต้องระบุหมายเลขโทรศัพท์.' })}
-                                                    type="number" placeholder="รหัสถอนเงิน 4 หลัก" value={withdrawCode}
-                                                    onChange={(e) => setWithDrawCode(e.target.value)}
-                                                />
-                                                {errors.withdrawCode && <span className="msg_error">{errors.withdrawCode?.message}</span>}
+                                                <input type="number" placeholder="รหัสถอนเงิน 4 หลัก" value={withdrawCode} onChange={(e) => setWithDrawCode(e.target.value)}  /> 
                                             </div>
-                                            <div className="frm_grp required">
+                                            <div className="frm_grp">
                                                 <label>จำนวนเงิน</label>
-                                                <input
-                                                    {...register("credit", { required: 'ต้องระบุหมายเลขโทรศัพท์.' })}
-                                                    type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={credit}
-                                                    onChange={(e) => setCredit(e.target.value)}
-                                                />
-                                                {errors.credit && <span className="msg_error">{errors.credit?.message}</span>}
+                                                <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={credit} onChange={(e) => setCredit(e.target.value)} /> 
                                             </div>
                                             <div className="frm_grp">
                                                 <label>คำอธิบาย</label>

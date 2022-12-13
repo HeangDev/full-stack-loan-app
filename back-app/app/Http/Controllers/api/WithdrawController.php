@@ -41,7 +41,7 @@ class WithdrawController extends Controller
         $currentDate = Carbon::now()->toDateString();
         $deposit = Deposit::where('id_user', $request->id)
         ->update([
-            'credit' => '0',
+            'deposit_amount' => '0',
             'description' => 'ถอนเงินสำเร็จ'
         ]);
 

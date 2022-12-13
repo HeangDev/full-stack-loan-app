@@ -12,7 +12,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { currencyFormat } from '../utils/Formatter'
 import axios from 'axios'
-import Agreement from '../components/Agreement'
 
 const Home = () => {
     const [checked, setChecked] = useState(false);
