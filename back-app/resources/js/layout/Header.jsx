@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { BiMenuAltLeft } from "react-icons/bi";
 import { Link } from 'react-router-dom'
 import Avatar from '../assets/avatar.jpg'
+import { BsBell } from "react-icons/bs";
 import { dropmenu } from '../data/dropmenu';
 import { Menu, Transition } from '@headlessui/react'
+import DropAvatar from '../assets/avatar.png'
 const events = [
     "load",
     "mousemove",
@@ -45,16 +46,82 @@ const Header = () => {
     }, [])
     return (
         <>
-            <Menu as="div" className="header">
-                {({ open }) => (
-                    <>
-                        <div className="left">
-                            <button type="button">
-                                <BiMenuAltLeft className="w-6 h-6 fill-gray-400"/>
-                            </button>
-                        </div>
-                        <div className="right">
-                            <div className="profile_avatar">
+            <div className="header">
+                <div className="left"></div>
+                <div className="right">
+                    <Menu as="div" className="notification">
+                        {({ open }) => (
+                            <>
+                                <Menu.Button className="notification_action">
+                                    <BsBell className="w-[20px] h-[20px]"/>
+                                </Menu.Button>
+                                <Transition show={open}>
+                                    <ul className="notification_drop_menu">
+                                        <li>
+                                            <div className="title">
+                                                การแจ้งเตือน
+                                                <span className="status_light">3</span>
+                                            </div>
+                                            <div className="list">
+                                                <div className="notification_content">
+                                                    <ul>
+                                                        <li className="notification_item notification_unread">
+                                                            <Link to="">
+                                                                <div className="image">
+                                                                    <img src={DropAvatar} alt="" />
+                                                                </div>
+                                                                <div className="notification_info">
+                                                                    <div className="text">
+                                                                        <span className="user_name">Jessica Caruso </span>
+                                                                        accepted your invitation to join the team.
+                                                                    </div>
+                                                                    <span className="date">2 นาทีที่แล้ว</span>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="notification_item">
+                                                            <Link to="">
+                                                                <div className="image">
+                                                                    <img src={DropAvatar} alt="" />
+                                                                </div>
+                                                                <div className="notification_info">
+                                                                    <div className="text">
+                                                                        <span className="user_name">Joel King </span>
+                                                                        is now following you
+                                                                    </div>
+                                                                    <span className="date">2 วันที่ผ่านมา</span>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                        <li className="notification_item">
+                                                            <Link to="">
+                                                                <div className="image">
+                                                                    <img src={DropAvatar} alt="" />
+                                                                </div>
+                                                                <div className="notification_info">
+                                                                    <div className="text">
+                                                                        <span className="user_name">John Doe </span>
+                                                                        is watching your main repository
+                                                                    </div>
+                                                                    <span className="date">2 วันที่ผ่านมา</span>
+                                                                </div>
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className="footer">
+                                                <Link to="">ดูการแจ้งเตือนทั้งหมด</Link>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </Transition>
+                            </>
+                        )}
+                    </Menu>
+                    <Menu as="div" className="profile_avatar">
+                        {({ open }) => (
+                            <>
                                 <Menu.Button className="profile_avatar_action">
                                     <img src={Avatar} alt="" />
                                 </Menu.Button>
@@ -74,11 +141,12 @@ const Header = () => {
                                         </div>
                                     </Menu.Items>
                                 </Transition>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </Menu>
+                            </>
+                        )}
+                    </Menu>
+                </div>
+            </div>
+            <button className="sub_header"></button>
         </>
     )
 }

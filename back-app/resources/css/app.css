@@ -65,12 +65,11 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .sidebar .side_link svg{@apply w-6 h-6;}
 .sidebar .side_link span{@apply mx-3;}
 
-.main{@apply flex flex-col flex-1 pt-[66px] pl-0 lg:pl-[250px] overflow-hidden;}
+.main{@apply flex flex-col flex-1 pt-[35px] pl-0 lg:pl-[250px] overflow-hidden;}
 .content {@apply block py-5 px-6 w-full;}
 
-.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 py-4 bg-white shadow-sm;}
-.header .left {@apply flex items-center;}
-.header .right {@apply flex items-center;}
+.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between h-[60px] px-6 bg-white border-b border-b-[#e6e6e6];}
+.header .right {@apply flex items-center gap-3;}
 .header .right .profile_avatar {@apply relative;}
 .header .right .profile_avatar button.profile_avatar_action {@apply flex text-gray-600 focus:outline-none;}
 .header .right .profile_avatar button.profile_avatar_action img {@apply w-[32px] h-[32px] rounded-full object-cover;}
@@ -182,3 +181,23 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .profile_tel{@apply font-bold text-[18px] text-white text-center leading-normal;}
 
 .bg_indigo{@apply  bg-[#727cf5] !important;}
+
+.notification_drop_menu{@apply absolute top-[55px] right-[24px] w-[300px] border border-[#e0e0e0] bg-[#fff] rounded-[3px] mt-[12px] leading-[20px] after:content-[''] after:inline-block after:absolute after:top-[-8px] after:left-auto after:right-[45px] after:border-b-[8px] after:border-b-[#fff] after:border-r-[8px] after:border-r-transparent after:border-l-[8px] after:border-l-transparent after:border-[#fff] after:-ml-[6px] before:content-[''] before:inline-block before:absolute before:bottom-[-12px] before:left-[50%] before:z-[1001] before:border-b-[9px] before:border-b-[#e3e3e3] before:border-l before:border-l-transparent before:border-r before:border-r-transparent ;}
+.notification_drop_menu .notification_content{@apply relative h-[222px];}
+.notification_drop_menu .title{@apply pt-[10px] pb-[8px] text-[14px] text-[#8a8a8a] text-center border-b border-[#ebebeb];}
+.notification_drop_menu .notification_item.notification_unread{@apply border-b border-[#dce9fd] bg-[#ebf2fe];}
+.notification_drop_menu .notification_item.notification_unread > a{@apply relative after:content-[''] after:block after:absolute after:top-[20px] after:right-[15px] after:w-[6px] after:h-[6px] after:bg-[#727cf5] after:rounded-full;}
+.notification_drop_menu .notification_item{@apply border-b border-[#ebebeb] overflow-hidden;}
+.notification_drop_menu .notification_item:last-child{@apply border-b-0;}
+.notification_drop_menu .notification_item > a{@apply block py-[15px] pr-[25px] pl-[15px] overflow-hidden;}
+.notification_drop_menu .notification_item > a .image{@apply w-[38px] h-[38px] rounded-full bg-[#e4e4e4] float-left text-center overflow-hidden;}
+.notification_drop_menu .notification_item > a .image image {@apply w-[38px] h-[38px] text-[1.923rem] text-[#979595] leading-[36px];}
+.notification_drop_menu .notification_item > a .notification_info{@apply pl-[50px] leading-[14px];}
+.notification_drop_menu .notification_item > a .notification_info .text{@apply text-[13px] font-medium text-[#8a8a8a] leading-[16px];}
+.notification_drop_menu .notification_item > a .notification_info .user_name{@apply text-[13px] text-[#727cf5] font-semibold;}
+.notification_drop_menu .notification_item > a .notification_info .date{@apply block mt-[4px] text-[.6923rem] text-[#8a8a8a] uppercase;}
+.notification_drop_menu .footer a{@apply block border-t border-[#ebebeb] bg-[#fafafa] outline-0 py-[10px] text-[14px] text-[#8a8a8a] text-center hover:bg-[#f1f1f1];}
+
+
+
+

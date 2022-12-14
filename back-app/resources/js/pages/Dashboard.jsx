@@ -90,12 +90,12 @@ const Dashboard = () => {
                         />
                     </div>
                     <div>
-                        <div className="card">
+                        {/* <div className="card">
                             <div className="card_body">
                                 <h4 className="card_title"></h4>
                                 <Line options={options} data={data} />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </Layout>
