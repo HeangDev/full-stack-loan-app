@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/Header'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Other_03 from '../../assets/other_03.jpg'
 import axios from 'axios';
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 
 const ChangePassword = () => {
     const { register, handleSubmit, watch, formState: {errors} } = useForm();
@@ -71,7 +72,7 @@ const ChangePassword = () => {
                                     type={isRevealPwd ? "text" : "password"} placeholder="กรุณาตั้งรหัสผ่าน 6-16 หลัก" name="newPassword"
                                     onChange={(e) => setNewPassword(e.target.value)}
                                 />
-                                <span className={isRevealPwd ? 'ic_hide' : 'ic_view'} onClick={() => setIsRevealPwd(prevState => !prevState)}></span>
+                                <span className="input_text" onClick={() => setIsRevealPwd(prevState => !prevState)}>{isRevealPwd ? <AiOutlineEye/> : <AiOutlineEyeInvisible/>}</span>
                             </div>
                             {errors.newPassword && <span className="msg_error">{errors.newPassword?.message}</span>}
                         </div>

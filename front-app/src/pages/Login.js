@@ -48,7 +48,7 @@ const Login = () => {
                 formData.append('password', password)
 
                 axios.post('/api/login', formData).then(({data}) => {
-                    //console.log(data)
+                    console.log(data)
                     localStorage.setItem('auth_id', data.id)
                     localStorage.setItem('auth_token', data.token)
                     navigate('/')
