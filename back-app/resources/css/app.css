@@ -65,7 +65,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .sidebar .side_link svg{@apply w-6 h-6;}
 .sidebar .side_link span{@apply mx-3;}
 
-.main{@apply flex flex-col flex-1 pt-[35px] pl-0 lg:pl-[250px] overflow-hidden;}
+.main{@apply flex flex-col flex-1 pt-[60px] pl-0 lg:pl-[250px] overflow-hidden;}
 .content {@apply block py-5 px-6 w-full;}
 
 .header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 bg-white border-b border-b-[#e6e6e6];}
@@ -142,6 +142,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .rdt_TableRow{@apply min-h-[38px] bg-[#fff] !important;}
 .rdt_TableRow:hover .rdt_TableCell{@apply bg-[#f5f5f9];}
 .rdt_TableCell{@apply h-[38px] px-3 text-gray-900 font-normal whitespace-nowrap;}
+/* .rdt_TableCell div:first-child{@apply ;} */
 .rdt_TableCell:last-child{@apply space-x-2;}
 .btn_action{@apply space-x-2;}
 .btn_edit{@apply inline-block rounded-[0.2rem] bg-blue-500 py-[4px] px-[8px] text-center align-middle no-underline;}
@@ -208,8 +209,6 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 
 .sub_header{@apply block bg-[#fff] py-[16px] px-[10px] text-[1.077rem] font-light text-[#404040] lg:hidden;}
-
-
 
 
 

@@ -95,7 +95,6 @@ const Index = () => {
                     <div className="card_tbl_body">
                         <div className="tbl_scroll">
                             <DataTable
-                                title="รายการระยะเวลา"
                                 columns={columns}
                                 data={duration}
                                 pagination
