@@ -108,6 +108,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .tbl .btn_action{@apply space-x-2;}
 .tbl .btn_action svg{@apply fill-white w-5 h-5;}
 
+.status_light{@apply inline-block min-w-[17px] ml-[4px] py-[3px] px-[6px] text-[11px] font-bold text-center leading-[10px] text-[#8a8a8a] whitespace-nowrap align-baseline rounded-[10rem] bg-[#e4e4e4];}
 .status_red{@apply inline-block w-full py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-red-500;}
 .status_green{@apply inline-block w-full py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-green-500;}
 .status_orange{@apply inline-block w-full py-[5px] px-[10px] text-[12px] font-semibold leading-none text-white whitespace-nowrap align-baseline rounded-[4px] bg-orange-500;}
@@ -184,21 +185,19 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 .notification{@apply mr-[10px] px-[10px] leading-[60px];}
 .notification_drop_menu{@apply absolute top-[55px] right-[24px] w-[300px] border border-[#e0e0e0] bg-[#fff] rounded-[3px] mt-[12px] leading-[20px] after:content-[''] after:inline-block after:absolute after:top-[-8px] after:left-auto after:right-[45px] after:border-b-[8px] after:border-b-[#fff] after:border-r-[8px] after:border-r-transparent after:border-l-[8px] after:border-l-transparent after:border-[#fff] after:-ml-[6px] before:content-[''] before:inline-block before:absolute before:bottom-[-12px] before:left-[50%] before:z-[1001] before:border-b-[9px] before:border-b-[#e3e3e3] before:border-l before:border-l-transparent before:border-r before:border-r-transparent ;}
-.notification_drop_menu .notification_content{@apply relative h-[222px];}
+.notification_drop_menu .notification_content{@apply relative h-[242px];}
 .notification_drop_menu .title{@apply pt-[10px] pb-[8px] text-[14px] text-[#8a8a8a] text-center border-b border-[#ebebeb];}
 .notification_drop_menu .notification_item.notification_unread{@apply border-b border-[#dce9fd] bg-[#ebf2fe];}
 .notification_drop_menu .notification_item.notification_unread > a{@apply relative after:content-[''] after:block after:absolute after:top-[20px] after:right-[15px] after:w-[6px] after:h-[6px] after:bg-[#727cf5] after:rounded-full;}
 .notification_drop_menu .notification_item{@apply border-b border-[#ebebeb] overflow-hidden;}
 .notification_drop_menu .notification_item:last-child{@apply border-b-0;}
-.notification_drop_menu .notification_item > a{@apply block py-[15px] pr-[25px] pl-[15px] overflow-hidden;}
+.notification_drop_menu .notification_item > a{@apply block py-[15px] pr-[25px] pl-[15px] text-[#8a8a8a] overflow-hidden;}
+.notification_drop_menu .notification_item > a:hover{@apply bg-[#727cf5] text-white after:bg-[#fff];}
 .notification_drop_menu .notification_item > a .image{@apply w-[38px] h-[38px] rounded-full bg-[#e4e4e4] float-left text-center overflow-hidden;}
 .notification_drop_menu .notification_item > a .image image {@apply w-[38px] h-[38px] text-[1.923rem] text-[#979595] leading-[36px];}
 .notification_drop_menu .notification_item > a .notification_info{@apply pl-[50px] leading-[14px];}
-.notification_drop_menu .notification_item > a .notification_info .text{@apply text-[13px] font-medium text-[#8a8a8a] leading-[16px];}
+.notification_drop_menu .notification_item > a .notification_info .text{@apply text-[13px] font-medium leading-[16px];}
 .notification_drop_menu .notification_item > a .notification_info .user_name{@apply text-[13px] text-[#727cf5] font-semibold;}
-.notification_drop_menu .notification_item > a .notification_info .date{@apply block mt-[4px] text-[.6923rem] text-[#8a8a8a] uppercase;}
+.notification_drop_menu .notification_item > a:hover .user_name{@apply text-white;}
+.notification_drop_menu .notification_item > a .notification_info .date{@apply block mt-[4px] text-[.6923rem] uppercase;}
 .notification_drop_menu .footer a{@apply block border-t border-[#ebebeb] bg-[#fafafa] outline-0 py-[10px] text-[14px] text-[#8a8a8a] text-center hover:bg-[#f1f1f1];}
-
-
-
-

@@ -63,3 +63,10 @@ Route::post('/register', [CustomerAuthController::class, 'register']);
 Route::post('/login', [CustomerAuthController::class, 'login']);
 
 
+Route::get('message', function () {
+    $message['user'] = "Sim Kimheang";
+    $message['message'] = "วงเงินกู้ 3,000 บาท นาน 12 เดือน ดอกเบี้ย 1.2%";
+    $success = event(new App\Events\CreateLoan($message));
+    echo "Success Send";
+});
+

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../layout/Layout';
 import Card from '../components/Card'
 import { AiOutlineTeam } from "react-icons/ai";
@@ -57,7 +57,6 @@ export const data = {
   };
 
 const Dashboard = () => {
-    
     return (
         <>
             <Layout>

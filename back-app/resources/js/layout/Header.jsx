@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Avatar from '../assets/avatar.jpg'
 import { BsBell } from "react-icons/bs";
@@ -15,6 +15,7 @@ const events = [
 ];
 
 const Header = () => {
+    const [loanNotification, setLoanNotification] = useState()
     let timer;
 
     const logout = () => {
@@ -43,6 +44,17 @@ const Header = () => {
                 handleTimer()
             })
         })
+        Pusher.logToConsole = false;
+    
+        var pusher = new Pusher('a770b33bb7dc1e1664f0', {
+          cluster: 'ap1'
+        });
+    
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('borrow-money', function(data) {
+            console.log(JSON.stringify(data))
+            setLoanNotification(JSON.stringify(data))
+        });
     }, [])
     return (
         <>
@@ -65,48 +77,28 @@ const Header = () => {
                                             <div className="list">
                                                 <div className="notification_content">
                                                     <ul>
-                                                        <li className="notification_item notification_unread">
-                                                            <Link to="">
-                                                                <div className="image">
-                                                                    <img src={DropAvatar} alt="" />
-                                                                </div>
-                                                                <div className="notification_info">
-                                                                    <div className="text">
-                                                                        <span className="user_name">Jessica Caruso </span>
-                                                                        accepted your invitation to join the team.
-                                                                    </div>
-                                                                    <span className="date">2 นาทีที่แล้ว</span>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
-                                                        <li className="notification_item">
-                                                            <Link to="">
-                                                                <div className="image">
-                                                                    <img src={DropAvatar} alt="" />
-                                                                </div>
-                                                                <div className="notification_info">
-                                                                    <div className="text">
-                                                                        <span className="user_name">Joel King </span>
-                                                                        is now following you
-                                                                    </div>
-                                                                    <span className="date">2 วันที่ผ่านมา</span>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
-                                                        <li className="notification_item">
-                                                            <Link to="">
-                                                                <div className="image">
-                                                                    <img src={DropAvatar} alt="" />
-                                                                </div>
-                                                                <div className="notification_info">
-                                                                    <div className="text">
-                                                                        <span className="user_name">John Doe </span>
-                                                                        is watching your main repository
-                                                                    </div>
-                                                                    <span className="date">2 วันที่ผ่านมา</span>
-                                                                </div>
-                                                            </Link>
-                                                        </li>
+                                                        {/* {
+                                                            loanNotification && loanNotification.length > 0 && (
+                                                                loanNotification.map((item, i) => {
+                                                                    return (
+                                                                        <li className="notification_item notification_unread">
+                                                                            <Link to="">
+                                                                                <div className="image">
+                                                                                    <img src={DropAvatar} alt="" />
+                                                                                </div>
+                                                                                <div className="notification_info">
+                                                                                    <div className="text">
+                                                                                        <span className="user_name">Jessica Caruso </span>
+                                                                                        วงเงินกู้ 3,000 บาท นาน 12 เดือน ดอกเบี้ย 1.2%
+                                                                                    </div>
+                                                                                    <span className="date">2 นาทีที่แล้ว</span>
+                                                                                </div>
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
+                                                                })
+                                                            )
+                                                        } */}
                                                     </ul>
                                                 </div>
                                             </div>
