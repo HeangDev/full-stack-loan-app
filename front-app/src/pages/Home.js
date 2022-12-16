@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { currencyFormat } from '../utils/Formatter'
 import axios from 'axios'
 
+
 const Home = () => {
     const [checked, setChecked] = useState(false);
 
@@ -287,7 +288,7 @@ const Home = () => {
                 <div className="other"><img src={Other_02} alt=""/></div>
             </div>
             { showModal ? (
-                <div className="pop_wrap msg_wrap flexCenter w-[150px]">
+                <div className="pop_wrap msg_agg flexCenter">
                     <div className="pop_inn mgbox_inn">
                         <div className="pop_content">
                             <div className="pop_msg">
