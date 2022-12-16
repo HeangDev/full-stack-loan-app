@@ -8,6 +8,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2'
 import { currencyFormat } from '../../utils/Formatter'
+import DataTable from 'react-data-table-component'
 
 const Show = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
@@ -115,15 +116,11 @@ const Show = () => {
                                             <ul className="inline-block">
                                                 <li>
                                                     <h5>{currencyFormat(25000)}</h5>
-                                                    <h6>ยอดเงิน</h6>
+                                                    <h6>เงินกู้รวม</h6>
                                                 </li>
                                                 <li>
-                                                    <h5>{currencyFormat(25000)}</h5>
-                                                    <h6>ดอกเบี้ย</h6>
-                                                </li>
-                                                <li>
-                                                    <h5>{currencyFormat(25000)}</h5>
-                                                    <h6>ยอดเงินรวม</h6>
+                                                    <h5>2</h5>
+                                                    <h6>จำนวนเงินกู้</h6>
                                                 </li>
                                             </ul>
                                         </div>
@@ -281,9 +278,45 @@ const Show = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1">
-                        <div className="">
-                            
+                    <div className="grid grid-cols-1 gap-4">
+                        <div className="card">
+                            <div className="card_body">
+                                <h4 className="card_title">รายการสินเชื่อ</h4>
+                                <div className="tbl_scroll">
+                                    <table className="tbl">
+                                        <thead>
+                                            <tr>
+                                                <th>เดือน</th>
+                                                <th>ความสนใจ</th>
+                                                <th>จำนวน</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>วันที</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <div className="card">
+                            <div className="card_body">
+
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card_body">
+                                
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card_body">
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

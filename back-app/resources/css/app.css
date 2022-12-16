@@ -13,6 +13,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{-webkit-appea
 input[type=number]{-moz-appearance:textfield;} /* Firefox */
 fieldset{@apply block mb-[15px] pt-[5px] pb-[10px] px-[12px] border border-gray-200;}
 legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
+.ck-editor__editable{@apply min-h-[200px];}
 
 .login_wrap{@apply flex justify-center items-center h-screen bg-[#edf2f7] px-6;}
 .login_card{@apply max-w-sm w-full rounded-md bg-white shadow-md p-6;}
@@ -65,12 +66,12 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .sidebar .side_link svg{@apply w-6 h-6;}
 .sidebar .side_link span{@apply mx-3;}
 
-.main{@apply flex flex-col flex-1 pt-[60px] pl-0 lg:pl-[250px] overflow-hidden;}
+.main{@apply flex flex-col flex-1 pt-[112px] pl-0 lg:pl-[250px] overflow-hidden lg:pt-[60px];}
 .content {@apply block py-5 px-6 w-full;}
 
-.header {@apply fixed left-0 lg:left-[250px] right-0 flex items-center justify-between px-6 bg-white border-b border-b-[#e6e6e6];}
+.header {@apply fixed left-0 z-10 lg:left-[250px] right-0 flex items-center justify-between h-[60px] px-6 bg-white border-b border-b-[#e6e6e6];}
 .header .right {@apply flex items-center;}
-.header .right .profile_avatar {@apply relative pl-[10px];}
+.header .right .profile_avatar {@apply relative pl-[10px] leading-[60px] h-[60px] flex items-center;}
 .header .right .profile_avatar button.profile_avatar_action {@apply flex text-gray-600 focus:outline-none;}
 .header .right .profile_avatar button.profile_avatar_action img {@apply w-[32px] h-[32px] rounded-full object-cover;}
 .header .drop_menu{@apply absolute top-[48px] right-0 bg-[#fff] border border-[#eee] rounded-bl-[4px] rounded-br-[4px] py-[4px] px-0 text-[#333] text-left;}
@@ -180,14 +181,14 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .profile_info h4{@apply mb-[5px] text-[18px] font-bold;}
 .profile_info h6{@apply text-[14px] text-[#e7e7e7];}
 .profile_info p{@apply mb-[15px] text-[12px] font-bold text-gray-200;}
-.profile_tel{@apply font-bold text-[18px] text-white text-center leading-normal;}
+.profile_tel{@apply font-bold text-[15px] text-white text-center leading-normal;}
 
 .bg_indigo{@apply  bg-[#727cf5] !important;}
 
 .notification{@apply px-[10px] leading-[60px];}
 .notification button{@apply block h-[60px] leading-[60px];}
 .notification_drop_menu{@apply absolute top-[60px] right-[24px] w-[300px] border border-[#e0e0e0] bg-[#fff] rounded-[3px] mt-[11px] leading-[20px];}
-.notification > .notification_action[aria-expanded="true"]{@apply after:content-[''] after:inline-block after:absolute after:bottom-[-12px] after:z-[1001] after:-ml-[8px] after:border-b-[8px] after:border-b-[#fff] after:border-l-[8px] after:border-l-transparent after:border-r-[8px] after:border-r-transparent before:content-[''] before:inline-block before:absolute before:bottom-[-12px] before:z-[1001] before:-ml-[9px] before:border-b-[9px] before:border-b-[#e3e3e3] before:border-l-[9px] before:border-l-transparent before:border-r-[9px] before:border-r-transparent;}
+.notification > .notification_action[aria-expanded="true"]{@apply after:content-[''] after:inline-block after:absolute after:bottom-[-13px] after:z-[1001] after:-ml-[8px] after:border-b-[8px] after:border-b-[#fff] after:border-l-[8px] after:border-l-transparent after:border-r-[8px] after:border-r-transparent before:content-[''] before:inline-block before:absolute before:bottom-[-13px] before:z-[1001] before:-ml-[9px] before:border-b-[9px] before:border-b-[#e3e3e3] before:border-l-[9px] before:border-l-transparent before:border-r-[9px] before:border-r-transparent;}
 .notification_drop_menu .notification_content{@apply relative h-[242px];}
 .notification_drop_menu .title{@apply pt-[10px] pb-[8px] text-[14px] text-[#8a8a8a] text-center border-b border-[#ebebeb];}
 .notification_drop_menu .notification_item.notification_unread{@apply border-b border-[#dce9fd] bg-[#ebf2fe];}
@@ -206,10 +207,32 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .notification_drop_menu .footer a{@apply block border-t border-[#ebebeb] bg-[#fafafa] outline-0 py-[10px] text-[14px] text-[#8a8a8a] text-center hover:bg-[#f1f1f1];}
 
 
+.sub_header_wrap{@apply absolute top-[60px] right-0 left-0 z-[1] block h-[52px] border-b border-b-[#e3e3e3] bg-[#fff] py-[16px] px-[24px] text-[1.077rem] font-light text-[#404040] lg:hidden;}
+.sub_header_content{@apply hidden relative top-[112px] bottom-0 left-0 right-0 z-[1000] bg-[#fff] h-auto py-[8px] pb-[20px] lg:hidden;}
+.sub_header_content.open{@apply block;}
+.sub_header_content a{@apply block px-[24px] text-[1.077rem] leading-[38px] text-ellipsis overflow-hidden whitespace-nowrap hover:bg-[#f1f1f1];}
+.sub_header_content a.active{@apply bg-[#f1f1f1];}
+.sub_header_content a svg{@apply inline-block align-middle mr-[9px] text-center;}
 
 
-.sub_header{@apply block bg-[#fff] py-[16px] px-[10px] text-[1.077rem] font-light text-[#404040] lg:hidden;}
 
 
 
 
+
+
+
+
+
+
+
+.profile_drop_menu{@apply absolute top-[60px] right-0 w-[220px] border border-[#e3e3e3] rounded-[3px] bg-[#fff] mt-[12px] pb-[7px] text-[1rem] text-[#404040] text-left leading-[20px];}
+.profile_user{@apply bg-[#727cf5] text-white overflow-hidden mb-[7px] py-[15px] px-[14px];}
+.profile_user .profile_name{@apply block text-[14px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden;}
+.profile_user .profile_active{@apply relative block text-ellipsis whitespace-nowrap overflow-hidden pl-[13px] text-[12px] after:content-[""] after:absolute after:top-[7px] after:left-0 after:w-[7px] after:h-[7px] after:border after:border-[#f0f0f0] after:rounded-full;}
+.profile_user .profile_active.online{@apply after:border-[#6cd187] after:bg-[#6cd187];}
+
+.profile_drop_menu button{@apply block w-full min-w-[175px] py-[10px] px-[20px] text-[#504e4e] text-left leading-[18px] hover:bg-[#f1f1f1];}
+.profile_drop_menu button svg{@apply inline-block mr-[10px] align-middle;}
+
+.profile_avatar > .profile_drop_menu{@apply after:content-[''] after:absolute after:top-[-8px] after:left-auto after:right-[13px] after:inline-block after:-ml-[6px] after:border-b-8 after:border-b-[#727cf5] after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent;}

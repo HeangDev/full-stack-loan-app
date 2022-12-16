@@ -1,16 +1,37 @@
 import React, { useState } from 'react';
 import Layout from '../../layout/Layout';
 import { Link } from 'react-router-dom'
-import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2'
-import ReactSummernote from 'react-summernote';
-import 'react-summernote/dist/react-summernote.css';
-import 'react-summernote/lang/summernote-ru-RU';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const Create = () => {
-    const { register, handleSubmit, formState: {errors} } = useForm();
     const [description, setDescription] = useState('')
 
+    const handleChange = (e, editor) => {
+        const data = editor.getData()
+        setDescription(data)
+        console.log(data)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('description', description)
+
+        axios.post(`http://127.0.0.1:8000/api/agreement`, formData).then(({data}) => {
+            console.log(data)
+            Swal.fire({
+                title: 'Success!',
+                text: "User has been inserted!",
+                icon: "success",
+                timer: '1500'
+            })
+            setDescription('')
+        }).catch(({err}) => {
+            console.log(err)
+        })
+    }
     return (
         <>
             <Layout>
@@ -24,59 +45,16 @@ const Create = () => {
                         </div>
                     </div>
                     <div className="card_tbl_body">
-                        <form
-                            autoComplete="off"
-                            onSubmit={handleSubmit(() => {
-                                const formData = new FormData()
-
-                                formData.append('description', description)
-                                
-
-                                axios.post(`http://127.0.0.1:8000/api/agreement`, formData).then(({data}) => {
-                                    console.log(data)
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: "User has been inserted!",
-                                        icon: "success",
-                                        timer: '1500'
-                                    })
-                                    setDescription('')
-                                }).catch(({err}) => {
-                                    console.log(err)
-                                })
-                            })}>
-                            <div className="frm_wrap">
-                                <div className="frm_grp required">
-                                    <label>คำอธิบาย</label>
-                                    {/* <textarea col="5"
-                                        {...register("description", { required: 'กรุณาระบุรายละเอียด.' })}
-                                        type="text" placeholder="กรุณาระบุรายละเอียด" id="description" value={description}
-                                        onChange={(e) => {setDescription(e.target.value)}}
-                                    />
-                                    {errors.description && <span className="msg_error">{errors.description?.message}</span>} */}
-                                </div>
-                            </div>
+                        <form autoComplete="off">
                             <div>
-                            <ReactSummernote
-                                value="Default value"
-                                options={{
-                                    lang: 'ru-RU',
-                                    height: 350,
-                                    dialogsInBody: true,
-                                    toolbar: [
-                                        ['style', ['style']],
-                                        ['font', ['bold', 'underline', 'clear']],
-                                        ['fontname', ['fontname']],
-                                        ['para', ['ul', 'ol', 'paragraph']],
-                                        ['table', ['table']],
-                                        ['insert', ['link', 'picture', 'video']],
-                                        ['view', ['fullscreen', 'codeview']]
-                                    ]
-                                }}
-                            />
+                                <CKEditor
+                                    editor={ ClassicEditor }
+                                    data={description}
+                                    onChange={handleChange}
+                                />
                             </div>
                             <div className="btn_wrap mt-3">
-                                <button type="submit" className="btn btn_save">
+                                <button type="button" className="btn btn_save" onClick={handleSubmit}>
                                     <span>ยืนยัน</span>
                                 </button>
                             </div>

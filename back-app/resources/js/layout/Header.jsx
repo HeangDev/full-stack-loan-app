@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import Avatar from '../assets/avatar.jpg'
 import { BsBell } from "react-icons/bs";
 import { dropmenu } from '../data/dropmenu';
 import { Menu, Transition } from '@headlessui/react'
 import DropAvatar from '../assets/avatar.png'
+import { sidebar } from '../data/sidebar'
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 const events = [
     "load",
     "mousemove",
@@ -16,6 +18,9 @@ const events = [
 
 const Header = () => {
     const [loanNotification, setLoanNotification] = useState()
+    const [mobile, setMobile] = useState(false)
+    const [adminName, setAdminName] = useState()
+    const id = localStorage.getItem('auth_id')
     let timer;
 
     const logout = () => {
@@ -37,6 +42,14 @@ const Header = () => {
         }, 600000)
     }
 
+    const fetchAdminInfo = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/getadmininfo/${id}`).then(({data}) => {
+            setAdminName(data.name)
+        }).catch (({err}) => {
+            console.log(err)
+        })
+    }
+
     useEffect(() => {
         Object.values(events).forEach((item) => {
             window.addEventListener(item, () => {
@@ -55,14 +68,14 @@ const Header = () => {
             console.log(JSON.stringify(data))
             setLoanNotification(JSON.stringify(data))
         });
+        fetchAdminInfo()
     }, [])
     return (
         <>
             <div className="header">
                 <div className="left"></div>
                 <div className="right">
-
-                    <Menu as="div" className="notification">
+                    {/* <Menu as="div" className="notification">
                         {({ open }) => (
                             <>
                                 <Menu.Button className="notification_action">
@@ -77,7 +90,7 @@ const Header = () => {
                                         <div className="list">
                                             <div className="notification_content">
                                                 <ul>
-                                                    {/* {
+                                                    {
                                                         loanNotification && loanNotification.length > 0 && (
                                                             loanNotification.map((item, i) => {
                                                                 return (
@@ -98,7 +111,7 @@ const Header = () => {
                                                                 )
                                                             })
                                                         )
-                                                    } */}
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
@@ -109,27 +122,27 @@ const Header = () => {
                                 </Transition>
                             </>
                         )}
-                    </Menu>
+                    </Menu> */}
                     <Menu as="div" className="profile_avatar">
                         {({ open }) => (
                             <>
                                 <Menu.Button className="profile_avatar_action">
                                     <img src={Avatar} alt="" />
                                 </Menu.Button>
-                                <Transition show={open}>
+                                <Transition as="div" show={open} className="profile_drop_menu">
                                     <Menu.Items>
-                                        <div className="drop_menu">
-                                            {dropmenu.map(( item ) => {
-                                                return (
-                                                    <Menu.Item key={item.id}>
-                                                        <button type="button" onClick={logout}>
-                                                            <item.icon/>
-                                                            <span>{item.name}</span>
-                                                        </button>
-                                                    </Menu.Item>
-                                                )
-                                            })}
+                                        <div className="profile_user">
+                                            <div className="profile_name">{adminName}</div>
+                                            <div className="profile_active online">ออนไลน์</div>
                                         </div>
+                                        {dropmenu.map(( item ) => {
+                                            return (
+                                                <button onClick={logout}>
+                                                    <item.icon/>
+                                                    <span>{item.name}</span>
+                                                </button>
+                                            )
+                                        })}
                                     </Menu.Items>
                                 </Transition>
                             </>
@@ -137,18 +150,23 @@ const Header = () => {
                     </Menu>
                 </div>
             </div>
-            {/* <div className="sub_header">
-                <button className="sub_header"></button>
-                <div className="sub_header_content">
+            <div className="sub_header">
+                <button className="sub_header_wrap" onClick={() => setMobile(!mobile)}>{mobile ? <AiOutlineClose/> : <AiOutlineMenu/>}</button>
+                <div className={mobile ? "sub_header_content open" : "sub_header_content"}>
                     <ul>
-                        <li>
-                            <Link to="">
-                                <span></span>
-                            </Link>
-                        </li>
+                        {sidebar.map((item, index) => {
+                            return (
+                                <li key={index}>
+                                    <NavLink to={item.url} className={({ isActive }) => isActive ? "active" : ""}>
+                                        <item.icon/>
+                                        <span>{item.name}</span>
+                                    </NavLink>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
-            </div> */}
+            </div>
         </>
     )
 }

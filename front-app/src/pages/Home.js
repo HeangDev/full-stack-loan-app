@@ -30,7 +30,6 @@ const Home = () => {
     const [active, setActive] = useState(1)
     const navigate = useNavigate()
     const checkedRef = useRef(null)
-    const amountRef = useRef(50000)
     const [showModal, setShowModal] = useState(false)
 
     const handleChange = () => {
@@ -105,7 +104,7 @@ const Home = () => {
     }
 
     const fetchDuration = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/duration`).then(({data}) => {
+        await axios.get(`http://127.0.0.1:8000/api/getduration`).then(({data}) => {
             setMonth(data[0].month)
             setPercent(data[0].percent)
             setDurations(data)
@@ -122,7 +121,7 @@ const Home = () => {
     }
 
     const fetchAgreement = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/agreement`).then(({data}) => {
+        await axios.get(`http://127.0.0.1:8000/api/getagreement`).then(({data}) => {
             setAgreement(data)
         })
     }
@@ -152,7 +151,7 @@ const Home = () => {
             const sign_status = data.sign_status
             if (!localStorage.getItem('auth_token')) {
                 navigate('/login')
-            } else if (status == 'incomplete') {
+            } else if (status === 'incomplete') {
                 toast.warn('โปรดกรอกข้อมูลให้ครบค่ะ', {
                     position: "top-right",
                     autoClose: 2000,

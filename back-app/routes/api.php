@@ -3,11 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AdminAuthController;
+use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\DurationController;
 use App\Http\Controllers\api\CustomerAuthController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\DepositController;
+
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +46,10 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     Route::resource('documentid', DocumentIdController::class)->only([
         'update'
     ]);
-
+    Route::get('/countcustomer', [DashboardController::class, 'countCustomer']);
+    Route::get('/countadminuser', [DashboardController::class, 'countAdminUser']);
+    Route::get('/getadmininfo/{id}', [DashboardController::class, 'getAdminInfo']);
+    
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
     Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
     Route::get('/getdepositbyid/{id}', [DepositController::class, 'getDepositById']);
@@ -62,6 +68,9 @@ Route::post('admin/logout', [AdminAuthController::class, 'logout'])->name('api.a
 Route::post('/register', [CustomerAuthController::class, 'register']);
 Route::post('/login', [CustomerAuthController::class, 'login']);
 
+
+Route::get('/getduration', [HomeController::class, 'getDuration']);
+Route::get('/getagreement', [HomeController::class, 'getAgreement']);
 
 Route::get('message', function () {
     $message['user'] = "Sim Kimheang";

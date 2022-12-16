@@ -32,6 +32,7 @@ const Login = () => {
             } else {
                 http.post('api/admin/login', formData).then(({data}) => {
                     localStorage.setItem('auth_token', data.token)
+                    localStorage.setItem('auth_id', data.id)
                     localStorage.setItem('is_login', true)
                     navigate('/dashboard')
                 }).catch(({err}) => {

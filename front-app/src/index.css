@@ -27,7 +27,7 @@ input[type=number]{-moz-appearance:textfield;} /* Firefox */
 
 .duration_wrap{@apply pb-[15px];}
 .duration_wrap h3{@apply mt-[10px] mb-[15px] px-[15px] text-[16px] text-[#666];}
-.duration{@apply flex justify-items-start px-[15px];}
+.duration{@apply grid grid-cols-5 gap-[0.64rem] px-[15px];}
 .duration .btn_duration{@apply inline-block rounded-[3px] bg-[#f7f7f7] w-full h-[32px] mr-[.64rem] font-normal text-[12px] text-[#999] text-center leading-[32px];}
 .duration .btn_duration:nth-last-child(1){@apply m-0;}
 .duration .btn_duration.active{@apply bg-[#355180] bg-100% shadow-btn_act_shadow text-white transition duration-150 ease-out;}
