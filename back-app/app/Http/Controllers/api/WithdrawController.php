@@ -65,7 +65,8 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        //
+        $withdraw = Withdraw::where('id_user', $id)->first();
+        return response()->json($withdraw);
     }
 
     /**
@@ -100,5 +101,11 @@ class WithdrawController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getWithdrawById($id)
+    {
+        $withdraw = Withdraw::where('id_user', $id)->get();
+        return response()->json($withdraw);
     }
 }

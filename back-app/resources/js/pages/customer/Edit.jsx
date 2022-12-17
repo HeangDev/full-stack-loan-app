@@ -96,7 +96,7 @@ const Edit = () => {
 
         axios.post(`http://127.0.0.1:8000/api/documentid/${id}`, formData).then(({data}) => {
             console.log(data)
-            navigate("/customer")
+            // navigate("/customer")
         }).catch(({err}) => {
             console.log(err)
         })

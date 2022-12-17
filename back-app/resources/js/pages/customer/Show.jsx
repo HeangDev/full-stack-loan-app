@@ -33,10 +33,13 @@ const Show = () => {
     const [description, setDescription ] = useState('')
 
     const [deposit, setDeposit] = useState()
+    const [withdraw, setWithdraw] = useState()
+    const [loan, setLoan] = useState()
+    const [document, setDocument] = useState()
 
     const fetchCustomer = async () => {
         await axios.get(`http://127.0.0.1:8000/api/customer/${id}`).then(({ data }) => {
-            // console.log(data)
+            console.log(data)
             const { status, current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full } = data;
             setCustomerStatus(status)
             setCurrentWork(current_occupation);
@@ -87,13 +90,44 @@ const Show = () => {
             })
     }
 
+    const fetchWithdrawById = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/getwithdrawbyid/${id}`).then(({ data }) => {
+            setWithdraw(data)
+        }).catch(({ err }) => {
+            console.log(err);
+        });
+    }
+
+    const fetchLoanById = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/getloanbyid/${id}`).then(({ data }) => {
+            setLoan(data)
+        }).catch(({ err }) => {
+            console.log(err);
+        });
+    }
+    const fetchDocumentById = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/getdocumentbyid/${id}`).then(({ data }) => {
+            setDocument(data)
+        }).catch(({ err }) => {
+            console.log(err);
+        });
+    }
+
     useEffect(() => {
         fetchCustomer();
         fetchDepositById();
+        fetchWithdrawById();
+        fetchLoanById();
+        fetchDocumentById();
     }, []);
     return (
         <>
             <Layout>
+                <div className="btn_wrap mb-[10px]">
+                    <Link to="/customer" className="btn btn_back">
+                        <span>กลับ</span>
+                    </Link>
+                </div>
                 <h3 className="main_tit">สร้างระยะเวลา</h3>
                 <div className="grid grid-cols-1 gap-4">
                     <div className="grid grid-cols-1">
@@ -232,7 +266,7 @@ const Show = () => {
                                                 <thead>
                                                     <tr>
                                                         <th>รหัสถอนเงิน</th>
-                                                        <th>เติมเงิน</th>
+                                                        <th>จำนวนเงิน</th>
                                                         <th>ลักษณะ</th>
                                                         <th>วันที</th>
                                                     </tr>
@@ -262,14 +296,25 @@ const Show = () => {
                                             <table className="tbl">
                                                 <thead>
                                                     <tr>
-                                                        <th>รหัสถอนเงิน</th>
-                                                        <th>เติมเงิน</th>
+                                                        <th></th>
+                                                        <th>จำนวนเงิน</th>
                                                         <th>ลักษณะ</th>
                                                         <th>วันที</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    
+                                                {
+                                                        withdraw && withdraw.length > 0 && (
+                                                            withdraw.map((row, i) => (
+                                                                <tr key={i}>
+                                                                    <td>{}</td>
+                                                                    <td>{row.withdraw_amount == null ? '-' : row.withdraw_amount}</td>
+                                                                    <td>{row.status == null ? 'ไม่มีข้อมูล' : row.status}</td>
+                                                                    <td>{row.withdraw_date == null ? '-' : row.withdraw_date}</td>
+                                                                </tr>
+                                                            ))
+                                                        )
+                                                    }
                                                 </tbody>
                                             </table>
                                         </div>
@@ -287,15 +332,28 @@ const Show = () => {
                                         <thead>
                                             <tr>
                                                 <th>เดือน</th>
-                                                <th>ความสนใจ</th>
-                                                <th>จำนวน</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th>จำนวนเงินกู้</th>
+                                                <th>ดอกเบี้ย</th>
+                                                <th>เงินกู้รวมดอกเบี้ย</th>
+                                                <th>อัตราจ่ายต่อเดือน</th>
                                                 <th>วันที</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            {
+                                                loan && loan.length > 0 && (
+                                                    loan.map((row, i) => (
+                                                        <tr key={i}>
+                                                            <td>{row.month == null ? '-' : row.month}</td>
+                                                            <td>{currencyFormat( row.amount == null ? 'ไม่มีข้อมูล' : row.amount)}</td>
+                                                            <td>{currencyFormat( row.interest == null ? '-' : row.interest)}</td>
+                                                            <td>{currencyFormat( row.total == null ? '-' : row.total)}</td>
+                                                            <td>{currencyFormat( row.pay_month == null ? '-' : row.pay_month)}</td>
+                                                            <td>{row.date == null ? '-' : row.date}</td>
+                                                        </tr>
+                                                    ))
+                                                )
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -305,7 +363,7 @@ const Show = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div className="card">
                             <div className="card_body">
-
+                            <img src={`http://localhost:8000/storage/customer/${frontImage}`} alt=""/>           
                             </div>
                         </div>
                         <div className="card">

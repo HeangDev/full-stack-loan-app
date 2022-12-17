@@ -279,7 +279,7 @@ const Home = () => {
 					</div>
                 </div>
                 <div className="btn_wrap">
-                    <button className="btn_b40" onClick={(e) => handleBorrow()}>สมัครทันที</button>
+                    <button className="btn_b40" onClick={(e) => handleBorrow()}>กู้ทันที</button>
                 </div>
                 <>
                     <UserLoan/>

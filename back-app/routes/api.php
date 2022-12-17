@@ -9,6 +9,9 @@ use App\Http\Controllers\api\CustomerAuthController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\api\DepositController;
+use App\Http\Controllers\api\WithdrawController;
+use App\Http\Controllers\api\LoanController;
+use App\Http\Controllers\api\DocumentIdController;
 
 use App\Http\Controllers\HomeController;
 
@@ -53,6 +56,9 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
     Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
     Route::get('/getdepositbyid/{id}', [DepositController::class, 'getDepositById']);
+    Route::get('/getwithdrawbyid/{id}', [WithdrawController::class, 'getWithdrawById']);
+    Route::get('/getloanbyid/{id}', [LoanController::class, 'getLoanById']);
+    Route::get('/getdocumentbyid/{id}', [DocumentIdController::class, 'getDocumentById']);
     
 });
 

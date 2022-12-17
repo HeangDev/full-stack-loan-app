@@ -135,6 +135,7 @@ class CustomerController extends Controller
             ->join('banks', 'banks.id_user', '=', 'users.id')
             ->join('document_ids', 'document_ids.id_user', '=', 'users.id')
             ->join('signatures', 'signatures.id_user', '=', 'users.id')
+            ->join('loans', 'loans.id_user', '=', 'users.id')
             ->select('users.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
             ->where('users.id', '=', $id)
             ->first();

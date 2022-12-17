@@ -79,53 +79,36 @@ class DocumentIdController extends Controller
         $image2 = $request->file('backImage');
         $image3 = $request->file('fullImage');
 
-        if (isset($image1) && isset($image2) && isset($image3)) {
+       
+
+       if (isset($image1)) {
             $currentDate = Carbon::now()->toDateString();
-
             $imageName1 = $currentDate . '-' . uniqid() . '.' . $image1->getClientOriginalExtension();
-            $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
-            $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
+  
+            return response()->json($imageName1);
+            
+        } 
 
-            if(!Storage::disk('public')->exists('customer'))
-            {
-                Storage::disk('public')->makeDirectory('customer');
-            }
+        
+       if (isset($image2)) {
+        $currentDate = Carbon::now()->toDateString();
+        $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
 
-            if(Storage::disk('public')->exists('customer/' . $document->front))
-            {
-                Storage::disk('public')->delete('customer/' . $document->front);
-            }
+        return response()->json($imageName2);
+        
+    } 
 
-            if(Storage::disk('public')->exists('customer/' . $document->back))
-            {
-                Storage::disk('public')->delete('customer/' . $document->back);
-            }
+    
+    if (isset($image3)) {
+        $currentDate = Carbon::now()->toDateString();
+        $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
 
-            if(Storage::disk('public')->exists('customer/' . $document->full))
-            {
-                Storage::disk('public')->delete('customer/' . $document->full);
-            }
+        return response()->json($imageName3);
+        
+    } 
+            
 
-            $postImage1 = Image::make($image1)->stream();
-            $postImage2 = Image::make($image2)->stream();
-            $postImage3 = Image::make($image3)->stream();
-
-            $upload1 = Storage::disk('public')->put('customer/' . $imageName1, $postImage1);
-            $upload2 = Storage::disk('public')->put('customer/' . $imageName2, $postImage2);
-            $upload3 = Storage::disk('public')->put('customer/' . $imageName3, $postImage3);
-
-            if ($upload1 && $upload2 && $upload3) {
-                $document->front = $imageName1;
-                $document->back = $imageName2;
-                $document->full = $imageName3;
-                $document->save();
-            }
-        } else {
-            $document->name = $request->name;
-            $document->id_number = $request->idNumber;
-
-            return response()->json($document);
-        }
+        
     }
 
     /**
@@ -137,5 +120,11 @@ class DocumentIdController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDocumentById($id)
+    {
+        $document = DocumentId::where('id', $id)->first();
+        return response()->json($document);
     }
 }
