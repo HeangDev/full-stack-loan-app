@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Withdraw;
 use App\Models\Deposit;
+use Illuminate\Support\Facades\DB;
 
 class WithdrawController extends Controller
 {
@@ -65,7 +66,11 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        $withdraw = Withdraw::where('id_user', $id)->first();
+        $withdraw = DB::table('withdraws')
+        ->join('users', 'users.id', '=', 'withdraws.id_user')
+        ->select('users.*', 'withdraws.*')
+        ->where('users.id', '=', $id)
+        ->get();
         return response()->json($withdraw);
     }
 
@@ -103,9 +108,9 @@ class WithdrawController extends Controller
         //
     }
 
-    public function getWithdrawById($id)
-    {
-        $withdraw = Withdraw::where('id_user', $id)->get();
-        return response()->json($withdraw);
-    }
+    // public function getWithdrawById($id)
+    // {
+    //     $withdraw = Withdraw::where('id_user', $id)->get();
+    //     return response()->json($withdraw);
+    // }
 }

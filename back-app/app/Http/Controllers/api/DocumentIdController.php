@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use App\Models\DocumentId;
+use Illuminate\Support\Facades\DB;
 
 class DocumentIdController extends Controller
 {
@@ -50,7 +51,12 @@ class DocumentIdController extends Controller
      */
     public function show($id)
     {
-        //
+        $document = DB::table('document_ids')
+        ->join('users', 'users.id', '=', 'document_ids.id_user')
+        ->select('document_ids.*', 'users.*')
+        ->where('users.id', '=', $id)
+        ->first();
+        return response()->json($document);
     }
 
     /**
@@ -122,9 +128,9 @@ class DocumentIdController extends Controller
         //
     }
 
-    public function getDocumentById($id)
-    {
-        $document = DocumentId::where('id', $id)->first();
-        return response()->json($document);
-    }
+    // public function getDocumentById($id)
+    // {
+    //     $document = DocumentId::where('id', $id)->first();
+    //     return response()->json($document);
+    // }
 }

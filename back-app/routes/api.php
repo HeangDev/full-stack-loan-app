@@ -47,8 +47,9 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     ]);
 
     Route::resource('documentid', DocumentIdController::class)->only([
-        'update'
+        'update', 'show'
     ]);
+
     Route::get('/countcustomer', [DashboardController::class, 'countCustomer']);
     Route::get('/countadminuser', [DashboardController::class, 'countAdminUser']);
     Route::get('/getadmininfo/{id}', [DashboardController::class, 'getAdminInfo']);
@@ -56,9 +57,10 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
     Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
     Route::get('/getdepositbyid/{id}', [DepositController::class, 'getDepositById']);
-    Route::get('/getwithdrawbyid/{id}', [WithdrawController::class, 'getWithdrawById']);
-    Route::get('/getloanbyid/{id}', [LoanController::class, 'getLoanById']);
-    Route::get('/getdocumentbyid/{id}', [DocumentIdController::class, 'getDocumentById']);
+    Route::put('/updatedepositbyid/{id}', [DepositController::class, 'updateDepositById']);
+
+    
+   
     
 });
 

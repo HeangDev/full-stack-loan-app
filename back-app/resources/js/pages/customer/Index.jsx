@@ -136,6 +136,7 @@ const Index = () => {
                                 data={customer}
                                 pagination
                                 fixedHeader
+                                
                             />
                         </div>
                     </div>
