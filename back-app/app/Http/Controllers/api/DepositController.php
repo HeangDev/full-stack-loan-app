@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Deposit;
+use Illuminate\Support\Facades\DB;
 
 class DepositController extends Controller
 {
@@ -48,7 +49,11 @@ class DepositController extends Controller
      */
     public function show($id)
     {
-        $deposit = Deposit::where('id_user', $id)->first();
+        $deposit = DB::table('deposits')
+        ->join('users', 'users.id', '=', 'deposits.id_user')
+        ->select('users.*', 'deposits.*')
+        ->where('users.id', '=', $id)
+        ->get();
         return response()->json($deposit);
     }
 

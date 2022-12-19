@@ -228,7 +228,7 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 
 
-.dataTables_wrapper select, .dataTables_wrapper .dataTables_filter input{@apply py-[0.25rem] px-[0.5rem] text-[.875rem] font-normal text-[#212529] leading-[25px] min-h-[calc(1.5em+.5rem+2px)]  border border-[#ced4da] rounded-[.25rem] bg-white focus:outline-none !important;}
+.dataTables_wrapper select, .dataTables_wrapper .dataTables_filter input{@apply py-[0.25rem] px-[0.5rem] text-[0.875rem] font-normal text-[#212529] leading-[25px] min-h-[calc(1.5em+.5rem+2px)]  border border-[#ced4da] rounded-[.25rem] bg-white focus:outline-none !important;}
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{@apply bg-indigo-100;}
 .dataTables_wrapper .dataTables_paginate .paginate_button{@apply text-[14px] font-bold rounded border border-transparent !important;}
 .dataTables_wrapper .dataTables_paginate .paginate_button.current{@apply font-bold text-white shadow border border-transparent rounded bg-blue-500 !important;}
@@ -237,6 +237,8 @@ table.dataTable.no-footer{@apply border-b border-gray-300 my-[0.75em];}
 table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before{@apply bg-indigo-500;}
 .dataTables_wrapper .dataTables_info{@apply text-[14px];}
 
+/* BHT */
 
+.dataTable {@apply text-[13px];}
 
 

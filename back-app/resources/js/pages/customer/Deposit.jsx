@@ -24,7 +24,7 @@ const Deposit = () => {
     const { id } = useParams();
 
     const fetchDeposit = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/getdepositbyid/${id}`).then(({ data }) => {
+        await axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then(({ data }) => {
             setDeposit(data)
         }).catch(({ err }) => {
             console.log(err);
@@ -36,7 +36,7 @@ const Deposit = () => {
         setEditIsOpen(true)
         axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then((data) => {
             console.log(data)
-            const { deposit_amount, withdraw_code, description } = data.data
+            const { deposit_amount, withdraw_code, description } = data
             setDepositAmount(deposit_amount);
             setWithDrawCode(withdraw_code);
             setDescription(description);

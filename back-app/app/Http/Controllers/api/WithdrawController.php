@@ -109,9 +109,5 @@ class WithdrawController extends Controller
         $withdraw->delete();
     }
 
-    // public function getWithdrawById($id)
-    // {
-    //     $withdraw = Withdraw::where('id_user', $id)->get();
-    //     return response()->json($withdraw);
-    // }
+  
 }

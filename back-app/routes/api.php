@@ -56,7 +56,7 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     
     Route::post('/customer/changepassword', [CustomerController::class, 'changePassword']);
     Route::post('/customer/createbyid', [CustomerController::class, 'createCustomerById']);
-    Route::get('/getdepositbyid/{id}', [DepositController::class, 'getDepositById']);
+    
 
     Route::post('/updatedepositbyid/{id}', [DepositController::class, 'updateDepositById']);
 

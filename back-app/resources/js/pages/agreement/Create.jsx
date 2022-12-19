@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import Layout from '../../layout/Layout';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+
 const Create = () => {
     const [description, setDescription] = useState('')
-
+    const navigate = useNavigate()
     const handleChange = (e, editor) => {
         const data = editor.getData()
         setDescription(data)
@@ -21,9 +22,10 @@ const Create = () => {
 
         axios.post(`http://127.0.0.1:8000/api/agreement`, formData).then(({data}) => {
             console.log(data)
+            navigate("/agreement")
             Swal.fire({
                 title: 'Success!',
-                text: "User has been inserted!",
+                text: "สร้างสำเร็จ...!!",
                 icon: "success",
                 timer: '1500'
             })

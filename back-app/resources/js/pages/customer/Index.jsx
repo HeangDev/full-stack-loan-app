@@ -7,6 +7,14 @@ import DataTable from 'react-data-table-component'
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock, AiOutlineMoneyCollect } from "react-icons/ai";
 import { BiShowAlt } from "react-icons/bi";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import { currencyFormat } from '../../utils/Formatter'
+
+
+import "jquery/dist/jquery.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.css";
+import $ from "jquery";
+
 
 const Index = () => {
     const [customer, setCustomer] = useState([])
@@ -17,10 +25,6 @@ const Index = () => {
             setCustomer(data)
         })
     }
-
-    useEffect(() => {
-        fetchCustomer()
-    }, [])
 
     const handleDelete = async (id) => {
         const isConfirm = await Swal.fire({
@@ -52,81 +56,52 @@ const Index = () => {
         })
     }
 
-    const columns = [
-        {
-            id: 'ชื่อลูกค้า',
-            name: "ชื่อลูกค้า",
-            selector: (row) => 
-            row.name === '' || row.name === null ?
-            <>ไม่สมบูรณ์</>
-            :
-            <>{row.name}</>,
-            sortable: true,
-        },
-        {
-            id: "ลูกค้าโทร",
-            name: "ลูกค้าโทร",
-            selector: (row) => row.tel,
-            sortable: true,
-        },
-        {
-            id: "เครดิต",
-            name: "เครดิต",
-            selector: (row) => row.deposit_amount,
-            sortable: true,
-        },
-        {
-            id: "ข้อมูลอื่น ๆ",
-            name: "ข้อมูลอื่น ๆ",
-            selector: (row) =>
-            row.status === 'complete' ?
-            <span className="status_green">กรอกข้อมูลแล้ว</span>
-            :
-            <span className="status_red">ไม่สมบูรณ์</span>,
-            sortable: true,
-        },
-        {
-            id: "ลายเซ็น",
-            name: "ลายเซ็น",
-            selector: (row) =>
-            row.sign_status === '1' ?
-            <span className="status_green">เซ็นชื่อเรียบร้อยแล้วค่ะ</span>
-            :
-            <span className="status_red">ยังไม่ได้เซ็นชื่อค่ะ</span>,
-            sortable: true,
-        },
-        {
-            id: "สถานะการกู้",
-            name: "สถานะการกู้",
-            selector: (row) => <span className='status_orange'>{row.deposits_status}</span>,
-        },
-        {
-            id: "รหัสถอน",
-            name: "รหัสถอน",
-            selector: (row) =>
-            row.withdraw_code === '' ?
-            <span className="status_red">ยังไม่มีรหัสถอนเงินค่ะ</span>
-            :
-            <span className="status_green">{row.withdraw_code}</span>,
-            sortable: true,
-        },
-        {
-            id: "ตัวเลือก",
-            name: "ตัวเลือก",
-            cell: (row) => [
-                row.status == 'complete' ?
-                    <Link to={`/customer/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
-                    :
-                    <Link to={`/customer/create/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>,
-                
-                    <Link to={`/customer/changepassword/${row.id}`} className="btn_change"><AiOutlineLock/></Link>,
-                    <Link to={`/customer/${row.id}`} className="btn_show"><BiShowAlt/></Link>,
-                    <Link to={`/customer/deposit/${row.id}`} className="btn_show"><MdOutlineAttachMoney/></Link>,
-                    <Link to={`/customer/withdraw/${row.id}`} className="btn_show"><AiOutlineMoneyCollect/></Link>,
-                    <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
-           ]
-        },
-    ]
+    useEffect(() => {
+        fetchCustomer()
+
+        if (!$.fn.dataTable.isDataTable("#tblcustomer")) {
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $("#tblcustomer").DataTable({
+                        pageLength: 10,
+                        processing: true,
+                        destroy: true,
+                        "language": {
+                            "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
+                            "zeroRecords": "ขอโทษค่ะ - ไม่พบข้อมูล",
+                            "info": "กำลังแสดงหน้า _PAGE_ ของ _PAGES_",
+                            "infoEmpty": "ไม่มีระเบียนที่มีอยู่",
+                            "infoFiltered": "(filtered from _MAX_ total records)",
+                            "search": "ค้นหา:",
+                            "searchPlaceholder": "ข้อมูลการค้นหา",
+                            "paginate": {
+                                "previous": "หน้าก่อนหน้า",
+                                "next": "หน้าต่อไป"
+                            }
+                        },
+
+                        fnRowCallback: function (
+                            nRow,
+                            aData,
+                            iDisplayIndex,
+                            iDisplayIndexFull
+                        ) {
+                            var index = iDisplayIndexFull + 1;
+                            $("td:first", nRow).html(index);
+                            return nRow;
+                        },
+
+                        lengthMenu: [
+                            [10, 20, 30, 50, -1],
+                            [10, 20, 30, 50, "All"],
+                        ],
+                    });
+                }, 1000);
+            });
+        }
+    }, [])
+
+   
 
     return (
         <>
@@ -142,12 +117,77 @@ const Index = () => {
                     </div>
                     <div className="card_tbl_body">
                         <div className="tbl_scroll">
-                            <DataTable
-                                columns={columns}
-                                data={customer}
-                                pagination
-                                fixedHeader
-                            />
+                        <table className="table table-striped dataTable" id="tblcustomer">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ชื่อลูกค้า</th>
+                                        <th>เบอร์โทร</th>
+                                        <th>เครดิต</th>
+                                        <th>ข้อมูลอื่น ๆ</th>
+                                        <th>ลายเซ็น</th>
+                                        <th>สถานะการกู้</th>
+                                        <th>รหัสถอน</th>
+                                        <th>แก้ไขข้อมูล</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                        customer && customer.length > 0 && (
+                                            customer.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{item.name == null ? 'ไม่สมบูรณ์' : item.name}</td>
+                                                    <td>
+                                                    <Link to={`/customer/${item.id}`}>{item.tel}</Link>
+                                                    </td>
+                                                    <td>{currencyFormat(item.deposit_amount)}</td>
+                                                    <td>
+                                                    {item.status === 'complete' ?
+                                                    <span className="status_green">กรอกข้อมูลแล้ว</span>
+                                                    :
+                                                    <span className="status_red">ไม่สมบูรณ์</span>}
+                                                    </td>
+                                                    <td>
+                                                    {item.sign_status === '1' ? 
+                                                    <span className="status_green">เซ็นชื่อเรียบร้อยแล้วค่ะ</span>
+                                                    :
+                                                    <span className="status_red">ยังไม่ได้เซ็นชื่อค่ะ</span>
+                                                    }
+                                                    </td>
+                                                    <td>
+                                                    <span className='status_orange'>{item.deposits_status}</span>
+                                                    </td>
+                                                    <td>
+                                                    {item.withdraw_code === '' ?
+                                                    <span className="status_red">ยังไม่มีรหัสถอนเงินค่ะ</span>
+                                                    :
+                                                    <span className="status_green">{item.withdraw_code}</span>
+                                                    }
+                                                    </td>
+                                    
+                                                    <td>
+                                                        <div className="btn_action">
+                                                        {item.status === 'complete' ?
+                                                            <Link to={`/customer/edit/${item.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                            :
+                                                            <Link to={`/customer/create/${item.id}`} className="btn_edit"><AiOutlineEdit/></Link>
+                                                        } 
+                                                            <Link to={`/customer/changepassword/${item.id}`} className="btn_change"><AiOutlineLock/></Link>
+                                                            <Link to={`/customer/${item.id}`} className="btn_show"><BiShowAlt/></Link>
+                                                            <Link to={`/customer/deposit/${item.id}`} className="btn_show"><MdOutlineAttachMoney/></Link>
+                                                            <Link to={`/customer/withdraw/${item.id}`} className="btn_show"><AiOutlineMoneyCollect/></Link>
+                                                            <button type="button" onClick={() => handleDelete(item.id)} className="btn_delete"><AiOutlineDelete/></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+
+                      
                         </div>
                     </div>
                 </div>
