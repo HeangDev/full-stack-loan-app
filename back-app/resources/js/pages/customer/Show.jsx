@@ -8,8 +8,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2'
 import { currencyFormat } from '../../utils/Formatter'
-import DataTable from 'react-data-table-component'
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock } from "react-icons/ai";
 import axios from "axios";
 
 const Show = () => {

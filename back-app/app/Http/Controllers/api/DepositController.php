@@ -104,7 +104,7 @@ class DepositController extends Controller
     public function updateDepositById(Request $request, $id)
     {
         $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::where('id', $request->id)
+        $deposit = Deposit::where('id', $id)
         ->update([
             'withdraw_code' => $request->withdrawCode,
             'deposit_amount' => $request->depositAmount,

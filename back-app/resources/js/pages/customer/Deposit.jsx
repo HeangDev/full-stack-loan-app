@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Layout from '../../layout/Layout'
 import { Link, useParams } from "react-router-dom";
-import DataTable from 'react-data-table-component'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from '@headlessui/react'
+import { currencyFormat } from '../../utils/Formatter'
 
 import "jquery/dist/jquery.min.js";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -35,6 +35,7 @@ const Deposit = () => {
         const iddeposit = id;
         setEditIsOpen(true)
         axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then((data) => {
+            console.log(data)
             const { deposit_amount, withdraw_code, description } = data.data
             setDepositAmount(deposit_amount);
             setWithDrawCode(withdraw_code);
@@ -47,6 +48,7 @@ const Deposit = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
         const id_deposit = idDeposit
         const formData = new FormData()
         formData.append('_method', 'PATCH')
@@ -54,7 +56,8 @@ const Deposit = () => {
         formData.append('depositAmount', depositAmount)
         formData.append('description', description)
 
-        await axios.post(`http://127.0.0.1:8000/api/updatedepositbyid/${id_deposit}`, formData).then((data) => {
+        axios.post(`http://127.0.0.1:8000/api/updatedepositbyid/${id_deposit}`, formData).then((data) => {
+            console.log(data)
             Swal.fire({
                 title: 'Success!',
                 text: "แก้ไขสำเร็จ!",
@@ -106,9 +109,7 @@ const Deposit = () => {
                     $("#tbldeposit").DataTable({
                         pageLength: 10,
                         processing: true,
-                        select: {
-                            style: "single",
-                        },
+                        destroy: true,
                         "language": {
                             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
                             "zeroRecords": "ไม่พบอะไร - ขอโทษ",
@@ -176,8 +177,8 @@ const Deposit = () => {
                                                 <tr key={index}>
                                                     <td>{index + 1}</td>
                                                     <td>{item.withdraw_code}</td>
-                                                    <td>{item.deposit_amount}</td>
-                                                    <td>{item.description}</td>
+                                                    <td>{currencyFormat(item.deposit_amount)}</td>
+                                                    <td>{item.description == null ? '-' : item.description}</td>
                                                     <td>{item.deposit_date}</td>
                                                     <td>
                                                         <div className="btn_action">

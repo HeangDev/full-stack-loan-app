@@ -5,19 +5,20 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 import DataTable from 'react-data-table-component'
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import "jquery/dist/jquery.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.css";
+import $ from "jquery";
 
 const Index = () => {
+    const [editIsOpen, setEditIsOpen] = useState(false)
     const [duration, setDuration] = useState()
 
     const fetchDuration = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/duration`).then(({data}) => {
+        await axios.get(`http://127.0.0.1:8000/api/duration`).then(({ data }) => {
             setDuration(data)
         })
     }
-
-    useEffect(() => {
-        fetchDuration()
-    }, [])
 
     const handleDelete = async (id) => {
         const isConfirm = await Swal.fire({
@@ -36,7 +37,7 @@ const Index = () => {
             return;
         }
 
-        await axios.delete(`http://127.0.0.1:8000/api/duration/${id}`).then(({data}) => {
+        await axios.delete(`http://127.0.0.1:8000/api/duration/${id}`).then(({ data }) => {
             Swal.fire({
                 title: 'Success!',
                 text: "User has been deleted!",
@@ -44,41 +45,55 @@ const Index = () => {
                 timer: '1500'
             })
             fetchDuration()
-        }).catch(({err}) => {
+        }).catch(({ err }) => {
             console.log(err)
         })
     }
 
-    const columns = [
-        {
-            name: 'เดือน',
-            selector: (row) => row.month,
-            sortable: true,
-        },
-        {
-            name: 'เปอร์เซ็นต์',
-            selector: (row) => row.percent,
-            sortable: true,
-        },
-        {
-            name: 'สถานะ',
-            selector: (row) =>
-            row.status === 'active' ?
-            <span className="status_green">ใช้งาน</span>
-            :
-            <span className="status_red">ปิดการใช้งาน</span>,
-            sortable: true,
-        },
-        {
-            name: 'ตัวเลือก',
-            selector: (row) => [
-                <div className="btn_action">
-                    <Link to={`/duration/edit/${row.id}`} className="btn_edit"><AiOutlineEdit/></Link>
-                    <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
-                </div>
-            ],
-        },
-    ]
+    useEffect(() => {
+        fetchDuration()
+
+        if (!$.fn.dataTable.isDataTable("#tblduration")) {
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $("#tblduration").DataTable({
+                        pageLength: 10,
+                        processing: true,
+                        destroy: true,
+                        "language": {
+                            "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
+                            "zeroRecords": "ไม่พบอะไร - ขอโทษ",
+                            "info": "กำลังแสดงหน้า _PAGE_ ของ _PAGES_",
+                            "infoEmpty": "ไม่มีระเบียนที่มีอยู่",
+                            "infoFiltered": "(filtered from _MAX_ total records)",
+                            "search": "ค้นหา:",
+                            "searchPlaceholder": "ข้อมูลการค้นหา",
+                            "paginate": {
+                                "previous": "หน้าก่อนหน้า",
+                                "next": "หน้าต่อไป"
+                            }
+                        },
+
+                        fnRowCallback: function (
+                            nRow,
+                            aData,
+                            iDisplayIndex,
+                            iDisplayIndexFull
+                        ) {
+                            var index = iDisplayIndexFull + 1;
+                            $("td:first", nRow).html(index);
+                            return nRow;
+                        },
+
+                        lengthMenu: [
+                            [10, 20, 30, 50, -1],
+                            [10, 20, 30, 50, "All"],
+                        ],
+                    });
+                }, 1000);
+            });
+        }
+    }, [])
 
     return (
         <>
@@ -94,11 +109,37 @@ const Index = () => {
                     </div>
                     <div className="card_tbl_body">
                         <div className="tbl_scroll">
-                            <DataTable
-                                columns={columns}
-                                data={duration}
-                                pagination
-                            />
+                            <table className="table" id="tblduration">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>เดือน</th>
+                                        <th>เปอร์เซ็นต์</th>
+                                        <th>สถานะ</th>
+                                        <th>ตัวเลือก</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        duration && duration.length > 0 && (
+                                            duration.map((row, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{row.month}</td>
+                                                    <td>{row.percent}</td>
+                                                    <td>{row.status == 'active' ? <span className="status_green">ใช้งาน</span> : <span className="status_red">ปิดการใช้งาน</span>}</td>
+                                                    <td>
+                                                        <div className="btn_action">
+                                                            <Link to={`/duration/edit/${row.id}`} className="btn_edit"><AiOutlineEdit /></Link>
+                                                            <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete /></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
