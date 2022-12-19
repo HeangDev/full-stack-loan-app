@@ -236,3 +236,15 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .profile_drop_menu button svg{@apply inline-block mr-[10px] align-middle;}
 
 .profile_avatar > .profile_drop_menu{@apply after:content-[''] after:absolute after:top-[-8px] after:left-auto after:right-[13px] after:inline-block after:-ml-[6px] after:border-b-8 after:border-b-[#727cf5] after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent;}
+
+
+
+
+
+
+
+
+
+
+
+
