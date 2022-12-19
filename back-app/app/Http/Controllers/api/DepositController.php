@@ -83,19 +83,6 @@ class DepositController extends Controller
         return response()->json($deposit);
     }
 
-    public function updateDepositById(Request $request, $id)
-    {
-        $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::where('id', $request->iddeposit)
-        ->update([
-            'withdraw_code' => $request->updatewithdrawCode,
-            'deposit_amount' => $request->depositAmount,
-            'description' => $request->updatedescription,
-            'deposit_date' => $currentDate
-        ]);
-        return response()->json($deposit);
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -104,12 +91,26 @@ class DepositController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deposit = Deposit::find($id);
+        $deposit->delete();
     }
 
     public function getDepositById($id)
     {
         $deposit = Deposit::where('id_user', $id)->get();
+        return response()->json($deposit);
+    }
+
+    public function updateDepositById(Request $request, $id)
+    {
+        $currentDate = Carbon::now()->toDateString();
+        $deposit = Deposit::where('id', $request->id)
+        ->update([
+            'withdraw_code' => $request->withdrawCode,
+            'deposit_amount' => $request->depositAmount,
+            'description' => $request->description,
+            'deposit_date' => $currentDate
+        ]);
         return response()->json($deposit);
     }
 }

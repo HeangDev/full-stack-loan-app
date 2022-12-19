@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../layout/Layout'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import DataTable from 'react-data-table-component'
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock, AiOutlineMoneyCollect } from "react-icons/ai";
 import { BiShowAlt } from "react-icons/bi";
+import { MdOutlineAttachMoney } from "react-icons/md";
 
 const Index = () => {
     const [customer, setCustomer] = useState([])
@@ -53,6 +54,7 @@ const Index = () => {
 
     const columns = [
         {
+            id: 'ชื่อลูกค้า',
             name: "ชื่อลูกค้า",
             selector: (row) => 
             row.name === '' || row.name === null ?
@@ -62,16 +64,19 @@ const Index = () => {
             sortable: true,
         },
         {
+            id: "ลูกค้าโทร",
             name: "ลูกค้าโทร",
             selector: (row) => row.tel,
             sortable: true,
         },
         {
+            id: "เครดิต",
             name: "เครดิต",
             selector: (row) => row.deposit_amount,
             sortable: true,
         },
         {
+            id: "ข้อมูลอื่น ๆ",
             name: "ข้อมูลอื่น ๆ",
             selector: (row) =>
             row.status === 'complete' ?
@@ -81,6 +86,7 @@ const Index = () => {
             sortable: true,
         },
         {
+            id: "ลายเซ็น",
             name: "ลายเซ็น",
             selector: (row) =>
             row.sign_status === '1' ?
@@ -90,10 +96,12 @@ const Index = () => {
             sortable: true,
         },
         {
+            id: "สถานะการกู้",
             name: "สถานะการกู้",
             selector: (row) => <span className='status_orange'>{row.deposits_status}</span>,
         },
         {
+            id: "รหัสถอน",
             name: "รหัสถอน",
             selector: (row) =>
             row.withdraw_code === '' ?
@@ -103,6 +111,7 @@ const Index = () => {
             sortable: true,
         },
         {
+            id: "ตัวเลือก",
             name: "ตัวเลือก",
             cell: (row) => [
                 row.status == 'complete' ?
@@ -112,6 +121,8 @@ const Index = () => {
                 
                     <Link to={`/customer/changepassword/${row.id}`} className="btn_change"><AiOutlineLock/></Link>,
                     <Link to={`/customer/${row.id}`} className="btn_show"><BiShowAlt/></Link>,
+                    <Link to={`/customer/deposit/${row.id}`} className="btn_show"><MdOutlineAttachMoney/></Link>,
+                    <Link to={`/customer/withdraw/${row.id}`} className="btn_show"><AiOutlineMoneyCollect/></Link>,
                     <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
            ]
         },
@@ -136,7 +147,6 @@ const Index = () => {
                                 data={customer}
                                 pagination
                                 fixedHeader
-                                
                             />
                         </div>
                     </div>

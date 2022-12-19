@@ -13,7 +13,7 @@ import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock } from "react-icons/ai";
 import axios from "axios";
 
 const Show = () => {
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [customerStatus, setCustomerStatus] = useState('')
     const [currentWork, setCurrentWork] = useState("");
     const [income, setIncome] = useState("");
@@ -30,23 +30,13 @@ const Show = () => {
     const { id } = useParams();
 
     const [isOpen, setIsOpen] = useState(false)
-    const [editdepisOpen, setEditDepIsOpen] = useState(false)
-
 
     const [credit, setCredit] = useState('')
     const [withdrawCode, setWithDrawCode] = useState('')
-    const [description, setDescription ] = useState('')
+    const [description, setDescription] = useState('')
 
-    
-    const [depositAmount, setDepositAmount ] = useState('')
-    const [iddeposit, setIdDeposit] = useState('')
-    const [updatewithdrawCode, setUpdateWithDrawCode] = useState('')
-    const [updatedescription, setUpdateDescription ] = useState('')
-
-    const [deposit, setDeposit] = useState()
-    const [withdraw, setWithdraw] = useState()
     const [loan, setLoan] = useState()
-    
+
 
     const fetchCustomer = async () => {
         await axios.get(`http://127.0.0.1:8000/api/customer/${id}`).then(({ data }) => {
@@ -78,94 +68,38 @@ const Show = () => {
     const createDeposit = async (e) => {
         e.preventDefault();
         const formData = new FormData()
-            formData.append('_method', 'PATCH')
-            formData.append('id', id)
-            formData.append('withdrawCode', withdrawCode)
-            formData.append('credit', credit)
-            formData.append('description', description)
-            axios.post(`http://127.0.0.1:8000/api/deposit/${id}`, formData).then((data) => {
-                // console.log(data)
-                Swal.fire({
-                    title: 'Success!',
-                    text: "คุณได้ให้เครดิตแก่ลูกค้าของคุณเรียบร้อยแล้ว",
-                    icon: "success",
-                    timer: '1500'
-                })
-                setWithDrawCode('')
-                setCredit('')
-                setDescription('')
-                setIsOpen(false)
-                fetchDepositById()
-            }).catch(({err}) => {
-                console.log(err)
-            })
-    }
-    
-    // const [iddeposit, setIdDeposit] = useState('')
-
-    const editDeposit = async (id) => {
-          const iddeposit = id; 
-        setEditDepIsOpen(true)
-        axios.get(`http://127.0.0.1:8000/api/deposit/${iddeposit}`).then((data) => {
-            // console.log(data)
-            const { deposit_amount, withdraw_code, description, id } = data.data
-            setDepositAmount(deposit_amount);
-            setUpdateWithDrawCode(withdraw_code);
-            setUpdateDescription(description);
-            setIdDeposit(id);
-            console.log(data.data)
-            
-        }).catch(({err}) => {
-            console.log(err)
-        })
-
-    }
-
-    const updateDeposit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData()
         formData.append('_method', 'PATCH')
-        formData.append('iddeposit', iddeposit)
-        formData.append('updatewithdrawCode', updatewithdrawCode)
-        formData.append('depositAmount', depositAmount)
-        formData.append('updatedescription', updatedescription)
-
-        axios.put(`http://127.0.0.1:8000/api/updatedepositbyid/${iddeposit}`, formData).then((data) => {
-            console.log(data)
+        formData.append('id', id)
+        formData.append('withdrawCode', withdrawCode)
+        formData.append('credit', credit)
+        formData.append('description', description)
+        axios.post(`http://127.0.0.1:8000/api/deposit/${id}`, formData).then((data) => {
             Swal.fire({
                 title: 'Success!',
-                text: "แก้ไขสำเร็จ!",
+                text: "คุณได้ให้เครดิตแก่ลูกค้าของคุณเรียบร้อยแล้ว",
                 icon: "success",
                 timer: '1500'
             })
-            setEditDepIsOpen(false)
-        }).catch(({err}) => {
+            setWithDrawCode('')
+            setCredit('')
+            setDescription('')
+            setIsOpen(false)
+            fetchDepositById()
+        }).catch(({ err }) => {
             console.log(err)
         })
     }
-  
-
-    
 
     const fetchDocumentById = async () => {
         await axios.get(`http://127.0.0.1:8000/api/documentid/${id}`).then(({ data }) => {
-            // console.log(data)
             setFrontImage(data)
         }).catch(({ err }) => {
             console.log(err);
         });
     }
-    const fetchWithdrawById = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/withdraw/${id}`).then(({ data }) => {
-            // console.log(data)
-            setWithdraw(data)
-        }).catch(({ err }) => {
-            console.log(err);
-        });
-    }
+
     const fetchLoanById = async () => {
         await axios.get(`http://127.0.0.1:8000/api/loan/${id}`).then(({ data }) => {
-            // console.log(data)
             setLoan(data)
         }).catch(({ err }) => {
             console.log(err);
@@ -174,8 +108,6 @@ const Show = () => {
 
     useEffect(() => {
         fetchCustomer();
-        fetchDepositById();
-        fetchWithdrawById();
         fetchLoanById();
         fetchDocumentById();
     }, []);
@@ -225,9 +157,9 @@ const Show = () => {
                                                     <></>
                                                 ) : (
                                                     <button type="button" className="btn btn_light" onClick={() => setIsOpen(true)}>
-                                                        <MdAttachMoney/>
+                                                        <MdAttachMoney />
                                                         <span>ใส่เครดิต</span>
-                                                    </button> 
+                                                    </button>
                                                 )
                                             }
                                         </div>
@@ -321,67 +253,13 @@ const Show = () => {
                                     <div className="card_body">
                                         <h4 className="card_title">รายการเติมเงิน</h4>
                                         <div className="tbl_scroll">
-                                            <table className="tbl">
-                                                <thead>
-                                                    <tr>
-                                                        <th>รหัสถอนเงิน</th>
-                                                        <th>จำนวนเงิน</th>
-                                                        <th>ลักษณะ</th>
-                                                        <th>วันที</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {
-                                                        deposit && deposit.length > 0 && (
-                                                            deposit.map((row, i) => (
-                                                                <tr key={i}>
-                                                                    <td>{row.withdraw_code == null ? '-' : row.withdraw_code}</td>
-                                                                    <td>{row.deposit_amount == null ? '-' : row.deposit_amount}</td>
-                                                                    <td>{row.description == null ? '-' : row.description}</td>
-                                                                    <td>{row.deposit_date == null ? 'ไม่มีข้อมูล' : row.deposit_date}</td>
-                                                                    <td>
-                                                                        <button className="btn_edit mx-2" onClick={() => editDeposit(row.id) } ><AiOutlineEdit/></button>
-                                                                        <button type="button" onClick={() => handleDelete(row.id)} className="btn_delete"><AiOutlineDelete/></button>
-                                                                    </td>
-                                                                    
-                                                                </tr>
-                                                            ))
-                                                        )
-                                                    }
-                                                </tbody>
-                                            </table>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card">
                                     <div className="card_body">
-                                        <h4 className="card_title">ราการถอนเงิน</h4>
-                                        <div className="tbl_scroll">
-                                            <table className="tbl">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>จำนวนเงิน</th>
-                                                        <th>ลักษณะ</th>
-                                                        <th>วันที</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                        withdraw && withdraw.length > 0 && (
-                                                            withdraw.map((row, i) => (
-                                                                <tr key={i}>
-                                                                    <td>{}</td>
-                                                                    <td>{currencyFormat(row.withdraw_amount == null ? '-' : row.withdraw_amount)}</td>
-                                                                    <td>{row.status == null ? 'ไม่มีข้อมูล' : row.status}</td>
-                                                                    <td>{row.withdraw_date == null ? '-' : row.withdraw_date}</td>
-                                                                </tr>
-                                                            ))
-                                                        )
-                                                    }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -409,10 +287,10 @@ const Show = () => {
                                                     loan.map((row, i) => (
                                                         <tr key={i}>
                                                             <td>{row.month == null ? '-' : row.month} เคือน</td>
-                                                            <td>{currencyFormat( row.amount == null ? 'ไม่มีข้อมูล' : row.amount)}</td>
-                                                            <td>{currencyFormat( row.interest == null ? '-' : row.interest)}</td>
-                                                            <td>{currencyFormat( row.total == null ? '-' : row.total)}</td>
-                                                            <td>{currencyFormat( row.pay_month == null ? '-' : row.pay_month)}</td>
+                                                            <td>{currencyFormat(row.amount == null ? 'ไม่มีข้อมูล' : row.amount)}</td>
+                                                            <td>{currencyFormat(row.interest == null ? '-' : row.interest)}</td>
+                                                            <td>{currencyFormat(row.total == null ? '-' : row.total)}</td>
+                                                            <td>{currencyFormat(row.pay_month == null ? '-' : row.pay_month)}</td>
                                                             <td>{row.date == null ? '-' : row.date}</td>
                                                         </tr>
                                                     ))
@@ -432,145 +310,79 @@ const Show = () => {
                         </div>
                         <div className="card">
                             <div className="card_body">
-                                
+
                             </div>
                         </div>
                         <div className="card">
                             <div className="card_body">
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <Transition appear show={isOpen} as={Fragment}>
                     <Dialog as="div" className="modal" onClose={() => setIsOpen(false)}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
-                    </Transition.Child>
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex items-center justify-center p-4 text-center">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
                             leave="ease-in duration-200"
-                            leaveFrom="opacity-100 scale-100"
-                            leaveTo="opacity-0 scale-95"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
                         >
-                            <Dialog.Panel className="modal_dialog">
-                                <form autoComplete="off" onSubmit={createDeposit}>
-                                    <div className="modal_header">
-                                        <Dialog.Title
-                                            as="h4"
-                                            className="modal_title"
-                                        >
-                                            สมัครขอสินเชื่อ
-                                        </Dialog.Title>
-                                        <button type="button" className="btn_close" onClick={() => setIsOpen(false)}><AiOutlineClose/></button>
-                                    </div>
-                                    <div className="modal_body">
-                                        <div className="frm_wrap">
-                                            <div className="frm_grp">
-                                                <label>รหัสถอนเงิน</label>
-                                                <input type="number" placeholder="รหัสถอนเงิน 4 หลัก" value={withdrawCode} onChange={(e) => setWithDrawCode(e.target.value)}  /> 
-                                            </div>
-                                            <div className="frm_grp">
-                                                <label>จำนวนเงิน</label>
-                                                <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={credit} onChange={(e) => setCredit(e.target.value)} /> 
-                                            </div>
-                                            <div className="frm_grp">
-                                                <label>คำอธิบาย</label>
-                                                <textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="modal_footer">
-                                        <button type="button" className="btn_close" onClick={() => setIsOpen(false)}>ออกจาก</button>
-                                        <button type="submit" className="btn_save">ยืนยัน</button>
-                                    </div>
-                                </form>
-                            </Dialog.Panel>
+                            <div className="fixed inset-0 bg-black bg-opacity-25" />
                         </Transition.Child>
+                        <div className="fixed inset-0 overflow-y-auto">
+                            <div className="flex items-center justify-center p-4 text-center">
+                                <Transition.Child
+                                    as={Fragment}
+                                    enter="ease-out duration-300"
+                                    enterFrom="opacity-0 scale-95"
+                                    enterTo="opacity-100 scale-100"
+                                    leave="ease-in duration-200"
+                                    leaveFrom="opacity-100 scale-100"
+                                    leaveTo="opacity-0 scale-95"
+                                >
+                                    <Dialog.Panel className="modal_dialog">
+                                        <form autoComplete="off" onSubmit={createDeposit}>
+                                            <div className="modal_header">
+                                                <Dialog.Title
+                                                    as="h4"
+                                                    className="modal_title"
+                                                >
+                                                    สมัครขอสินเชื่อ
+                                                </Dialog.Title>
+                                                <button type="button" className="btn_close" onClick={() => setIsOpen(false)}><AiOutlineClose /></button>
+                                            </div>
+                                            <div className="modal_body">
+                                                <div className="frm_wrap">
+                                                    <div className="frm_grp">
+                                                        <label>รหัสถอนเงิน</label>
+                                                        <input type="number" placeholder="รหัสถอนเงิน 4 หลัก" value={withdrawCode} onChange={(e) => setWithDrawCode(e.target.value)} />
+                                                    </div>
+                                                    <div className="frm_grp">
+                                                        <label>จำนวนเงิน</label>
+                                                        <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={credit} onChange={(e) => setCredit(e.target.value)} />
+                                                    </div>
+                                                    <div className="frm_grp">
+                                                        <label>คำอธิบาย</label>
+                                                        <textarea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="modal_footer">
+                                                <button type="button" className="btn_close" onClick={() => setIsOpen(false)}>ออกจาก</button>
+                                                <button type="submit" className="btn_save">ยืนยัน</button>
+                                            </div>
+                                        </form>
+                                    </Dialog.Panel>
+                                </Transition.Child>
+                            </div>
                         </div>
-                    </div>
                     </Dialog>
                 </Transition>
 
-                {/* Edit deposit */}
-                <Transition appear show={editdepisOpen} as={Fragment}>
-                    <Dialog as="div" className="modal" onClose={() => setEditDepIsOpen(false)}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
-                    </Transition.Child>
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex items-center justify-center p-4 text-center">
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 scale-100"
-                            leaveTo="opacity-0 scale-95"
-                        >
-                            <Dialog.Panel className="modal_dialog">
-                                <form autoComplete="off"  onSubmit={updateDeposit} >
-                                    <div className="modal_header">
-                                        <Dialog.Title
-                                            as="h4"
-                                            className="modal_title"
-                                        >
-                                            แก้ไขยอดเติม
-                                        </Dialog.Title>
-                                        <button type="button" className="btn_close" onClick={() => setEditDepIsOpen(false)}><AiOutlineClose/></button>
-                                    </div>
-                                    <div className="modal_body">
-                                        <div className="frm_wrap">
-                                            <div className="frm_grp">
-                                                <label>รหัสถอนเงิน</label>
-                                                <input type="number" placeholder="รหัสถอนเงิน 4 หลัก" value={updatewithdrawCode} onChange={(e) => {setUpdateWithDrawCode(e.target.value)}}  /> 
-                                            </div>
-                                            <div className="frm_grp">
-                                                <label>จำนวนเงิน</label>
-                                                <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={depositAmount} onChange={(e) => {setDepositAmount(e.target.value)}} /> 
-                                            </div>
-                                            <div className="frm_grp">
-                                                <label>คำอธิบาย</label>
-                                                <textarea rows={2} value={updatedescription} onChange={(e) => setUpdateDescription(e.target.value)}/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input  value={iddeposit} onChange={(e) => {setIdDeposit(e.target.value)}} />
-                                    <div className="modal_footer">
-                                        <button type="button" className="btn_close" onClick={() => setEditDepIsOpen(false)}>ออกจาก</button>
-                                        <button type="submit" className="btn_save">ยืนยัน</button>
-                                    </div>
-                                </form>
-                            </Dialog.Panel>
-                        </Transition.Child>
-                        </div>
-                    </div>
-                    </Dialog>
-                </Transition>
-                {/* End edit deposit */}
-                
             </Layout>
         </>
     );

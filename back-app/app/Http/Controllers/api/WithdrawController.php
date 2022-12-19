@@ -105,7 +105,8 @@ class WithdrawController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $withdraw = Withdraw::find($id);
+        $withdraw->delete();
     }
 
     // public function getWithdrawById($id)
