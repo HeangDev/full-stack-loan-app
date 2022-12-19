@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Bank;
 use App\Models\DocumentId;
 use App\Models\Signature;
+use App\Models\Deposit;
 
 class CustomerAuthController extends Controller
 {
@@ -22,6 +23,11 @@ class CustomerAuthController extends Controller
         ]);
 
         $u_id = $user->id;
+
+        Deposit::create([
+            'id_user' => $u_id,
+            'description' => 'กำหลังดำเนินการ',
+        ]);
 
         Signature::create([
             'id_user' => $u_id,
@@ -53,7 +59,7 @@ class CustomerAuthController extends Controller
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'],
+                'tel' => ['หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'],
             ]);
         } else {
             $token = $user->createToken($request->tel . '_CustomerToken')->plainTextToken;
@@ -64,24 +70,6 @@ class CustomerAuthController extends Controller
                 'token' => $token
             ], 200);
         }
-
-
-        // $login = User::where('tel', $request->tel)->first();
- 
-        // if (! $login || ! Hash::check($request->password, $login->password)) {
-        //     return response([
-        //         'status' => 401,
-        //         'message' => 'หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'
-        //     ], 401);
-        // } else {
-        //     $token = $login->createToken($login->tel . '_CustomerToken', ['server:customer'])->plainTextToken;
-
-        //     return response()->json([
-        //         'status' => 200,
-        //         'id' => $login->id,
-        //         'token' => $token
-        //     ], 200);
-        // }
     }
 
     public function logout(Request $request)

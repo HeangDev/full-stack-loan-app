@@ -14,7 +14,7 @@ class DepositController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
     }
@@ -37,15 +37,7 @@ class DepositController extends Controller
      */
     public function store(Request $request)
     {
-        $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::create([
-            'id_user' => $request->id,
-            'withdraw_code' => $request->withdrawCode,
-            'credit' => $request->credit,
-            'description' => $request->description,
-            'deposit_date' => $currentDate
-        ]);
-        return response()->json($deposit);
+        //
     }
 
     /**
@@ -80,7 +72,15 @@ class DepositController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $deposit = Deposit::where('id_user', $request->id)
+        ->update([
+            'withdraw_code' => $request->withdrawCode,
+            'deposit_amount' => $request->credit,
+            'description' => $request->description,
+            'deposit_date' => $currentDate
+        ]);
+        return response()->json($deposit);
     }
 
     /**
@@ -91,6 +91,26 @@ class DepositController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deposit = Deposit::find($id);
+        $deposit->delete();
+    }
+
+    public function getDepositById($id)
+    {
+        $deposit = Deposit::where('id_user', $id)->get();
+        return response()->json($deposit);
+    }
+
+    public function updateDepositById(Request $request, $id)
+    {
+        $currentDate = Carbon::now()->toDateString();
+        $deposit = Deposit::where('id', $request->id)
+        ->update([
+            'withdraw_code' => $request->withdrawCode,
+            'deposit_amount' => $request->depositAmount,
+            'description' => $request->description,
+            'deposit_date' => $currentDate
+        ]);
+        return response()->json($deposit);
     }
 }

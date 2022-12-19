@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
-            $table->string('withdraw_code')->default('0000');
-            $table->float('deposit_amount', 8, 2)->default('0');
-            $table->text('description')->default('กำหลังดำเนินการ');
-            $table->date('deposit_date');
+            $table->string('withdraw_code')->nullable()->default('0000');
+            $table->float('deposit_amount', 8, 2)->nullable()->default('0');
+            $table->text('description')->nullable()->default('กำหลังดำเนินการ');
+            $table->date('deposit_date')->nullable();
             $table->timestamps();
         });
     }

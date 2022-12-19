@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Bank;
 use App\Models\DocumentId;
 use App\Models\Signature;
+use App\Models\Deposit;
 
 class UserSeeder extends Seeder
 {
@@ -26,6 +27,11 @@ class UserSeeder extends Seeder
         ]);
 
         $u_id = $user->id;
+
+        Deposit::create([
+            'id_user' => $u_id,
+            'description' => 'กำหลังดำเนินการ',
+        ]);
 
         Signature::create([
             'id_user' => $u_id,

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Loan;
+use Illuminate\Support\Facades\DB;
 
 class LoanController extends Controller
 {
@@ -59,7 +60,14 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        $loan = DB::table('loans')
+        ->join('users', 'users.id', '=', 'loans.id_user')
+        ->join('durations', 'durations.id', '=', 'loans.id_duration')
+        ->select('loans.*', 'users.*', 'durations.*')
+        ->where('users.id', '=', $id)
+        ->get();
+        ;
+        return response()->json($loan);
     }
 
     /**
@@ -95,4 +103,16 @@ class LoanController extends Controller
     {
         //
     }
+
+    // public function getLoanById($id)
+    // {
+    //     $loan = DB::table('loans')
+    //     ->join('users', 'users.id', '=', 'loans.id_user')
+    //     ->join('durations', 'durations.id', '=', 'loans.id_duration')
+    //     ->select('loans.*', 'users.*', 'durations.*')
+    //     ->where('users.id', '=', $id)
+    //     ->get();
+    //     ;
+    //     return response()->json($loan);
+    // }
 }

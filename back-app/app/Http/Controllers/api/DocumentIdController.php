@@ -4,12 +4,13 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
-use App\Models\Withdraw;
-use App\Models\Deposit;
+use App\Models\DocumentId;
 use Illuminate\Support\Facades\DB;
 
-class WithdrawController extends Controller
+class DocumentIdController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,23 +40,7 @@ class WithdrawController extends Controller
      */
     public function store(Request $request)
     {
-        $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::where('id_user', $request->id)
-        ->update([
-            'deposit_amount' => '0',
-            'description' => 'ถอนเงินสำเร็จ'
-        ]);
-
-        $withdraw = Withdraw::create([
-            'id_user' => $request->id,
-            'withdraw_amount' => $request->credit,
-            'withdraw_date' => $currentDate,
-            'status' => 'ถอนเงินสำเร็จ'
-        ]);
-        return response()->json([
-            $withdraw,
-            $deposit
-        ]);
+        //
     }
 
     /**
@@ -66,12 +51,12 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        $withdraw = DB::table('withdraws')
-        ->join('users', 'users.id', '=', 'withdraws.id_user')
-        ->select('users.*', 'withdraws.*')
+        $document = DB::table('document_ids')
+        ->join('users', 'users.id', '=', 'document_ids.id_user')
+        ->select('document_ids.*', 'users.*')
         ->where('users.id', '=', $id)
-        ->get();
-        return response()->json($withdraw);
+        ->first();
+        return response()->json($document);
     }
 
     /**
@@ -94,7 +79,42 @@ class WithdrawController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $document = DocumentId::where('id_user', $id);
+
+        $image1 = $request->file('frontImage');
+        $image2 = $request->file('backImage');
+        $image3 = $request->file('fullImage');
+
+       
+
+       if (isset($image1)) {
+            $currentDate = Carbon::now()->toDateString();
+            $imageName1 = $currentDate . '-' . uniqid() . '.' . $image1->getClientOriginalExtension();
+  
+            return response()->json($imageName1);
+            
+        } 
+
+        
+       if (isset($image2)) {
+        $currentDate = Carbon::now()->toDateString();
+        $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
+
+        return response()->json($imageName2);
+        
+    } 
+
+    
+    if (isset($image3)) {
+        $currentDate = Carbon::now()->toDateString();
+        $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
+
+        return response()->json($imageName3);
+        
+    } 
+            
+
+        
     }
 
     /**
@@ -105,13 +125,12 @@ class WithdrawController extends Controller
      */
     public function destroy($id)
     {
-        $withdraw = Withdraw::find($id);
-        $withdraw->delete();
+        //
     }
 
-    // public function getWithdrawById($id)
+    // public function getDocumentById($id)
     // {
-    //     $withdraw = Withdraw::where('id_user', $id)->get();
-    //     return response()->json($withdraw);
+    //     $document = DocumentId::where('id', $id)->first();
+    //     return response()->json($document);
     // }
 }
