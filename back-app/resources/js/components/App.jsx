@@ -22,6 +22,7 @@ import ChangePassword from '../pages/customer/ChangePassword';
 import CreateByID from '../pages/customer/CreateByID';
 import CustomerDeposit from '../pages/customer/Deposit';
 import CustomerWithdraw from '../pages/customer/Withdraw'
+import CustomerEditWithdraw from '../pages/customer/EditWithdraw'
 import CustomerLoan from '../pages/customer/Loan'
 
 import AgreementIndex from '../pages/agreement/Index'
@@ -56,6 +57,7 @@ const App = () => {
                     <Route path="/customer/create/:id" element={<CreateByID />} />
                     <Route path="/customer/deposit/:id" element={<CustomerDeposit />} />
                     <Route path="/customer/withdraw/:id" element={<CustomerWithdraw />} />
+                    <Route path="/customer/editwithdraw/:id" element={<CustomerEditWithdraw />} />
                     <Route path="/customer/loan/:id" element={<CustomerLoan />} />
 
                     <Route path="/agreement" element={<AgreementIndex />} />

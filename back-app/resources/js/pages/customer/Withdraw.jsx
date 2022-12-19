@@ -165,7 +165,7 @@ const Withdraw = () => {
                                                     <td>{item.withdraw_date}</td>
                                                     <td>
                                                         <div className="btn_action">
-                                                            <button type="button" onClick={() => handleEdit(item.id)} className="btn_edit"><AiOutlineEdit/></button>
+                                                            <Link to={`/customer/editwithdraw/${item.id}`}  className="btn_edit"><AiOutlineEdit/></Link>
                                                             <button type="button" onClick={() => handleDelete(item.id)} className="btn_delete"><AiOutlineDelete/></button>
                                                         </div>
                                                     </td>

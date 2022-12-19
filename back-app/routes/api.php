@@ -60,6 +60,10 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
 
     Route::post('/updatedepositbyid/{id}', [DepositController::class, 'updateDepositById']);
 
+
+    Route::get('/getwithdrawbyid/{id}', [WithdrawController::class, 'getWithdrawById']);
+    Route::post('/updatewithdrawbyid/{id}', [WithdrawController::class, 'updateWithdrawById']);
+
     
    
     
