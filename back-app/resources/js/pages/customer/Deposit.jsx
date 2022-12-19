@@ -109,13 +109,19 @@ const Deposit = () => {
                         select: {
                             style: "single",
                         },
-                        // "language": {
-                        //     "lengthMenu": "Display _MENU_ records per page",
-                        //     "zeroRecords": "Nothing found - sorry",
-                        //     "info": "Showing page _PAGE_ of _PAGES_",
-                        //     "infoEmpty": "No records available",
-                        //     "infoFiltered": "(filtered from _MAX_ total records)"
-                        // },
+                        "language": {
+                            "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
+                            "zeroRecords": "ไม่พบอะไร - ขอโทษ",
+                            "info": "กำลังแสดงหน้า _PAGE_ ของ _PAGES_",
+                            "infoEmpty": "ไม่มีระเบียนที่มีอยู่",
+                            "infoFiltered": "(filtered from _MAX_ total records)",
+                            "search": "ค้นหา:",
+                            "searchPlaceholder": "ข้อมูลการค้นหา",
+                            "paginate": {
+                                "previous": "หน้าก่อนหน้า",
+                                "next": "หน้าต่อไป"
+                            }
+                        },
 
                         fnRowCallback: function (
                             nRow,
@@ -160,6 +166,7 @@ const Deposit = () => {
                                         <th>จำนวนเงิน</th>
                                         <th>ลักษณะ</th>
                                         <th>ลักษณะ</th>
+                                        <th>ตัวเลือก</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -172,6 +179,12 @@ const Deposit = () => {
                                                     <td>{item.deposit_amount}</td>
                                                     <td>{item.description}</td>
                                                     <td>{item.deposit_date}</td>
+                                                    <td>
+                                                        <div className="btn_action">
+                                                            <button type="button" onClick={() => handleEdit(item.id)} className="btn_edit"><AiOutlineEdit/></button>
+                                                            <button type="button" onClick={() => handleDelete(item.id)} className="btn_delete"><AiOutlineDelete/></button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             ))
                                         )

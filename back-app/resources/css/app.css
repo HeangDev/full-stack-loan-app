@@ -215,17 +215,6 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 .sub_header_content a svg{@apply inline-block align-middle mr-[9px] text-center;}
 
 
-
-
-
-
-
-
-
-
-
-
-
 .profile_drop_menu{@apply absolute top-[60px] right-0 w-[220px] border border-[#e3e3e3] rounded-[3px] bg-[#fff] mt-[12px] pb-[7px] text-[1rem] text-[#404040] text-left leading-[20px];}
 .profile_user{@apply bg-[#727cf5] text-white overflow-hidden mb-[7px] py-[15px] px-[14px];}
 .profile_user .profile_name{@apply block text-[14px] leading-[22px] text-ellipsis whitespace-nowrap overflow-hidden;}
@@ -239,11 +228,14 @@ legend{@apply bg-gray-50 py-[5px] px-[10px] text-[#333];}
 
 
 
-
-
-
-
-
+.dataTables_wrapper select, .dataTables_wrapper .dataTables_filter input{@apply py-[2px] px-[13px] text-[12px] font-normal text-[#3e4449] leading-[25px]  border border-[#eee] rounded-[2px] bg-white focus:outline-none !important;}
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{@apply bg-indigo-100;}
+.dataTables_wrapper .dataTables_paginate .paginate_button{@apply text-[14px] font-bold rounded border border-transparent !important;}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{@apply font-bold text-white shadow border border-transparent rounded bg-indigo-500 !important;}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{@apply font-bold text-white shadow border border-transparent rounded bg-indigo-400;}
+table.dataTable.no-footer{@apply border-b border-gray-300 my-[0.75em];}
+table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before{@apply bg-indigo-500;}
+.dataTables_wrapper .dataTables_info{@apply text-[14px];}
 
 
 
