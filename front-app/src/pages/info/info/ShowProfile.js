@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../../../components/Header'
 import axios from 'axios'
+import { currencyFormat } from '../../../utils/Formatter'
 
 const ShowProfile = () => {
     const [currentWork, setCurrentWork] = useState('')
@@ -12,12 +13,15 @@ const ShowProfile = () => {
     const [bankAccount, setBankAccount] = useState('')
     const [name, setName] = useState('')
     const [idNumber, setIdNumber] = useState('')
+    const [frontImage, setFrontImage] = useState('')
+    const [backImage, setBackImage] = useState('')
+    const [fullImage, setFullImage] = useState('')
     const id = localStorage.getItem('auth_id')
 
     const fetchCustomerInfo = async () => {
         await axios.get(`http://127.0.0.1:8000/api/user/${id}`).then(({data}) => {
-            console.log(data)
-            const { current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number } = data[0]
+            //console.log(data)
+            const { current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full } = data
             setCurrentWork(current_occupation)
             setIncome(monthly_income)
             setContactNumber(contact_number)
@@ -27,6 +31,9 @@ const ShowProfile = () => {
             setBankAccount(bank_acc)
             setName(name)
             setIdNumber(id_number)
+            setFrontImage(front)
+            setBackImage(back)
+            setFullImage(full)
         }).catch (({err}) => {
             console.log(err)
         })
@@ -54,7 +61,7 @@ const ShowProfile = () => {
                             <div className="frm_grp">
                                 <label htmlFor="income">รายได้ต่อเดือน</label>
                                 <div className="frm_col">
-                                    <input type="text" className="text-right" readOnly id="currentWork" value={income}/>
+                                    <input type="text" readOnly id="currentWork" value={currencyFormat(income)}/>
                                 </div>
                             </div>
                             <div className="frm_grp">
@@ -111,36 +118,27 @@ const ShowProfile = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <div>
+                    <div>
                         <p className="frm_info">
                             *ต้องใช้บัตรประชาชนและสามารถระบุเนื้อหาได้ชัดเจน<br/>
                             *โปรดยืนยันว่าได้เปิดใช้งานการอนุญาตกล้องแล้ว
                         </p>
                         <div className="frm_upload_wrap">
                             <div className="file_input">
-                                <div className="input_show_file"><img src={frontImageUrl} alt=""/></div>
-                                <input type="file" accept="image/*" onChange={chooseFrontImage}/>
-                                <div className="btn_upload"><img src={IconCamera} alt=""/></div>
-                                <div className="txt_wrap">หน้าบัตรประชาชน</div>
+                                <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${frontImage}`} alt=""/></div>
                             </div>
                         </div>
                         <div className="frm_upload_wrap">
                             <div className="file_input">
-                                <div className="input_show_file"><img src={backImageUrl} alt=""/></div>
-                                <input type="file" accept="image/*" onChange={chooseBackImage}/>
-                                <div className="btn_upload"><img src={IconCamera} alt=""/></div>
-                                <div className="txt_wrap">ด้านหลังบัตรประชาชน</div>
+                                <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${backImage}`} alt=""/></div>
                             </div>
                         </div>
                         <div className="frm_upload_wrap">
                             <div className="file_input">
-                                <div className="input_show_file"><img src={fullImageUrl} alt=""/></div>
-                                <input type="file" accept="image/*" onChange={chooseFullImage}/>
-                                <div className="btn_upload"><img src={IconCamera} alt=""/></div>
-                                <div className="txt_wrap">ถือบัตรประชาชน</div>
+                                <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${fullImage}`} alt=""/></div>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </form>
             </div>
         </>

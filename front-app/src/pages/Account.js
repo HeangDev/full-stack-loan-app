@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Other_03 from '../assets/other_03.jpg'
 import Info from '../assets/icon/icon_user.png'
 import Money from '../assets/icon/icon_money.png'
@@ -8,10 +8,20 @@ import Lock from '../assets/icon/icon_lock.png'
 import Logout from '../assets/icon/icon_logout.png'
 import axios from 'axios'
 
+const events = [
+    "load",
+    "mousemove",
+    "mousedown",
+    "click",
+    "scroll",
+    "keypress",
+];
+  
 const Account = () => {
     const [data, setData] = useState()
     const [showModal, setShowModal] = useState(false);
     const id_user = localStorage.getItem('auth_id')
+    let timer;
 
     const useAuth = () => {
         const token = localStorage.getItem('auth_token')
@@ -23,12 +33,10 @@ const Account = () => {
     }
 
     const user = useAuth();
-    const navigate = useNavigate()
 
     const logout = () => {
-        localStorage.removeItem('auth_token')
-        localStorage.removeItem('auth_id')
-        navigate('/')
+        localStorage.clear();
+        window.location.pathname = '/'
     }
 
     const fetchUser = async () => {
@@ -39,8 +47,28 @@ const Account = () => {
         })
     }
 
+    const resetTimer = () => {
+        if (timer) clearTimeout(timer)
+    }
+
+    const handleTimer = () => {
+        timer = setTimeout(() => {
+            resetTimer()
+            Object.values(events).forEach((item) => {
+                window.removeEventListener(item, resetTimer)
+            })
+            logout()
+        }, 600000)
+    }
+
     useEffect(() => {
         fetchUser()
+        Object.values(events).forEach((item) => {
+            window.addEventListener(item, () => {
+                resetTimer()
+                handleTimer()
+            })
+        })
     }, [])
     return (
         <>

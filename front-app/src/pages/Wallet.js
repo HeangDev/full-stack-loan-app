@@ -9,22 +9,17 @@ import Safe_icon from '../assets/safe-icon.png'
 const Wallet = () => {
     const [credit, setCredit] = useState()
     const [code, setCode] = useState()
+    const [description, setDescription] = useState()
     const [withdrawCode, setWithdrawCode] = useState('')
     const id = localStorage.getItem('auth_id')
 
     const fetchDeposit = async () => {
         await axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then(({data}) => {
-            const { withdraw_code, credit } = data
+            //console.log(data)
+            const { withdraw_code, deposit_amount, description } = data
             setCode(withdraw_code)
-            setCredit(credit)
-        }).catch (({err}) => {
-            console.log(err)
-        })
-    }
-
-    const fetchWithdraw = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/withdraw/${id}`).then(({data}) => {
-            console.log(data)
+            setCredit(deposit_amount)
+            setDescription(description)
         }).catch (({err}) => {
             console.log(err)
         })
@@ -72,7 +67,6 @@ const Wallet = () => {
             formData.append('credit', credit)
 
             axios.post(`http://127.0.0.1:8000/api/withdraw`, formData).then((data) => {
-                console.log(data)
                 toast.success('คุณได้ถอนเงินกู้ของคุณสำเร็จแล้ว', {
                     position: "top-right",
                     autoClose: 2000,
@@ -93,7 +87,6 @@ const Wallet = () => {
 
     useEffect(() => {
         fetchDeposit()
-        fetchWithdraw()
     }, [])
 
     return (
@@ -134,10 +127,10 @@ const Wallet = () => {
                 </div>
                 </div>
                 <div className="windraw_des">
-                    <p className="tit_note">สถานะการกู้:</p>
+                    <p className="tit_note">สถานะการกู้: {description === 'กำหลังดำเนินการ' ? 'กำหลังดำเนินการ' : description }</p>
                     <p>คำเตือน:<br /></p>
                     <p className="txt_note">
-                        <img src={Safe_icon} /> 
+                        <img src={Safe_icon} alt="" /> 
                         <span>โปรดติดต่อฝ่ายบริการลูกค้าออนไลน์เพื่อขอรับรหัสถอนความปลอดภัยของเงินในบัญชีได้รับการประกันโดยธนาคาร</span>
                     </p>
                 </div>

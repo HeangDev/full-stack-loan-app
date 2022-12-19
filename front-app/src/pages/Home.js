@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { currencyFormat } from '../utils/Formatter'
 import axios from 'axios'
-import Agreement from '../components/Agreement'
+
 
 const Home = () => {
     const [checked, setChecked] = useState(false);
@@ -31,7 +31,6 @@ const Home = () => {
     const [active, setActive] = useState(1)
     const navigate = useNavigate()
     const checkedRef = useRef(null)
-    const amountRef = useRef(50000)
     const [showModal, setShowModal] = useState(false)
 
     const handleChange = () => {
@@ -106,7 +105,7 @@ const Home = () => {
     }
 
     const fetchDuration = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/duration`).then(({data}) => {
+        await axios.get(`http://127.0.0.1:8000/api/getduration`).then(({data}) => {
             setMonth(data[0].month)
             setPercent(data[0].percent)
             setDurations(data)
@@ -123,7 +122,7 @@ const Home = () => {
     }
 
     const fetchAgreement = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/agreement`).then(({data}) => {
+        await axios.get(`http://127.0.0.1:8000/api/getagreement`).then(({data}) => {
             setAgreement(data)
         })
     }
@@ -153,7 +152,7 @@ const Home = () => {
             const sign_status = data.sign_status
             if (!localStorage.getItem('auth_token')) {
                 navigate('/login')
-            } else if (status == 'incomplete') {
+            } else if (status === 'incomplete') {
                 toast.warn('โปรดกรอกข้อมูลให้ครบค่ะ', {
                     position: "top-right",
                     autoClose: 2000,
@@ -280,7 +279,7 @@ const Home = () => {
 					</div>
                 </div>
                 <div className="btn_wrap">
-                    <button className="btn_b40" onClick={(e) => handleBorrow()}>สมัครทันที</button>
+                    <button className="btn_b40" onClick={(e) => handleBorrow()}>กู้ทันที</button>
                 </div>
                 <>
                     <UserLoan/>
@@ -289,7 +288,7 @@ const Home = () => {
                 <div className="other"><img src={Other_02} alt=""/></div>
             </div>
             { showModal ? (
-                <div className="pop_wrap msg_wrap flexCenter w-[150px]">
+                <div className="pop_wrap msg_agg flexCenter">
                     <div className="pop_inn mgbox_inn">
                         <div className="pop_content">
                             <div className="pop_msg">

@@ -10,6 +10,7 @@
         <title>Promiseth</title>
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
+        <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     </head>
     <body>
         <div id="app"></div>
