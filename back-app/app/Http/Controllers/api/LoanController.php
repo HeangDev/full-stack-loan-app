@@ -90,7 +90,19 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $loan = Loan::where('id', $id)
+        ->update([
+            'id_duration' => $request->durationId,
+            'amount' => $request->amount,
+            'interest' => $request->interest,
+            'total' => $request->total,
+            'pay_month' => $request->payMonthly,
+            'date' => $currentDate,
+            'status' => $request->status,
+            
+        ]);
+        return response()->json($loan);
     }
 
     /**
@@ -104,15 +116,15 @@ class LoanController extends Controller
         //
     }
 
-    // public function getLoanById($id)
-    // {
-    //     $loan = DB::table('loans')
-    //     ->join('users', 'users.id', '=', 'loans.id_user')
-    //     ->join('durations', 'durations.id', '=', 'loans.id_duration')
-    //     ->select('loans.*', 'users.*', 'durations.*')
-    //     ->where('users.id', '=', $id)
-    //     ->get();
-    //     ;
-    //     return response()->json($loan);
-    // }
+    public function getLoanById($id)
+    {
+        $loan = DB::table('loans')
+        ->join('users', 'users.id', '=', 'loans.id_user')
+        ->join('durations', 'durations.id', '=', 'loans.id_duration')
+        ->select('loans.*', 'users.*', 'durations.*')
+        ->where('users.id', '=', $id)
+        ->get();
+        ;
+        return response()->json($loan);
+    }
 }

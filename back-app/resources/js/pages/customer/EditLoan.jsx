@@ -7,17 +7,25 @@ import Swal from 'sweetalert2'
 
 const EditWithdraw = () => {
     const navigate = useNavigate()
-    const [ withdrawamount, setWithdrawAmount] = useState('')
-    const [ withdrawstatus, setWithdrawStatus] = useState('')
-    const [ idwithdraw, setIdWithdraw ] = useState('')
+   
+    const [durationId, setDurationId] = useState('')
+    const [amount, setAmount] = useState('')
+    const [interest, setInerest] = useState('')
+    const [total, setTotal] = useState('')
+    const [payMonthly, setpayMonthly] = useState('')
+    const [status, setStatus] = useState('')
     const { id } = useParams()
 
-    const fetchEditWithdraw = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/getwithdrawbyid/${id}`).then(({data}) => {
+    const fetchEditLoan = async () => {
+        await axios.get(`http://127.0.0.1:8000/api/getloanbyid/${id}`).then(({data}) => {
             console.log( data )
-            const { withdraw_amount, status } = data
-            setWithdrawAmount(withdraw_amount)
-            setWithdrawStatus(status)
+            const { id_duration, amount, interest, total, pay_month, status } = data
+            setDurationId(id_duration)
+            setAmount(amount)
+            setInerest(interest)
+            setTotal(total)
+            setpayMonthly(pay_month)
+            setStatus(status)
         }).catch (({ err }) => {
             console.log( err )
         })
@@ -31,7 +39,7 @@ const EditWithdraw = () => {
         formData.append('withdrawamount', withdrawamount)
         formData.append('withdrawstatus', withdrawstatus)
 
-        axios.post(`http://127.0.0.1:8000/api/withdraw/${id}`, formData).then(({data}) => {
+        axios.post(`http://127.0.0.1:8000/api/loan/${id}`, formData).then(({data}) => {
             navigate(-1)
             Swal.fire({
                 title: 'Success!',
@@ -46,7 +54,7 @@ const EditWithdraw = () => {
     }
 
     useEffect(() => {
-        fetchEditWithdraw()
+        fetchEditLoan()
     }, [])
 
   return (

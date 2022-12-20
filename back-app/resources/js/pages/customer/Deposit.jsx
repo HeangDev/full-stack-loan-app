@@ -72,13 +72,14 @@ const Deposit = () => {
 
     const handleDelete = async (id) => {
         const isConfirm = await Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'คุณต้องการที่จะลบ หรือไหม ?',
+            text: "ถ้าลบแล้ว คุณจะเปลี่ยนกลับไม่ได้ นะค่ะ!!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'ลบข้อมูล !',
+            cancelButtonText: 'ยกเลิกการลบ !'
         }).then((result) => {
             return result.isConfirmed
         })
