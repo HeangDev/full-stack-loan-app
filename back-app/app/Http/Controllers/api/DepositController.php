@@ -102,7 +102,7 @@ class DepositController extends Controller
 
     public function getDepositById($id)
     {
-        $deposit = Deposit::where('id_user', $id)->get();
+        $deposit = Deposit::where('id_user', $id)->first();
         return response()->json($deposit);
     }
 

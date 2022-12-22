@@ -14,12 +14,13 @@ const Wallet = () => {
     const id = localStorage.getItem('auth_id')
 
     const fetchDeposit = async () => {
-        await axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then(({data}) => {
-            //console.log(data)
+        await axios.get(`http://127.0.0.1:8000/api/getdepositbyid/${id}`).then(({data}) => {
+            // console.log(data)
             const { withdraw_code, deposit_amount, description } = data
             setCode(withdraw_code)
             setCredit(deposit_amount)
             setDescription(description)
+
         }).catch (({err}) => {
             console.log(err)
         })
@@ -65,8 +66,10 @@ const Wallet = () => {
             const formData = new FormData()
             formData.append('id', id)
             formData.append('credit', credit)
+            formData.append('withdrawCode', withdrawCode)
 
             axios.post(`http://127.0.0.1:8000/api/withdraw`, formData).then((data) => {
+                // console.log(data)
                 toast.success('คุณได้ถอนเงินกู้ของคุณสำเร็จแล้ว', {
                     position: "top-right",
                     autoClose: 2000,
@@ -119,7 +122,8 @@ const Wallet = () => {
 
                 <div>
                 <div className="input_wrap">
-                    <input type="number" placeholder="ครุณาใส่รหัสถอนด้วยค่ะ" autoFocus value={withdrawCode} onChange={e => setWithdrawCode(e.target.value)}/>
+                    <input type="number" placeholder="ครุณาใส่รหัสถอนด้วยค่ะ" autoFocus value={withdrawCode} onChange={e => setWithdrawCode(e.target.value) }/>
+                   
                 </div>
                 <div className="btn_wrap">
                     <button className="btn_b100" onClick={handleWithdraw}>ถอน</button>

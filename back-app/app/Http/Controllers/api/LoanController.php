@@ -61,12 +61,11 @@ class LoanController extends Controller
     public function show($id)
     {
         $loan = DB::table('loans')
-        ->join('users', 'users.id', '=', 'loans.id_user')
         ->join('durations', 'durations.id', '=', 'loans.id_duration')
-        ->select('loans.*', 'users.*', 'durations.*')
+        ->join('users', 'users.id', '=', 'loans.id_user')
+        ->select('users.*','durations.*', 'loans.*')
         ->where('users.id', '=', $id)
         ->get();
-        ;
         return response()->json($loan);
     }
 
@@ -113,18 +112,13 @@ class LoanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $loan = Loan::find($id);
+        $loan->delete();
     }
 
     public function getLoanById($id)
     {
-        $loan = DB::table('loans')
-        ->join('users', 'users.id', '=', 'loans.id_user')
-        ->join('durations', 'durations.id', '=', 'loans.id_duration')
-        ->select('loans.*', 'users.*', 'durations.*')
-        ->where('users.id', '=', $id)
-        ->get();
-        ;
+        $loan = Loan::where('id', $id)->first();
         return response()->json($loan);
     }
 }

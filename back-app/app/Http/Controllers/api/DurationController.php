@@ -97,4 +97,6 @@ class DurationController extends Controller
         $duration = Duration::find($id);
         $duration->delete();
     }
+
+   
 }

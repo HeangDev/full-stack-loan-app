@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import DataTable from 'react-data-table-component'
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock, AiOutlineMoneyCollect } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineDelete, AiOutlineLock, AiOutlineMoneyCollect, AiFillCreditCard } from "react-icons/ai";
 import { BiShowAlt } from "react-icons/bi";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat } from '../../utils/Formatter'
@@ -178,6 +178,7 @@ const Index = () => {
                                                             <Link to={`/customer/${item.id}`} className="btn_show"><BiShowAlt/></Link>
                                                             <Link to={`/customer/deposit/${item.id}`} className="btn_show"><MdOutlineAttachMoney/></Link>
                                                             <Link to={`/customer/withdraw/${item.id}`} className="btn_show"><AiOutlineMoneyCollect/></Link>
+                                                            <Link to={`/customer/loan/${item.id}`} className="btn_show"><AiFillCreditCard/></Link>
                                                             <button type="button" onClick={() => handleDelete(item.id)} className="btn_delete"><AiOutlineDelete/></button>
                                                         </div>
                                                     </td>

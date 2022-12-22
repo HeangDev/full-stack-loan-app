@@ -17,7 +17,7 @@ const Deposit = () => {
 
     const [deposit, setDeposit] = useState()
 
-    const [credit, setCredit] = useState('')
+    const [depositAmount, setDepositAmount] = useState('')
     const [withdrawCode, setWithDrawCode] = useState('')
     const [description, setDescription] = useState('')
     const [idDeposit, setIdDeposit] = useState('')
@@ -34,10 +34,10 @@ const Deposit = () => {
     const handleEdit = async (id) => {
         const iddeposit = id;
         setEditIsOpen(true)
-        axios.get(`http://127.0.0.1:8000/api/getdepositbyid/${id}`).then((data) => {
+        axios.get(`http://127.0.0.1:8000/api/deposit/${id}`).then((data) => {
             console.log(data)
-            const { deposit_amount, withdraw_code, description } = data.data
-            setCredit(deposit_amount);
+            const { deposit_amount, withdraw_code, description } = data
+            setDepositAmount(deposit_amount);
             setWithDrawCode(withdraw_code);
             setDescription(description);
             setIdDeposit(iddeposit);
@@ -48,14 +48,15 @@ const Deposit = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
+        const id_deposit = idDeposit
         const formData = new FormData()
         formData.append('_method', 'PATCH')
-        formData.append('id', id)
         formData.append('withdrawCode', withdrawCode)
-        formData.append('credit', credit)
+        formData.append('depositAmount', depositAmount)
         formData.append('description', description)
 
-        axios.post(`http://127.0.0.1:8000/api/deposit/${id}`, formData).then((data) => {
+        axios.post(`http://127.0.0.1:8000/api/updatedepositbyid/${id_deposit}`, formData).then((data) => {
             console.log(data)
             Swal.fire({
                 title: 'Success!',
@@ -182,7 +183,7 @@ const Deposit = () => {
                                                     <td>{item.deposit_date}</td>
                                                     <td>
                                                         <div className="btn_action">
-                                                            <button type="button" onClick={() => handleEdit(item.id)} className="btn_edit"><AiOutlineEdit/></button>
+                                                            <Link to={`/customer/editdeposit/${item.id}`} className="btn_edit"><AiOutlineEdit/></Link>
                                                             <button type="button" onClick={() => handleDelete(item.id)} className="btn_delete"><AiOutlineDelete/></button>
                                                         </div>
                                                     </td>
@@ -240,7 +241,7 @@ const Deposit = () => {
                                                     </div>
                                                     <div className="frm_grp">
                                                         <label>จำนวนเงิน</label>
-                                                        <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={credit} onChange={(e) => { setCredit(e.target.value) }} />
+                                                        <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={depositAmount} onChange={(e) => { setDepositAmount(e.target.value) }} />
                                                     </div>
                                                     <div className="frm_grp">
                                                         <label>คำอธิบาย</label>

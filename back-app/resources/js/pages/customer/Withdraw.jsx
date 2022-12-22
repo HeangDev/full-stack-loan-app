@@ -15,14 +15,8 @@ import $ from "jquery";
 
 
 const Withdraw = () => {
-    const [editIsOpen, setEditIsOpen] = useState(false)
 
     const [withdraw, setWithdraw] = useState()
-
-    
-    const [withdrawAmount, setWithdrawAmount] = useState('')
-    const [withdrawStatus, setWithdrawStatus] = useState('')
-    const [idwithdraw, setIdWithdraw] = useState('')
     const { id } = useParams();
 
     const fetchWithdraw = async () => {
@@ -31,24 +25,6 @@ const Withdraw = () => {
         }).catch(({ err }) => {
             console.log(err);
         });
-    }
-
-    const handleEdit = async (id) => {
-        const idwithdraw = id;
-        setEditIsOpen(true)
-        axios.get(`http://127.0.0.1:8000/api/withdraw/${id}`).then((data) => {
-            console.log(data)
-            const { withdraw_amount, status} = data
-            setWithdrawAmount(withdraw_amount);
-            setWithdrawStatus(status);
-            setIdWithdraw(idwithdraw);
-        }).catch(({ err }) => {
-            console.log(err)
-        })
-    }
-
-    const handleupdate = async (e) => {
-        e.preventDefault();
     }
 
     const handleDelete = async (id) => {
@@ -72,7 +48,7 @@ const Withdraw = () => {
         await axios.delete(`http://127.0.0.1:8000/api/withdraw/${id}`).then(({data}) => {
             Swal.fire({
                 title: 'Success!',
-                text: "User has been deleted!",
+                text: "ลบข้อมูลสำเร็จ !",
                 icon: "success",
                 timer: '1500'
             })
@@ -160,12 +136,13 @@ const Withdraw = () => {
                                             withdraw.map((item, index) => (
                                                 <tr key={index}>
                                                     <td>{index + 1}</td>
-                                                    <td><Link to={`/customer/${item.id_user}`}>{item.tel}</Link></td>
+                                                    <td><Link to={`/customer/${item.id_user}`}>{item.withdraw_code}</Link></td>
                                                     <td>{currencyFormat(item.withdraw_amount)}</td>
-                                                    <td>{item.status == null ? '-' : item.status}</td>
+                                                    <td>{item.w_status == null ? '-' : item.w_status}</td>
                                                     <td>{item.withdraw_date}</td>
                                                     <td>
                                                         <div className="btn_action">
+       
                                                             <Link to={`/customer/editwithdraw/${item.id}`}  className="btn_edit"><AiOutlineEdit/></Link>
                                                             <button type="button" onClick={() => handleDelete(item.id)} className="btn_delete"><AiOutlineDelete/></button>
                                                         </div>
@@ -179,67 +156,6 @@ const Withdraw = () => {
                         </div>
                     </div>
                 </div>
-                <Transition appear show={editIsOpen} as={Fragment}>
-                    <Dialog as="div" className="modal" onClose={() => setEditIsOpen(false)}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-black bg-opacity-25" />
-                        </Transition.Child>
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className="flex items-center justify-center p-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <Dialog.Panel className="modal_dialog">
-                                        <form autoComplete="off" onSubmit={handleupdate}>
-                                            <div className="modal_header">
-                                                <Dialog.Title
-                                                    as="h4"
-                                                    className="modal_title"
-                                                >
-                                                    แก้ไขยอดเติม
-                                                </Dialog.Title>
-                                                <button type="button" className="btn_close" onClick={() => setEditIsOpen(false)}><AiOutlineClose /></button>
-                                            </div>
-                                            <div className="modal_body">
-                                                <div className="frm_wrap">
-                                                    <div className="frm_grp">
-                                                        <label>รหัสถอนเงิน</label>
-                                                        <input type="number" placeholder="รหัสถอนเงิน 4 หลัก" value={withdrawAmount} onChange={(e) => { setWithdrawAmount(e.target.value) }} />
-                                                    </div>
-                                                    <div className="frm_grp">
-                                                        <label>จำนวนเงิน</label>
-                                                        <input type="number" placeholder="ระบุจำนวนเงินกู้ให้กับลูกค้า" value={withdrawStatus} onChange={(e) => { setWithdrawStatus(e.target.value) }} />
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <input type="hidden" value={idwithdraw} onChange={(e) => { setIdWithdraw(e.target.value) }} />
-                                            <div className="modal_footer">
-                                                <button type="button" className="btn_close" onClick={() => setEditIsOpen(false)}>ออกจาก</button>
-                                                <button type="submit" className="btn_save">ยืนยัน</button>
-                                            </div>
-                                        </form>
-                                    </Dialog.Panel>
-                                </Transition.Child>
-                            </div>
-                        </div>
-                    </Dialog>
-                </Transition>
-                
             </Layout>
         </>
     )

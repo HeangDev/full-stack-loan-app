@@ -51,7 +51,8 @@ class WithdrawController extends Controller
             'id_user' => $request->id,
             'withdraw_amount' => $request->credit,
             'withdraw_date' => $currentDate,
-            'status' => 'ถอนเงินสำเร็จ'
+            'w_status' => 'ถอนเงินสำเร็จ',
+            'withdraw_code' => $request->withdrawCode
         ]);
         return response()->json([
             $withdraw,
@@ -99,7 +100,7 @@ class WithdrawController extends Controller
         $withdraw = Withdraw::where('id', $id)
         ->update([
             'withdraw_amount' => $request->withdrawamount,
-            'status' => $request->withdrawstatus,
+            'w_status' => $request->withdrawstatus,
             'withdraw_date' => $currentDate
         ]);
         return response()->json($withdraw);
@@ -119,7 +120,7 @@ class WithdrawController extends Controller
 
     public function getWithdrawById($id) 
     {
-        $withdraw = Withdraw::Where('id', $id)->first();
+        $withdraw = Withdraw::where('id', $id)->first();
         return response()->json($withdraw);
     }
 
@@ -128,8 +129,8 @@ class WithdrawController extends Controller
         $currentDate = Carbon::now()->toDateString();
         $withdraw = Withdraw::where('id', $id)
         ->update([
-            'withdraw_amount' => $request->withdrawamount,
-            'status' => $request->withdrawstatus,
+            'withdraw_amount' => $request->withdrawAmount,
+            'w_status' => $request->withdrawstatus,
             'withdraw_date' => $currentDate
         ]);
         return response()->json($withdraw);

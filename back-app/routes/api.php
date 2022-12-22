@@ -59,10 +59,12 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     
 
     Route::post('/updatedepositbyid/{id}', [DepositController::class, 'updateDepositById']);
+    Route::put('/updatewithdrawbyid/{id}', [WithdrawController::class, 'updateWithdrawById']);
 
-
+    Route::get('/getdepositbyid/{id}', [DepositController::class, 'getDepositById']);
     Route::get('/getwithdrawbyid/{id}', [WithdrawController::class, 'getWithdrawById']);
     Route::get('/getloanbyid/{id}', [LoanController::class, 'getLoanById']);
+    Route::get('/getdurationbyid/{id}', [DurationController::class, 'getDurationById']);
     
 
     

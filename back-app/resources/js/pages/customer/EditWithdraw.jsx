@@ -15,9 +15,9 @@ const EditWithdraw = () => {
     const fetchEditWithdraw = async () => {
         await axios.get(`http://127.0.0.1:8000/api/getwithdrawbyid/${id}`).then(({data}) => {
             console.log( data )
-            const { withdraw_amount, status } = data
+            const { withdraw_amount, w_status } = data
             setWithdrawAmount(withdraw_amount)
-            setWithdrawStatus(status)
+            setWithdrawStatus(w_status)
         }).catch (({ err }) => {
             console.log( err )
         })
@@ -32,6 +32,7 @@ const EditWithdraw = () => {
         formData.append('withdrawstatus', withdrawstatus)
 
         axios.post(`http://127.0.0.1:8000/api/withdraw/${id}`, formData).then(({data}) => {
+            console.log( data )
             navigate(-1)
             Swal.fire({
                 title: 'Success!',
