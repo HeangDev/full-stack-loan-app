@@ -53,7 +53,7 @@ class DocumentIdController extends Controller
     {
         $document = DB::table('document_ids')
         ->join('users', 'users.id', '=', 'document_ids.id_user')
-        ->select('document_ids.*', 'users.*')
+        ->select('users.*', 'document_ids.*')
         ->where('users.id', '=', $id)
         ->first();
         return response()->json($document);
@@ -79,41 +79,37 @@ class DocumentIdController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $document = DocumentId::where('id_user', $id);
-
-        $image1 = $request->file('frontImage');
-        $image2 = $request->file('backImage');
-        $image3 = $request->file('fullImage');
-
-       
-
-       if (isset($image1)) {
-            $currentDate = Carbon::now()->toDateString();
-            $imageName1 = $currentDate . '-' . uniqid() . '.' . $image1->getClientOriginalExtension();
-  
-            return response()->json($imageName1);
-            
-        } 
-
-        
-       if (isset($image2)) {
         $currentDate = Carbon::now()->toDateString();
-        $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
+        $document = DocumentId::findOrFail($id);
 
-        return response()->json($imageName2);
+        $document->update([
+            'name' => $request->name,
+            'id_number' => $request->idNumber
+            ]);
+
+        return response()->json($document);
         
-    } 
+    }
 
-    
-    if (isset($image3)) {
+    public function updateFrontImg(Request $request, $id)
+    {
         $currentDate = Carbon::now()->toDateString();
-        $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
-
-        return response()->json($imageName3);
+        $document = DocumentId::findOrFail($id);
         
-    } 
-            
+       if($request->hasFile('frontImage')) {
+            if(File::exists('customer/'.$document->frontImage)) {
+                File::delete('customer/'.$document->frontImage);
+            }
 
+            $file = $request->file('frontImage');
+            $document->frontImage = time()."_".$file->getClientOriginalName();
+            $file->move(\public_path('/customer'),$document->frontImage);
+            $request['frontImage'] = $document->frontImage;
+       }
+        $document->update([
+            'front' => $document->frontImage
+        ]);
+        return response()->json($document);
         
     }
 

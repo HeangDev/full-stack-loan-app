@@ -3,10 +3,6 @@ import Layout from '../../layout/Layout'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Tab } from '@headlessui/react'
 import Swal from 'sweetalert2'
-import IconCamera from '../../assets/ic_camera.png'
-import FrontID from '../../assets/uppic1.png'
-import BackID from '../../assets/uppic2.png'
-import FullID from '../../assets/uppic3.png'
 
 const Edit = () => {
     const [currentWork, setCurrentWork] = useState('')
@@ -21,27 +17,19 @@ const Edit = () => {
     const [frontImage, setFrontImage] = useState()
     const [backImage, setBackImage] = useState()
     const [fullImage, setFullImage] = useState()
-
-    const [frontImageUrl, setFrontImageUrl] = useState(FrontID)
-    const [backImageUrl, setBackImageUrl] = useState(BackID)
-    const [fullImageUrl, setFullImageUrl] = useState(FullID)
-
     const { id } = useParams()
     const navigate = useNavigate();
 
     const chooseFrontImage = (e) => {
         setFrontImage(e.target.files[0])
-        setFrontImageUrl(URL.createObjectURL(e.target.files[0]))
     }
 
     const chooseBackImage = (e) => {
         setBackImage(e.target.files[0])
-        setBackImageUrl(URL.createObjectURL(e.target.files[0]))
     }
 
     const chooseFullImage = (e) => {
         setFullImage(e.target.files[0])
-        setFullImageUrl(URL.createObjectURL(e.target.files[0]))
     }
 
     const fetchUser = async () => {
@@ -56,9 +44,6 @@ const Edit = () => {
             setBankAccount(bank_acc)
             setName(name)
             setIdNumber(id_number)
-            setFrontImage(front)
-            setBackImage(back)
-            setFullImage(full)
         }).catch (({err}) => {
             console.log(err)
         })
@@ -118,63 +103,8 @@ const Edit = () => {
         formData.append('_method', 'PATCH')
         formData.append('name', name)
         formData.append('idNumber', idNumber)
-
-
-        axios.post(`http://127.0.0.1:8000/api/documentid/${id}`, formData).then(({data}) => {
-            console.log(data)
-            // navigate("/customer")
-            Swal.fire({
-                title: 'Success!',
-                text: "แก้ไขข้อมูลสำเร็จ!",
-                icon: "success",
-                timer: '1500'
-            })
-        }).catch(({err}) => {
-            console.log(err)
-        })
-    }
-    const updateFrontImage = async (e) => {
-        e.preventDefault();
-        const formData = new FormData()
-        formData.append('_method', 'PATCH')
         formData.append('frontImage', frontImage)
-
-        axios.put(`http://127.0.0.1:8000/api/updatefrontimg/${id}`, formData).then(({data}) => {
-            console.log(data)
-            // navigate("/customer")
-            Swal.fire({
-                title: 'Success!',
-                text: "แก้ไขข้อมูลสำเร็จ!",
-                icon: "success",
-                timer: '1500'
-            })
-        }).catch(({err}) => {
-            console.log(err)
-        })
-    }
-    const updateBackImage = async (e) => {
-        e.preventDefault();
-        const formData = new FormData()
-        formData.append('_method', 'PATCH')
         formData.append('backImage', backImage)
-
-        axios.post(`http://127.0.0.1:8000/api/documentid/${id}`, formData).then(({data}) => {
-            console.log(data)
-            // navigate("/customer")
-            Swal.fire({
-                title: 'Success!',
-                text: "แก้ไขข้อมูลสำเร็จ!",
-                icon: "success",
-                timer: '1500'
-            })
-        }).catch(({err}) => {
-            console.log(err)
-        })
-    }
-    const updateFullImage = async (e) => {
-        e.preventDefault();
-        const formData = new FormData()
-        formData.append('_method', 'PATCH')
         formData.append('fullImage', fullImage)
 
         axios.post(`http://127.0.0.1:8000/api/documentid/${id}`, formData).then(({data}) => {
@@ -305,6 +235,18 @@ const Edit = () => {
                                                     <label>เลขประจำตัว</label>
                                                     <input type="text" placeholder="กรุณากรอกหมายเลขบัตรประจำตัวจริง" value={idNumber} onChange={e => setIdNumber(e.target.value)}/>
                                                 </div>
+                                                <div className="frm_grp required">
+                                                    <label>ใส่รูปบัตรประชาชนข้างหน้า</label>
+                                                    <input type="file" accept="image/*" onChange={chooseFrontImage}/>
+                                                </div>
+                                                <div className="frm_grp required">
+                                                    <label>ใส่รูปบัตรประชาชนข้างหลัง</label>
+                                                    <input type="file" accept="image/*" onChange={chooseBackImage}/>
+                                                </div>
+                                                <div className="frm_grp required">
+                                                    <label>ใส่รูปบัตรประชาชนคู่กับใบหน้า</label>
+                                                    <input type="file" accept="image/*" onChange={chooseFullImage}/>
+                                                </div>
                                             </div>
                                         </fieldset>
                                         <div className="btn_wrap mt-3">
@@ -313,69 +255,6 @@ const Edit = () => {
                                             </button>
                                         </div>
                                     </form>
-                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-10">
-                                        <div className="card">
-                                            <form autoComplete='off' onSubmit={updateFrontImage}>
-                                                <div className="card_body">
-                                                    <div className="frm_upload_wrap">
-                                                        <div className="file_input">
-                                                            {/* <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${frontImage}`} alt=""/></div> */}
-                                                            <div className="input_show_file"><img src={frontImageUrl} alt=""/></div>
-                                                            <input type="file" accept="image/*" onChange={chooseFrontImage}/>
-                                                            <div className="btn_upload"><img src={IconCamera} alt=""/></div>
-                                                            <div className="txt_wrap">หน้าบัตรประชาชน</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="btn_wrap mt-3">
-                                                        <button type="submit" className="btn btn_save">
-                                                            <p>อัพเดท</p>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div className="card">
-                                        <form autoComplete='off' onSubmit={updateBackImage}>
-                                            <div className="card_body">
-                                                <div className="frm_upload_wrap">
-                                                    <div className="file_input">
-                                                        {/* <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${backImage}`} alt=""/></div> */}
-                                                        <div className="input_show_file"><img src={backImageUrl} alt=""/></div>
-                                                        <input type="file" accept="image/*" onChange={chooseBackImage}/>
-                                                        <div className="btn_upload"><img src={IconCamera} alt=""/></div>
-                                                        <div className="txt_wrap">ด้านหลังบัตรประชาชน</div>
-                                                    </div>
-                                                </div>
-                                                <div className="btn_wrap mt-3">
-                                                    <button type="submit" className="btn btn_save">
-                                                        <p>อัพเดท</p>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>    
-                                        </div>
-                                        <div className="card">
-                                        <form autoComplete='off' onSubmit={updateFullImage}>
-                                            <div className="card_body">
-                                                <div className="frm_upload_wrap">
-                                                    <div className="file_input">
-                                                        {/* <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${fullImage}`} alt=""/></div> */}
-                                                        <div className="input_show_file"><img src={fullImageUrl} alt=""/></div>
-                                                        <input type="file" accept="image/*" onChange={chooseFullImage}/>
-                                                        <div className="btn_upload"><img src={IconCamera} alt=""/></div>
-                                                        <div className="txt_wrap">ถือบัตรประชาชน</div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div className="btn_wrap mt-3">
-                                                    <button type="submit" className="btn btn_save">
-                                                        <p>อัพเดท</p>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>    
-                                        </div>
-                                    </div>
                                 </Tab.Panel>
                             </Tab.Panels>
                         </Tab.Group>

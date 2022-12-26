@@ -240,5 +240,11 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataT
 /* BHT */
 
 .dataTable {@apply text-[13px];}
+.frm_upload_wrap{@apply bg-white py-[10px] px-[15px];}
+.file_input{@apply block relative my-0 mx-auto;}
+.file_input .btn_upload{@apply absolute top-[50%] left-[50%] z-[3] w-[60px] h-[60px] -mt-[30px] -ml-[30px];}
+.file_input .txt_wrap{@apply absolute top-[74%] left-[50%] -ml-[81px] py-[0] px-[9px] text-[14px] text-white text-center leading-[28px] opacity-50 w-[162px] rounded-[4px] bg-[#9cf];}
+.frm_upload_wrap input{@apply absolute top-[50%] left-[50%] z-[4] max-w-[60px] w-[60px] h-[60px] -mt-[30px] -ml-[30px] opacity-0;}
+
 
 

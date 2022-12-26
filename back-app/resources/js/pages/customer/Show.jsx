@@ -30,9 +30,9 @@ const Show = () => {
     const [bankAccount, setBankAccount] = useState("");
     const [name, setName] = useState("");
     const [idNumber, setIdNumber] = useState("");
-    const [frontImage, setFrontImage] = useState();
-    const [backImage, setBackImage] = useState();
-    const [fullImage, setFullImage] = useState();
+    const [frontImage, setFrontImage] = useState('')
+    const [backImage, setBackImage] = useState('')
+    const [fullImage, setFullImage] = useState('')
     const { id } = useParams();
 
     const [isOpen, setIsOpen] = useState(false)
@@ -50,17 +50,20 @@ const Show = () => {
     const fetchCustomer = async () => {
         await axios.get(`http://127.0.0.1:8000/api/customer/${id}`).then(({ data }) => {
             // console.log(data)
-            const { status, current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full, credit, withdrawCode, description } = data;
+            const { status, current_occupation, monthly_income, contact_number, current_address, emergency_contact_number, bank_name, bank_acc, name, id_number, front, back, full, credit, withdrawCode, description } = data
             setCustomerStatus(status)
-            setCurrentWork(current_occupation);
-            setIncome(monthly_income);
-            setContactNumber(contact_number);
-            setCurrentAddress(current_address);
-            setOtherContact(emergency_contact_number);
-            setBankName(bank_name);
-            setBankAccount(bank_acc);
-            setName(name);
-            setIdNumber(id_number);
+            setCurrentWork(current_occupation)
+            setIncome(monthly_income)
+            setContactNumber(contact_number)
+            setCurrentAddress(current_address)
+            setOtherContact(emergency_contact_number)
+            setBankName(bank_name)
+            setBankAccount(bank_acc)
+            setName(name)
+            setIdNumber(id_number)
+            setFrontImage(front)
+            setBackImage(back)
+            setFullImage(full)
         }).catch(({ err }) => {
             console.log(err);
         });
@@ -217,13 +220,13 @@ const Show = () => {
                             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
                             "zeroRecords": "ไม่พบอะไร - ขอโทษ",
                             "info": "กำลังแสดงหน้า _PAGE_ ของ _PAGES_",
-                            "infoEmpty": "ไม่มีระเบียนที่มีอยู่",
+                            "infoEmpty": "",
                             "infoFiltered": "(filtered from _MAX_ total records)",
                             "search": "ค้นหา:",
-                            "searchPlaceholder": "ข้อมูลการค้นหา",
+                            "searchPlaceholder": "ค้นหาข้อมูล",
                             "paginate": {
                                 "previous": "หน้าก่อนหน้า",
-                                "next": "หน้าต่อไป"
+                                "next": "หน้าถัดไป"
                             }
                         },
 
@@ -265,13 +268,13 @@ const Show = () => {
                             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
                             "zeroRecords": "ไม่พบอะไร - ขอโทษ",
                             "info": "กำลังแสดงหน้า _PAGE_ ของ _PAGES_",
-                            "infoEmpty": "ไม่มีระเบียนที่มีอยู่",
+                            "infoEmpty": "",
                             "infoFiltered": "(filtered from _MAX_ total records)",
                             "search": "ค้นหา:",
-                            "searchPlaceholder": "ข้อมูลการค้นหา",
+                            "searchPlaceholder": "ค้นหาข้อมูล",
                             "paginate": {
                                 "previous": "หน้าก่อนหน้า",
-                                "next": "หน้าต่อไป"
+                                "next": "หน้าถัดไป"
                             }
                         },
 
@@ -310,13 +313,13 @@ const Show = () => {
                             "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
                             "zeroRecords": "ขอโทษค่ะ - ไม่พบข้อมูล",
                             "info": "กำลังแสดงหน้า _PAGE_ ของ _PAGES_",
-                            "infoEmpty": "ไม่มีระเบียนที่มีอยู่",
+                            "infoEmpty": "",
                             "infoFiltered": "(filtered from _MAX_ total records)",
                             "search": "ค้นหา:",
-                            "searchPlaceholder": "ข้อมูลการค้นหา",
+                            "searchPlaceholder": "ค้นหาข้อมูล",
                             "paginate": {
                                 "previous": "หน้าก่อนหน้า",
-                                "next": "หน้าต่อไป"
+                                "next": "หน้าถัดไป"
                             }
                         },
 
@@ -609,17 +612,29 @@ const Show = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <div className="card">
                             <div className="card_body">
-                                {/* <img src={`http://localhost:8000/storage/customer/${frontImage}`} alt=""/>            */}
+                                <div className="frm_upload_wrap">
+                                    <div className="file_input">
+                                        <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${frontImage}`} alt=""/></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="card">
                             <div className="card_body">
-
+                                <div className="frm_upload_wrap">
+                                    <div className="file_input">
+                                        <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${backImage}`} alt=""/></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="card">
                             <div className="card_body">
-
+                                <div className="frm_upload_wrap">
+                                    <div className="file_input">
+                                        <div className="input_show_file"><img src={`http://localhost:8000/storage/customer/${fullImage}`} alt=""/></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

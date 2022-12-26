@@ -65,6 +65,8 @@ Route::group(['as' => 'api.admin.','namespace' => 'App\Http\Controllers\api'], f
     Route::get('/getwithdrawbyid/{id}', [WithdrawController::class, 'getWithdrawById']);
     Route::get('/getloanbyid/{id}', [LoanController::class, 'getLoanById']);
     Route::get('/getdurationbyid/{id}', [DurationController::class, 'getDurationById']);
+
+    Route::put('/updatefrontimg/{id}', [DocumentIdController::class, 'updateFrontImg']);
     
 
     
